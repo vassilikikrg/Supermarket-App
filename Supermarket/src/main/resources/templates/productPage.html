@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html layout:decorate="Layouts/defaultLayout">
+    <head>
+        <title>Product name</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+
+    </head>
+<body>
+<div layout:fragment="content">
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 mt-2">
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="#">Home</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="#">Category</a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        Product Name
+                    </li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 text-center mt-5" >
+            <img alt="Product Picture" src="https://static.ab.gr/medias/sys_master/h87/h52/9495124574238.jpg?buildNumber=8bed5efd7d487a83de3cd2e944d9a9d4ca9c2cd7de3ad32e6aff75df2694a4bd" width="75%">
+        </div>
+        <div class="col-md-6 mt-5">
+            <h3>
+                Product Title
+            </h3>
+            <div class="row rounded-outline mt-5">
+                <div class="col-md-6">
+
+                    <button type="button" class="btn btn-info" disabled>
+                        Price
+                    </button>
+                </div>
+                <div class="col-md-6">
+
+                    <button type="button" class="btn btn-info">
+                        Add to cart
+                    </button>
+                </div>
+            </div>
+            <div class="mt-lg-5">
+            <dl>
+                <dt>
+                    Description
+                </dt>
+                <dd>
+                    KARPOS AMYGDALO is an almond drink produced exclusively from Greek almonds. We select the best almonds, in collaboration with Greek producers, and offer you a herbal drink with all the high nutritional value of Greek fruits without added sugar.
+
+                    It is a non-dairy product & does not contain gluten or lactose. Produced exclusively from Greek almonds. It is suitable for vegetarians and those who do not consume dairy products.
+
+                    Enjoy the taste of almonds in a 100% plant-based drink with a high fiber content, rich in calcium, vitamin E and vitamin D! The new proposal of OLYMPOS, with a high nutritional value and a wonderful taste, so that you can have all the taste of almonds in your glass!
+                </dd>
+
+            </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/scripts.js"></script>
+</div>
+</body>
+</html>
+

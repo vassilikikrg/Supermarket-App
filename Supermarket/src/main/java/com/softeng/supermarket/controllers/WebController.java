@@ -33,7 +33,7 @@ public class WebController {
     @GetMapping("/home")
     public String home(){
 
-        return "home.html";
+        return "productPage.html";
     }
 
     @GetMapping("/login")
