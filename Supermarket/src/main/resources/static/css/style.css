@@ -75,7 +75,6 @@ section h2 {
 }
 
 .footer {
-    position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
@@ -97,4 +96,7 @@ section h2 {
     border: 2px solid black;
     padding: 20px;
     width: 50%;
+}
+li{
+    display: inline;
 }
