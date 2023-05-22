@@ -61,6 +61,7 @@ section h2 {
     background-color: #95d6e9;
     color: black;
     text-align: center;
+    position: fixed;
 }
 
 #centerPic {

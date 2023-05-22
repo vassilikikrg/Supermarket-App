@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html layout:decorate="Layouts/defaultLayout">
+<head>
+    <title>Product name</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+<div layout:fragment="content">
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 d-flex justify-content-center">
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <h3 class="text-center">
+                            Login
+                        </h3>
+                        <form role="form" class="mt-5 mb-5 ">
+                            <div class="form-group">
+                                <label for="username">
+                                    Username
+                                </label>
+                                <input type="text" class="form-control" id="username" />
+                            </div>
+                            <div class="form-group">
+                                <label for="password">
+                                    Password
+                                </label>
+                                <input type="password" class="form-control" id="password" />
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> Stay logged in
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-info">
+                                Login
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
+</div>
+</body>
+</html>
