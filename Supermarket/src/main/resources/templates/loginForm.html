@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html layout:decorate="Layouts/defaultLayout">
+<html layout:decorate="Layouts/defaultLayout" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Product name</title>
     <link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -17,18 +17,18 @@
                         <h3 class="text-center">
                             Login
                         </h3>
-                        <form role="form" class="mt-5 mb-5 ">
+                        <form role="form" class="mt-5 mb-5" action="" method="post" th:action="@{processLogin}" th:object="${userModel}" >
                             <div class="form-group">
                                 <label for="username">
                                     Username
                                 </label>
-                                <input type="text" class="form-control" id="username" />
+                                <input th:field="*{Username}" type="text" class="form-control" id="username" />
                             </div>
                             <div class="form-group">
                                 <label for="password">
                                     Password
                                 </label>
-                                <input type="password" class="form-control" id="password" />
+                                <input th:field="*{Password}" type="password" class="form-control" id="password" />
                             </div>
                             <div class="checkbox">
                                 <label>
