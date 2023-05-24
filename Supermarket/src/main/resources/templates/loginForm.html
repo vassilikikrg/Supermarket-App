@@ -24,12 +24,15 @@
                                 </label>
                                 <input th:field="*{Username}" type="text" class="form-control" id="username" />
                             </div>
+                            <p class="alert alert-danger" th:if="${#fields.hasErrors('Username')}" th:errors="*{Username}"> Username error</p>
                             <div class="form-group">
                                 <label for="password">
                                     Password
                                 </label>
                                 <input th:field="*{Password}" type="password" class="form-control" id="password" />
                             </div>
+                            <p class="alert alert-danger" th:if="${#fields.hasErrors('Password')}" th:errors="*{Password}"> Password error</p>
+
                             <div class="checkbox">
                                 <label>
                                     <input type="checkbox" /> Stay logged in
