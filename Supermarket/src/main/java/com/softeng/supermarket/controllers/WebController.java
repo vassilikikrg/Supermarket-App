@@ -41,4 +41,10 @@ public class WebController {
         model.addAttribute("user",new User());
         return "loginpage";
     }
+
+    @GetMapping("/map")
+    public String mapView(){
+
+        return "map.html";
+    }
 }
