@@ -5,13 +5,15 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/bootstrap.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/appColors.css" rel="stylesheet">
+    <link href="/css/home.css" rel="stylesheet">
 </head>
 <body>
 <div layout:fragment="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <div class="jumbotron">
+                <div class="jumbotron mx-5" style="background-color: var(--lightGreen)">
                     <h2 class="mb-3">
                         Welcome to <b>Fresh-Mart</b>!
                     </h2>
@@ -19,69 +21,64 @@
                         Discover fresh produce, quality groceries, and unbeatable deals. Shop with us online or visit our stores for a delightful shopping experience. Start exploring now!
                     </p>
                     <p class="mt-5">
-                        <a class="btn btn-primary btn-large" href="#">View Products</a>
+                        <a class="btn btn-large" style="background-color:var(--darkGreen);color:var(--myWhite)" href="#">View Products</a>
                     </p>
                 </div>
+                <div class="my-2 mx-5">
+                    <h4 class="card-title">
+                        Browse by category
+                    </h4>
+                    <a class="card-subtitle mb-2 text-muted" href="home.html">All categories ></a>
+                </div>
 
-                <div id="carouselExampleCaptions" class="carousel slide">
-                    <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    </div>
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="/images/supermarket-banner-1.jpg" class="d-block w-100" alt="...">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>Discover the Joy of Convenient Shopping</h5>
-                                <p>From now on, goods can be delivered to your door!</p>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <img src="/images/supermarket-banner-1.jpg" class="d-block w-100" alt="...">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>Where Quality Meets Affordability, Every Aisle, Every Day.</h5>
-                                <p>Shop Smart, Shop Fresh, Shop with Confidence!</p>
-                            </div>
+                <div class="row mx-5 justify-content-center" >
+                    <div class="col-md mt-5 text-center">
+                        <div class="category-card" style="background-color: var(--myWhite)" >
+                            <a href="#">
+                                <img src="/images/fruits.svg" height="60%" width="60%" class="my-3">
+                                <h6 class="card-subtitle mt-2">Fruits</h6>
+                            </a>
                         </div>
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div>
-                <div class="text-center my-2">
-                    <h3>
-                        Top categories
-                    </h3>
-                </div>
-                <div class="row m-5" >
-                    <div class="col-md-3 text-center">
-                        <img alt="Bootstrap Image Preview" src="/images/fruits.svg" height="60%" width="60%" class="rounded" />
-                        <h5 class="mt-3">
-                            Fruits
-                        </h5>
+                    <div class="col-md mt-5 text-center">
+                        <div class="category-card" style="background-color: var(--myWhite)" >
+                            <a href="#">
+                                <img src="/images/wine.svg" height="60%" width="60%" class="my-3">
+                                <h6 class="card-subtitle mt-2">Wine</h6>
+                            </a>
+                        </div>
                     </div>
-                    <div class="col-md-3 text-center">
-                        <img alt="Bootstrap Image Preview" src="/images/coffee.svg" height="60%" width="60%" class="rounded" />
-                        <h5 class="mt-3">
-                           Coffee
-                        </h5>
+                    <div class="col-md mt-5 text-center">
+                        <div class="category-card" style="background-color: var(--myWhite)" >
+                            <a href="#">
+                                <img src="/images/pasta.svg" height="60%" width="60%" class="my-3">
+                                <h6 class="card-subtitle mt-2">Pasta</h6>
+                            </a>
+                        </div>
                     </div>
-                    <div class="col-md-3 text-center">
-                        <img alt="Bootstrap Image Preview" src="/images/pasta.svg" height="60%" width="60%" class="rounded" />
-                        <h5 class="mt-1">
-                            Pasta
-                        </h5>
+                    <div class="col-md mt-5 text-center">
+                        <div class="category-card" style="background-color: var(--myWhite)" >
+                            <a href="#">
+                                <img src="/images/meat.svg" height="60%" width="60%" class="my-3">
+                                <h6 class="card-subtitle mt-2">Meat</h6>
+                            </a>
+                        </div>
                     </div>
-                    <div class="col-md-3 text-center">
-                        <img alt="Bootstrap Image Preview" src="/images/wine.svg" height="60%" width="60%" class="rounded" />
-                        <h5 class="mt-3">
-                            Wine
-                        </h5>
+                    <div class="col-md mt-5 text-center">
+                        <div class="category-card" style="background-color: var(--myWhite)" >
+                            <a href="#">
+                                <img src="/images/vegetables.svg" height="60%" width="60%" class="my-3">
+                                <h6 class="card-subtitle mt-2">Vegetables</h6>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md  mt-5 text-center">
+                        <div class="category-card" style="background-color: var(--myWhite)" >
+                            <a href="#">
+                                <img src="/images/cookies.svg" height="60%" width="60%" class="my-3">
+                                <h6 class="card-subtitle mt-2">Sweets</h6>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
