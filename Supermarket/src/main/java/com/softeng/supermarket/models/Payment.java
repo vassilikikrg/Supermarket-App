@@ -2,7 +2,7 @@ package com.softeng.supermarket.models;
 
 public class Payment {
     private User user;
-    private String Address; //made make Address class?
+    private String Address;
     private String Number;
     private String City;
     private String ZipCode;

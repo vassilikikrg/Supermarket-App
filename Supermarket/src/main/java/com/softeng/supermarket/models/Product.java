@@ -2,21 +2,19 @@ package com.softeng.supermarket.models;
 
 public class Product {
     private String Id;
-    private String SupermarketId;
+    private String Name;
+    private String Description;
     private String CategoryID;
     private String Price;
-    private String Info;
-    private String Quantity;
-    private String SourceOfImage;
+    private String ImageSource;
 
-    public Product(String id, String supermarketId, String categoryID, String price, String info, String quantity, String sourceOfImage) {
+    public Product(String id, String name, String description, String categoryID, String price, String imageSource) {
         Id = id;
-        SupermarketId = supermarketId;
+        Name = name;
+        Description = description;
         CategoryID = categoryID;
         Price = price;
-        Info = info;
-        Quantity = quantity;
-        SourceOfImage = sourceOfImage;
+        ImageSource = imageSource;
     }
 
     public String getId() {
@@ -27,12 +25,20 @@ public class Product {
         Id = id;
     }
 
-    public String getSupermarketId() {
-        return SupermarketId;
+    public String getName() {
+        return Name;
     }
 
-    public void setSupermarketId(String supermarketId) {
-        SupermarketId = supermarketId;
+    public void setName(String name) {
+        Name = name;
+    }
+
+    public String getDescription() {
+        return Description;
+    }
+
+    public void setDescription(String description) {
+        Description = description;
     }
 
     public String getCategoryID() {
@@ -51,27 +57,11 @@ public class Product {
         Price = price;
     }
 
-    public String getInfo() {
-        return Info;
+    public String getImageSource() {
+        return ImageSource;
     }
 
-    public void setInfo(String info) {
-        Info = info;
-    }
-
-    public String getQuantity() {
-        return Quantity;
-    }
-
-    public void setQuantity(String quantity) {
-        Quantity = quantity;
-    }
-
-    public String getSourceOfImage() {
-        return SourceOfImage;
-    }
-
-    public void setSourceOfImage(String sourceOfImage) {
-        SourceOfImage = sourceOfImage;
+    public void setImageSource(String imageSource) {
+        ImageSource = imageSource;
     }
 }

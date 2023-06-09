@@ -3,14 +3,16 @@ package com.softeng.supermarket.models;
 public class Supermarket {
     private String Id;
     private String Name;
-    private String Location;    //must change
-    private String Info;
+    private String Address;
+    private String Latitude;
+    private String Longitude;
 
-    public Supermarket(String id, String name, String location, String info) {
+    public Supermarket(String id, String name, String address, String latitude, String longitude) {
         Id = id;
         Name = name;
-        Location = location;
-        Info = info;
+        Address = address;
+        Latitude = latitude;
+        Longitude = longitude;
     }
 
     public String getId() {
@@ -29,19 +31,27 @@ public class Supermarket {
         Name = name;
     }
 
-    public String getLocation() {
-        return Location;
+    public String getAddress() {
+        return Address;
     }
 
-    public void setLocation(String location) {
-        Location = location;
+    public void setAddress(String address) {
+        Address = address;
     }
 
-    public String getInfo() {
-        return Info;
+    public String getLatitude() {
+        return Latitude;
     }
 
-    public void setInfo(String info) {
-        Info = info;
+    public void setLatitude(String latitude) {
+        Latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return Longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        Longitude = longitude;
     }
 }
