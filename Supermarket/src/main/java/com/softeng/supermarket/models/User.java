@@ -1,12 +1,17 @@
 package com.softeng.supermarket.models;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+@Entity
 public class User {
 
+    @Id
     @NotBlank(message = "Username is required")
     @Size(min=5,max=15,message = "Username must be between 5 and 15 characters")
     private String Username;
