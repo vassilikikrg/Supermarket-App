@@ -1,50 +1,31 @@
 package com.softeng.supermarket.models;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.Email;
+import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-@Entity
-public class User {
-
+@MappedSuperclass
+public abstract class User {
     @Id
     @NotBlank(message = "Username is required")
     @Size(min=5,max=15,message = "Username must be between 5 and 15 characters")
     private String username;
+    @Column
     @NotBlank(message = "Password is required")
     @Size(min=8,max=15,message = "Password must be between 8 and 15 characters")
-    private String Password;
-
-    private String Email;
-    @Column(name = "phone")
-    private String Phone;
-
-    private String Firstname;
-
-    private String Lastname;
-    private Boolean isAdmin;
+    private String password;
+    @Column
+    private String email;
+    @Column
+    private String phone;
+    @Column
+    private String firstname;
+    @Column
+    private String lastname;
 
     public User() {
-    }
-
-    public User(String username, String password, String email) {
-        this.username = username;
-        this.Password = password;
-        this.Email = email;
-    }
-
-    public User(String username, String password, String email, String phone, String firstname, String lastname, Boolean isAdmin) {
-        this.username = username;
-        Password = password;
-        Email = email;
-        Phone = phone;
-        Firstname = firstname;
-        Lastname = lastname;
-        this.isAdmin = isAdmin;
     }
 
     public String getUsername() {
@@ -54,49 +35,42 @@ public class User {
     public void setUsername(String username) {this.username = username;}
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 
-    public void setPassword(String password) { Password = password; }
+    public void setPassword(String password) { this.password = password; }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String email) {
-        Email = email;
+        this.email = email;
     }
 
     public String getPhone() {
-        return Phone;
+        return phone;
     }
 
     public void setPhone(String phone) {
-        Phone = phone;
+        this.phone = phone;
     }
 
     public String getFirstname() {
-        return Firstname;
+        return firstname;
     }
 
     public void setFirstname(String firstname) {
-        Firstname = firstname;
+        this.firstname = firstname;
     }
 
     public String getLastname() {
-        return Lastname;
+        return lastname;
     }
 
     public void setLastname(String lastname) {
-        Lastname = lastname;
+        this.lastname = lastname;
     }
 
-    public Boolean getAdmin() {
-        return isAdmin;
-    }
-
-    public void setAdmin(Boolean admin) {
-        isAdmin = admin;
-    }
 }
 
