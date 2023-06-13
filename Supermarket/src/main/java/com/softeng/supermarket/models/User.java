@@ -14,12 +14,13 @@ public class User {
     @Id
     @NotBlank(message = "Username is required")
     @Size(min=5,max=15,message = "Username must be between 5 and 15 characters")
-    private String Username;
+    private String username;
     @NotBlank(message = "Password is required")
     @Size(min=8,max=15,message = "Password must be between 8 and 15 characters")
     private String Password;
 
     private String Email;
+    @Column(name = "phone")
     private String Phone;
 
     private String Firstname;
@@ -31,13 +32,13 @@ public class User {
     }
 
     public User(String username, String password, String email) {
-        this.Username = username;
+        this.username = username;
         this.Password = password;
         this.Email = email;
     }
 
     public User(String username, String password, String email, String phone, String firstname, String lastname, Boolean isAdmin) {
-        Username = username;
+        this.username = username;
         Password = password;
         Email = email;
         Phone = phone;
@@ -47,10 +48,10 @@ public class User {
     }
 
     public String getUsername() {
-        return Username;
+        return username;
     }
 
-    public void setUsername(String username) {Username = username;}
+    public void setUsername(String username) {this.username = username;}
 
     public String getPassword() {
         return Password;

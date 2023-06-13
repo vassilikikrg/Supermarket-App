@@ -23,7 +23,7 @@ public class SupermarketApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args){
-        User user1 = new User("Antonis","test123","test@tester.com","6971989277","Antonios","Fritzelas",false);
+        User user1 = new User("Antonis","test1234","test@tester.com","6971989277","Antonios","Fritzelas",false);
         userRepository.save(user1);
         userRepository.findByUsername("Antonis").forEach(
                 val -> System.out.println(val)
