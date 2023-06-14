@@ -1,5 +1,6 @@
 package com.softeng.supermarket.controllers;
 
+import com.softeng.supermarket.models.Customer;
 import com.softeng.supermarket.models.User;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -14,13 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/auth")
 public class AuthenticationController {
-
-    @GetMapping("/login")
+    //For customers
+    //Login
+    @GetMapping("/customer/login")
     public String displayLoginForm(Model model){
-        model.addAttribute("userModel", new User());
+        model.addAttribute("userModel", new Customer());
         return "loginForm";
     }
-    @PostMapping("/processLogin")
+    @PostMapping("/customer/processLogin")
     public String processLogin(@Valid @ModelAttribute("userModel") User userModel, BindingResult bindingResult, HttpSession session, Model model){
         //with binding result,we take user input and send it to the controller to check if there was an error in the validation
         if(bindingResult.hasErrors()){
@@ -32,12 +34,13 @@ public class AuthenticationController {
         session.setAttribute("username", userModel.getUsername());
         return "redirect:/home";
     }
-    @GetMapping("/register")
+    //Register
+    @GetMapping("/customer/register")
     public String displayRegisterForm(Model model){
-        model.addAttribute("userModel", new User());
+        model.addAttribute("userModel", new Customer());
         return "registerForm";
     }
-    @PostMapping("/processRegister")
+    @PostMapping("/customer/processRegister")
     public String processRegister(@Valid @ModelAttribute("userModel") User userModel, BindingResult bindingResult, Model model){
         //with binding result,we take user input and send it to the controller to check if there was an error in the validation
         if(bindingResult.hasErrors()){
@@ -47,5 +50,11 @@ public class AuthenticationController {
         }
         model.addAttribute("userModel",userModel);
         return "loginTest";
+    }
+    //Logout
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        session.removeAttribute("username");
+        return "redirect:/home";
     }
 }
