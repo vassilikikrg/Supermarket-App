@@ -16,13 +16,13 @@ public abstract class User {
     @NotBlank(message = "Password is required")
     @Size(min=8,max=15,message = "Password must be between 8 and 15 characters")
     private String password;
-    @Column
+    @Column(nullable = false)
     private String email;
     @Column
     private String phone;
-    @Column
+    @Column(nullable = false)
     private String firstname;
-    @Column
+    @Column(nullable = false)
     private String lastname;
 
     public User() {
