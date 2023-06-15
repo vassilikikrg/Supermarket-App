@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html layout:decorate="Layouts/defaultLayout" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/appColors.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/login_customer.css">
+    <title>Login</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container-fluid mb-5">
+        <div class="row mt-3 mb-5 " style="position: relative;">
+            <div class="col-md-6 pl-0 mb-0" >
+                <section class="side">
+                    <img src="/images/login/vegfruit.jpg">
+                </section>
+            </div>
+            <div class="col-md-6">
+            <section class="main">
+                    <div class="login-container">
+                        <p class="title">Welcome back</p>
+                        <p class="welcome-message">Please enter your credentials to login in and continue shopping</p>
+                        <form role="form" class="login-form" action="" method="post" th:action="@{processLogin}" th:object="${userModel}">
+                                <div class="form-group">
+                                    <label for="username">
+                                        Username
+                                    </label>
+                                    <input th:field="*{Username}" type="text" class="form-control" id="username" />
+                                </div>
+                                <p class="alert alert-danger" th:if="${#fields.hasErrors('Username')}" th:errors="*{Username}"> Username error</p>
+                                <div class="form-group">
+                                    <label for="password">
+                                        Password
+                                    </label>
+                                    <input th:field="*{Password}" type="password" class="form-control" id="password" />
+                                </div>
+                                <p class="alert alert-danger" th:if="${#fields.hasErrors('Password')}" th:errors="*{Password}"> Password error</p>
+
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" /> Stay logged in
+                                    </label>
+                                </div>
+                                <button type="submit" class="btn mt-5 mb-2" style="width:100%;background-color: var(--darkGreen);color:whitesmoke;">
+                                    Login
+                                </button>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
+    <script src="js/popper.min.js"></script>
+</div>
+</body>
+</html>

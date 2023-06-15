@@ -2,49 +2,53 @@
 
 <div th:fragment="header">
   <!-- Nav Bar -->
-  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light">
-    <a class="navbar-brand" href="/home">Supermarket App</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Products
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">Fruits</a>
-            <a class="dropdown-item" href="#">Vegetables</a>
-            <a class="dropdown-item" href="#">Something else here</a>
+  <div class="row">
+    <div class="col-md-12">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light">
+          <a class="navbar-brand" href="/home">Supermarket App</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Products
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="#">Fruits</a>
+                  <a class="dropdown-item" href="#">Vegetables</a>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Products</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Shops</a>
+              </li>
+            </ul>
+            <ul class="navbar-nav ml-auto" th:if="${session.isEmpty()}">
+              <li class="nav-item active">
+                <a class="nav-link" href="/auth/customer/login"><img style="width: 20px; height: 20px;" src="/images/global/user.svg"> Log in</a>
+              </li>
+            </ul>
+            <ul class="navbar-nav ml-auto" th:if="${!session.isEmpty()}">
+              <li class="nav-item">
+                <a class="navbar-text mr-3" href="#"><img class="img-thumbnail rounded-circle" style="width: 30px; height: 30px;" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg"></a>
+              </li>
+              <li class="nav-item">
+                <a class="navbar-text mr-3" href="#"><img src="/images/global/cart.svg" style="width: 25px; height: 25px;" ></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/auth/logout">Log out</a>
+              </li>
+            </ul>
           </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Products</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Shops</a>
-        </li>
-      </ul>
-      <ul class="navbar-nav ml-auto" th:if="${session.isEmpty()}">
-        <li class="nav-item active">
-          <a class="nav-link" href="/auth/login"><img style="width: 20px; height: 20px;" src="/images/global/user.svg"> Log in</a>
-        </li>
-      </ul>
-      <ul class="navbar-nav ml-auto" th:if="${!session.isEmpty()}">
-        <li class="nav-item">
-          <a class="navbar-text mr-3" href="#"><img class="img-thumbnail rounded-circle" style="width: 30px; height: 30px;" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg"></a>
-        </li>
-        <li class="nav-item">
-          <a class="navbar-text mr-3" href="#"><img src="/images/global/cart.svg" style="width: 25px; height: 25px;" ></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/auth/logout">Log out</a>
-        </li>
-      </ul>
+        </nav>
     </div>
-  </nav>
+  </div>
 </div>

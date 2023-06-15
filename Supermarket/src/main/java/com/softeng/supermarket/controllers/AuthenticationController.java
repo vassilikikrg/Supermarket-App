@@ -20,7 +20,7 @@ public class AuthenticationController {
     @GetMapping("/customer/login")
     public String displayLoginForm(Model model){
         model.addAttribute("userModel", new Customer());
-        return "loginForm";
+        return "login_form_customer";
     }
     @PostMapping("/customer/processLogin")
     public String processLogin(@Valid @ModelAttribute("userModel") User userModel, BindingResult bindingResult, HttpSession session, Model model){
