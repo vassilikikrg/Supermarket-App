@@ -16,7 +16,7 @@
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Products
+                  Categories
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                   <a class="dropdown-item" href="#">Fruits</a>
@@ -25,13 +25,19 @@
                 </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Products</a>
+                <a class="nav-link" href="/products">Products</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Shops</a>
               </li>
             </ul>
             <ul class="navbar-nav ml-auto" th:if="${session.isEmpty()}">
+
+              <li class="nav-item">
+                <a class="nav-link">In Cart: €<span id="totalAmount">0.00</span></a>
+              </li>
+
+
               <li class="nav-item active">
                 <a class="nav-link" href="/auth/customer/login"><img style="width: 20px; height: 20px;" src="/images/global/user.svg"> Log in</a>
               </li>

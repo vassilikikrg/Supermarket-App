@@ -1,0 +1,244 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+
+}
+
+#header {
+    background-color: #333333;
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+}
+
+#footer {
+    background-color: #333333;
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+}
+
+#container {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+#product-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+}
+
+#filters {
+    float: left;
+    width: 250px;
+    height: 1000px;
+    margin-right: 20px;
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 5px;
+    max-height: 1500px;
+}
+
+#filters h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#filters label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+#filters input[type="range"] {
+    width: 100%;
+    appearance: none;
+    height: 6px;
+    border-radius: 3px;
+    background-color: #857b7b;
+    outline: none;
+}
+
+#filters input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #333333;
+    cursor: pointer;
+}
+
+#filters input[type="range"]::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #333333;
+    cursor: pointer;
+}
+
+#filters input[type="range"]::-ms-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #333333;
+    cursor: pointer;
+}
+
+#filters select {
+    width: 100%;
+    margin-bottom: 10px;
+    appearance: none;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    outline: none;
+    cursor: pointer;
+}
+
+#filters select:focus {
+    border-color: #333333;
+}
+
+#filters input[type="range"] {
+    width: 100%;
+}
+
+#filters select {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+#filters .filter-button {
+    cursor: pointer;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+    transition: all .2s;
+    padding: 5px 10px;
+    border-radius: 100px;
+    background: #476543;
+    color: #ffffff;
+    border: 1px solid transparent;
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+
+    margin: auto;
+
+
+}
+
+.filter-button > svg {
+    width: 34px;
+    margin-left: 10px;
+    transition: transform .3s ease-in-out;
+}
+
+.filter-button:hover svg {
+    transform: translateX(5px);
+}
+
+.filter-button:active {
+    transform: scale(0.95);
+}
+
+#filters .filter-button:hover {
+    background-color: #2e402c;
+}
+
+#cart {
+    float: right;
+    margin-top: 20px;
+    background-color: #476543;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.product {
+    width: calc(25% - 20px);
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.product:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.product img {
+    max-width: 100px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+
+.product h3 {
+    text-align: center;
+    margin-bottom: 5px;
+    font-size: 1.2rem;
+
+}
+
+.product p {
+    text-align: center;
+    margin: 0;
+}
+
+.product button {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 10px;
+    background-color: #476543 ;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+
+}
+
+.product button:hover {
+    background-color: #555555;
+}
+
+@media (max-width: 992px) {
+    .product {
+        width: calc(33.33% - 20px);
+    }
+}
+
+@media (max-width: 768px) {
+    .product {
+        width: calc(50% - 20px);
+    }
+
+    #filters {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    .product {
+        width: 100%;
+    }
+}
