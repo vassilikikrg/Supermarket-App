@@ -20,8 +20,6 @@ section.side {
     bottom: 0;
     left: 0;
     right: 0;
-    background: url(../images/login/bg.png) no-repeat;
-    background-size: 100% 102%;
 }
 section.main{
     font-family: 'Montserrat', sans-serif;

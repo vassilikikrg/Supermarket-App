@@ -17,7 +17,7 @@
         <div class="row mt-3 mb-5 " style="position: relative;">
             <div class="col-md-6 pl-0 mb-0" >
                 <section class="side">
-                    <img src="/images/login/vegfruit.jpg">
+                    <img src="/images/login/girl-with-grocery-bags-and-food.svg">
                 </section>
             </div>
             <div class="col-md-6">
@@ -25,21 +25,21 @@
                     <div class="login-container">
                         <p class="title">Welcome back</p>
                         <p class="welcome-message">Please enter your credentials to login in and continue shopping</p>
-                        <form role="form" class="login-form" action="" method="post" th:action="@{processLogin}" th:object="${userModel}">
+                        <form role="form" class="login-form" action="" method="post" th:action="@{processLogin}" th:object="${customerModel}">
                                 <div class="form-group">
                                     <label for="username">
                                         Username
                                     </label>
-                                    <input th:field="*{Username}" type="text" class="form-control" id="username" />
+                                    <input th:field="*{username}" type="text" class="form-control" id="username" />
                                 </div>
-                                <p class="alert alert-danger" th:if="${#fields.hasErrors('Username')}" th:errors="*{Username}"> Username error</p>
+                                <p class="alert alert-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"> Username error</p>
                                 <div class="form-group">
                                     <label for="password">
                                         Password
                                     </label>
-                                    <input th:field="*{Password}" type="password" class="form-control" id="password" />
+                                    <input th:field="*{password}" type="password" class="form-control" id="password" />
                                 </div>
-                                <p class="alert alert-danger" th:if="${#fields.hasErrors('Password')}" th:errors="*{Password}"> Password error</p>
+                                <p class="alert alert-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"> Password error</p>
 
                                 <div class="checkbox">
                                     <label>
