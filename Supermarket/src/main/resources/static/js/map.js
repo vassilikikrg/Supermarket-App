@@ -78,7 +78,7 @@ const mapStyle = [{
 function initMap() {
     // Create the map.
     const map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 8,
+        zoom: 6,
         center: { lat: 37.974562, lng: 23.735637 },
         //styles: mapStyle,
     });
@@ -98,8 +98,8 @@ function initMap() {
         const phone = event.feature.getProperty('phone');
         const position = event.feature.getGeometry().get();
         const content = `
-      <h2>${name}</h2><p>${description}</p>
-      <p><b>Open:</b> ${hours}<br/><b>Phone:</b> ${phone}</p>
+      <h4>${name}</h4><p style="font-size: 16px">${description}</p>
+      <p style="font-size: 14px"><b>Open:</b> ${hours}<br/><b>Phone:</b> ${phone}</p>
     `;
 
         infoWindow.setContent(content);
@@ -122,12 +122,13 @@ function initMap() {
     // Search
     card.setAttribute('id', 'pac-card');
     title.setAttribute('id', 'title');
-    title.textContent = 'Find the nearest store';
+    title.textContent = 'Βρείτε το κοντινότερο κατάστημα';
     titleBar.appendChild(title);
     container.setAttribute('id', 'pac-container');
     input.setAttribute('id', 'pac-input');
     input.setAttribute('type', 'text');
-    input.setAttribute('placeholder', 'Enter an address');
+    input.setAttribute('placeholder', 'Εισάγετε διεύθυνση');
+    input.className="input-style"
     container.appendChild(input);
     card.appendChild(titleBar);
     card.appendChild(container);
@@ -166,7 +167,7 @@ function initMap() {
         // Recenter the map to the selected address
         originLocation = place.geometry.location;
         map.setCenter(originLocation);
-        map.setZoom(9);
+        map.setZoom(13);
         console.log(place);
 
         originMarker.setPosition(originLocation);
@@ -255,8 +256,8 @@ function initMap() {
             }
         } else {
             panel.setAttribute('id', 'panel');
-            const body = document.body;
-            body.insertBefore(panel, body.childNodes[0]);
+            const mapDiv = document.getElementById('map-div')
+            mapDiv.insertBefore(panel, mapDiv.childNodes[2]);
         }
 
 

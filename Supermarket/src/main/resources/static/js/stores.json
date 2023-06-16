@@ -7,11 +7,11 @@
     },
     "type": "Feature",
     "properties": {
-      "category": "patisserie",
-      "hours": "10am - 6pm",
-      "description": "Modern twists on classic pastries. We're part of a larger chain of patisseries and cafes.",
-      "name": "Josie's Patisserie Mayfair",
-      "phone": "+44 20 1234 5678",
+      "category": "ΧΑΝΙΑ",
+      "hours": "10πμ - 6μμ",
+      "description": "Βρισκόμαστε στην οδό Πειραιώς 3, 731 31. Ιδιοκτήτης ΚΩΝΣΤΑΝΤΙΝΟΣ ΧΑΛΙΚΑΚΗΣ",
+      "name": "Fresh-Mart Chania",
+      "phone": "+30 2821086868",
       "storeid": "01"
     }
   },
@@ -22,11 +22,11 @@
       },
       "type": "Feature",
       "properties": {
-        "category": "patisserie",
-        "hours": "10am - 6pm",
-        "description": "Come and try our award-winning cakes and pastries. We're part of a larger chain of patisseries and cafes.",
-        "name": "Josie's Patisserie Bristol",
-        "phone": "+44 117 121 2121",
+        "category": "ΑΘΗΝΑ",
+        "hours": "10πμ - 6μμ",
+        "description": "Βρισκόμαστε επι της οδού Καλύμνου 96, Βούλα, 166 73, στην καρδιά της Αθηναϊκής Ριβιέρας.",
+        "name": "Fresh-Mart Kalymnou",
+        "phone": "+30 2108993024",
         "storeid": "02"
       }
     },
@@ -37,11 +37,11 @@
       },
       "type": "Feature",
       "properties": {
-        "category": "patisserie",
-        "hours": "10am - 6pm",
-        "description": "Whatever the occasion, whether it's a birthday or a wedding, Josie's Patisserie has the perfect treat for you. We're part of a larger chain of patisseries and cafes.",
-        "name": "Josie's Patisserie Norwich",
-        "phone": "+44 1603 123456",
+        "category": "ΑΤΤΙΚΗ",
+        "hours": "10πμ - 6μμ",
+        "description": "Το κατάστημα μας δεν λειτουργεί σαββατοκύριακο - Ιδιοκτήτης ΜΑΡΙΑ ΣΠΑΝΟΥ",
+        "name": "Fresh-Mart Artemidos",
+        "phone": "+30 2294040011",
         "storeid": "03"
       }
     },
@@ -52,11 +52,11 @@
       },
       "type": "Feature",
       "properties": {
-        "category": "patisserie",
-        "hours": "10am - 6pm",
-        "description": "A gourmet patisserie that will delight your senses. We're part of a larger chain of patisseries and cafes.",
-        "name": "Josie's Patisserie Wimborne",
-        "phone": "+44 1202 343434",
+        "category": "ΑΘΗΝΑ",
+        "hours": "10πμ - 6μμ",
+        "description": "Fresh-Mart Agia Paraskevi - Ιδιοκτήτης ΣΟΛΏΝΑΚΗ ΗΡΩ",
+        "name": "Fresh-Mart Agia Paraskevi",
+        "phone": "+30 2111822080",
         "storeid": "04"
       }
     },
@@ -67,11 +67,11 @@
       },
       "type": "Feature",
       "properties": {
-        "category": "patisserie",
-        "hours": "10am - 6pm",
-        "description": "Spoil yourself or someone special with our classic pastries. We're part of a larger chain of patisseries and cafes.",
-        "name": "Josie's Patisserie Liverpool",
-        "phone": "+44 151 444 4444",
+        "category": "ΑΘΗΝΑ",
+        "hours": "10πμ - 6μμ",
+        "description": "Βρισκόμαστε απέναντι απο το πανεπιστήμιο Πειραιώς στην γωνία Τσαμαδού και Δεληγιώργη",
+        "name": "Fresh-Mart Piraeus",
+        "phone": "+30 2160002200",
         "storeid": "05"
       }
     },
@@ -82,11 +82,11 @@
       },
       "type": "Feature",
       "properties": {
-        "category": "patisserie",
-        "hours": "10am - 6pm",
-        "description": "Come and feast your eyes and tastebuds on our delicious pastries and cakes. We're part of a larger chain of patisseries and cafes.",
-        "name": "Josie's Patisserie Tamworth",
-        "phone": "+44 5555 55555",
+        "category": "ΘΕΣΣΑΛΟΝΙΚΗ",
+        "hours": "10πμ - 6μμ",
+        "description": "Το νέο μας κατάστημα στην Σαλούγκα σας περιμένει απο τις 12/5/2023",
+        "name": "Fresh-Mart Thessaloniki - NEW!",
+        "phone": "+30 2317510951",
         "storeid": "06"
       }
     },
@@ -97,11 +97,11 @@
       },
       "type": "Feature",
       "properties": {
-        "category": "patisserie",
-        "hours": "10am - 6pm",
-        "description": "Josie's Patisserie is family-owned, and our delectable pastries, cakes, and great coffee are renowed. We're part of a larger chain of patisseries and cafes.",
-        "name": "Josie's Patisserie Cardiff",
-        "phone": "+44 29 6666 6666",
+        "category": "ΠΡΕΒΕΖΑ",
+        "hours": "10πμ - 6μμ",
+        "description": "Στης Πάργας τον ανήφορο. Η ρίζα της αλυσίδας μας - Ιδιοκτήτης ΦΡΙΤΖΕΛΑΣ ΑΝΤΩΝΙΟΣ",
+        "name": "Fresh-Mart Pargas",
+        "phone": "+30 2684032584",
         "storeid": "07"
       }
     },
@@ -112,11 +112,11 @@
       },
       "type": "Feature",
       "properties": {
-        "category": "cafe",
-        "hours": "8am - 9:30pm",
-        "description": "Oakham's favorite spot for fresh coffee and delicious cakes. We're part of a larger chain of patisseries and cafes.",
-        "name": "Josie's Cafe Oakham",
-        "phone": "+44 7777 777777",
+        "category": "ΠΑΤΡΑ",
+        "hours": "8πμ - 9:30μμ",
+        "description": "Βρισκόμαστε στην οδό Κανακάρη. Μασκότ μας το σκυλί",
+        "name": "Fresh-Mart Patras",
+        "phone": "+30 2610334790",
         "storeid": "08"
       }
     },
@@ -127,11 +127,11 @@
       },
       "type": "Feature",
       "properties": {
-        "category": "cafe",
-        "hours": "8am - 9:30pm",
-        "description": "Enjoy freshly brewed coffe, and home baked cakes in our homely cafe. We're part of a larger chain of patisseries and cafes.",
-        "name": "Josie's Cafe Blackburn",
-        "phone": "+44 8888 88888",
+        "category": "ΤΡΙΠΟΛΗ",
+        "hours": "8πμ - 9μμ",
+        "description": "Fresh-Mart Τρίπολης. Ανοικτά καθημερινά απο τις 8 το πρωί εως τις 9 το βράδυ",
+        "name": "Fresh-Mart Tripoli",
+        "phone": "+30 2710222026",
         "storeid": "09"
       }
     },
@@ -142,11 +142,11 @@
       },
       "type": "Feature",
       "properties": {
-        "category": "cafe",
-        "hours": "8am - 9:30pm",
-        "description": "A delicious array of pastries with many flavours, and fresh coffee in an snug cafe. We're part of a larger chain of patisseries and cafes.",
-        "name": "Josie's Cafe Crawley",
-        "phone": "+44 1010 101010",
+        "category": "ΣΑΛΑΜΙΝΑ",
+        "hours": "8πμ - 9:30μμ",
+        "description": "Πανω στον παραλιακό δρόμο της Ακτής Καραϊσκάκη - Ιδιοκτήτης ΓΙΑΤΡΑΣ ΙΩΑΝΝΗΣ",
+        "name": "Fresh-Mart Salamina",
+        "phone": "+30 2104658585",
         "storeid": "10"
       }
     },
@@ -157,11 +157,11 @@
       },
       "type": "Feature",
       "properties": {
-        "category": "cafe",
-        "hours": "8am - 9:30pm",
-        "description": "Grab a freshly brewed coffee, a decadent cake and relax in our idyllic cafe. We're part of a larger chain of patisseries and cafes.",
-        "name": "Josie's Cafe Brighton",
-        "phone": "+44 1313 131313",
+        "category": "ΕΠΑΡΧΙΑ",
+        "hours": "8πμ - 9:30μμ",
+        "description": "Βρισκόμαστε στον επαρχιακό δρόμο ΕΟ Κορίνθου-Άργους - Ιδιοκτήτης ΤΣΙΩΤΑΚΗ ΕΛΕΝΗ",
+        "name": "Fresh-Mart Fixtia",
+        "phone": "+30 2751076963",
         "storeid": "11"
       }
     },
@@ -172,11 +172,11 @@
       },
       "type": "Feature",
       "properties": {
-        "category": "cafe",
-        "hours": "8am - 9:30pm",
-        "description": "Come in and unwind at this idyllic cafe with fresh coffee and home made cakes. We're part of a larger chain of patisseries and cafes.",
-        "name": "Josie's Cafe Newtown",
-        "phone": "+44 1414 141414",
+        "category": "ΗΡΑΚΛΕΙΟ",
+        "hours": "8πμ - 9:30μμ",
+        "description": "Βρισκόμαστε επι της οδού Δεδάλου, στο ιστορικό κέντρο. Ελάτε και κερνάμε τσικουδιά. Ιδιοκτήτης ΝΙΚΟΛΑΟΣ ΠΑΠΑΔΑΚΗΣ",
+        "name": "Fresh-Mart Heraklion",
+        "phone": "+30 2810240619",
         "storeid": "12"
       }
     },
@@ -187,11 +187,11 @@
       },
       "type": "Feature",
       "properties": {
-        "category": "cafe",
-        "hours": "8am - 9:30pm",
-        "description": "Fresh coffee and delicious cakes in an snug cafe. We're part of a larger chain of patisseries and cafes.",
-        "name": "Josie's Cafe Ipswich",
-        "phone": "+44 1717 17171",
+        "category": "ΒΟΛΟΣ",
+        "hours": "8πμ - 9:30μμ",
+        "description": "Με τον κωδικό 'ΜΗΧΜΗΧ' έχετε 10% έκπτωση σε όλα τα προϊόντα της κάβας. Η προσφορά ισχύει μέχρι τέλος Μαϊου",
+        "name": "Fresh-Mart Volos",
+        "phone": "+30 2421049676",
         "storeid": "13"
       }
     }

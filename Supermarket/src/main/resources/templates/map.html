@@ -4,7 +4,7 @@
     <title>Store Locator</title>
     <style>
         #map {
-            height: 50%;
+            height: 60%;
             width: 50%;
             margin: auto;
         }
@@ -107,9 +107,12 @@
     <link href="/css/style.css" rel="stylesheet">
     <link href="/css/appColors.css" rel="stylesheet">
     <link href="/css/home.css" rel="stylesheet">
+    <link href="/css/map.css" rel="stylesheet">
 </head>
 <body>
-    <div layout:fragment="content">
+    <div layout:fragment="content" id="map-div">
+        <h3 style="text-align: center">Βρείτε στον χάρτη μας τα κοντινότερα σούπερμάρκετ</h3>
+        <br>
         <div id="map"></div>
         <script src="../js/map.js"></script>
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAk0_KmOAhS1U750lFVSdtztglJjVAhGFg&libraries=places&callback=initMap&solution_channel=GMP_codelabs_simplestorelocator_v1_a"></script>
