@@ -14,23 +14,24 @@
         <div class="row">
             <div class="col-md-12 d-flex justify-content-center">
                 <div class="row">
-                    <div class="col-md-12 my-5 " style="padding: 10px;background-color: var(--paleGreen); border-radius: 5px;">
+                    <div class="col-md-12 my-5 " style="padding: 10px;background-color: var(--paleGreen); border-radius: 5px;" >
                         <h3 class="text-center mt-3">
                                 Login
                         </h3>
-                        <form role="form" class="mt-5 mx-2" action="" method="post" th:action="@{processLogin}" th:object="${adminModel}" >
+                        <h5 class="text-center"><small class="text-muted ">Welcome back admin!</small></h5>
+                        <form role="form" class="mt-3 mx-2" action="" method="post" th:action="@{processLogin}" th:object="${adminModel}" >
                             <div class="form-group">
                                 <label for="username">
                                     Username
                                 </label>
-                                <input th:field="*{username}" type="text" class="form-control" id="username" />
+                                <input th:field="*{username}" type="text" class="form-control" id="username"  minlength="5" maxlength="15" required />
                             </div>
                             <p class="alert alert-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"> Username error</p>
                             <div class="form-group">
                                 <label for="password">
                                     Password
                                 </label>
-                                <input th:field="*{password}" type="password" class="form-control" id="password" />
+                                <input th:field="*{password}" type="password" class="form-control" id="password"  minlength="8" maxlength="15" required/>
                             </div>
                             <p class="alert alert-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"> Password error</p>
 

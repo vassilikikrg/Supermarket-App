@@ -48,7 +48,6 @@ section.main{
     text-align: center;
     font-size: 1.1em;
     line-height: 28px;
-    margin-bottom: 30px;
     color: #696969;
 }
 
@@ -62,4 +61,15 @@ section.main{
     width: 100%;
     position: relative;
     margin-bottom: 24px;
+}
+
+a:visited {
+    color:var(--darkGreen);
+    background-color: transparent;
+    text-decoration: none;
+}
+a:hover {
+    color: black;
+    background-color: transparent;
+    text-decoration: underline;
 }
