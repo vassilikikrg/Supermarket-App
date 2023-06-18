@@ -1,14 +1,25 @@
 package com.softeng.supermarket.models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Product {
-    private String Id;
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private long Id;
     private String Name;
     private String Description;
     private String CategoryID;
     private String Price;
     private String ImageSource;
 
-    public Product(String id, String name, String description, String categoryID, String price, String imageSource) {
+    public Product() {
+    }
+
+    public Product(long id, String name, String description, String categoryID, String price, String imageSource) {
         Id = id;
         Name = name;
         Description = description;
@@ -17,11 +28,11 @@ public class Product {
         ImageSource = imageSource;
     }
 
-    public String getId() {
+    public long getId() {
         return Id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         Id = id;
     }
 
