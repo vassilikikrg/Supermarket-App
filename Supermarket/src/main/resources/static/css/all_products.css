@@ -135,6 +135,18 @@ body {
 
 }
 
+.product-title {
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+    font-weight: normal;
+    transition: font-weight 0.4s ease; /* Adjust the duration and easing function to your preference */
+}
+
+.product-title:hover {
+    font-weight: bold;
+}
+
+
 .filter-button > svg {
     width: 34px;
     margin-left: 10px;

@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+
+
 @Controller
 public class ProductController {
     @Autowired
@@ -23,7 +25,7 @@ public class ProductController {
     // For testing
     // curl http://localhost:8080/add -d name=Γαλα -d desc=Γαλα ελληνικό -d catID=Γαλακτοκομικά -d price=3
     @PostMapping(path="/add") // Map ONLY POST Requests
-    public @ResponseBody String addNewProduct (@RequestParam String name, @RequestParam String desc, @RequestParam String catID, @RequestParam String price) {
+    public @ResponseBody String addNewProduct (@RequestParam String name, @RequestParam String desc, @RequestParam String catID, @RequestParam String price, @RequestParam String imageSource) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
 
@@ -32,12 +34,15 @@ public class ProductController {
         p.setDescription(desc);
         p.setCategoryID(catID);
         p.setPrice(price);
+        p.setImageSource(imageSource);
         productRepository.save(p);
         return "Saved";
     }
-    @GetMapping(path="/all")
-    public @ResponseBody Iterable<Product> getAllUsers() {
+    @GetMapping(path="/all",  produces = "application/json")
+    public @ResponseBody Iterable<Product> getAllProducts() {
         // This returns a JSON or XML with the users
         return productRepository.findAll();
     }
+
+
 }
