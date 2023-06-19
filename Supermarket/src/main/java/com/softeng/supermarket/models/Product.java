@@ -9,70 +9,68 @@ import jakarta.persistence.Id;
 public class Product {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private long Id;
-    private String Name;
-    private String Description;
-    private String CategoryID;
-    private String Price;
-    private String ImageSource;
+    private long id;
+    private String name;
+    private String description;
+    private String categoryID;
+    private String price;
+    private String imageSource;
 
     public Product() {
     }
 
     public Product(long id, String name, String description, String categoryID, String price, String imageSource) {
-        Id = id;
-        Name = name;
-        Description = description;
-        CategoryID = categoryID;
-        Price = price;
-        ImageSource = imageSource;
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.categoryID = categoryID;
+        this.price = price;
+        this.imageSource = imageSource;
     }
 
     public long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(long id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
     public String getCategoryID() {
-        return CategoryID;
+        return categoryID;
     }
 
     public void setCategoryID(String categoryID) {
-        CategoryID = categoryID;
+        this.categoryID = categoryID;
     }
 
-    public String getPrice() {
-        return Price;
-    }
+    public String getPrice() { return price; }
 
     public void setPrice(String price) {
-        Price = price;
+        this.price = price;
     }
 
     public String getImageSource() {
-        return ImageSource;
+        return imageSource;
     }
 
     public void setImageSource(String imageSource) {
-        ImageSource = imageSource;
+        this.imageSource = imageSource;
     }
 }
