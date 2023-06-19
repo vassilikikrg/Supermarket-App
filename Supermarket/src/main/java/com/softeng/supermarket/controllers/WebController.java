@@ -13,6 +13,10 @@ import java.util.Optional;
 
 @Controller
 public class WebController {
+    @GetMapping("/login")
+    public String displayLoginForm(Model model){
+        return "login_form_customer";
+    }
 //    List<User> users = List.of(
 //            new User("johny","12345","john@unipi.gr"),
 //            new User("maro","12345","mar1@webmail.cs.unipi.gr")

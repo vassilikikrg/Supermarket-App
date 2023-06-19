@@ -5,6 +5,7 @@ import com.softeng.supermarket.models.Customer;
 import com.softeng.supermarket.models.User;
 import com.softeng.supermarket.repositories.AdminRepository;
 import com.softeng.supermarket.repositories.CustomerRepository;
+import com.softeng.supermarket.services.CustomerService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,32 +16,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/auth")
 public class AuthenticationController {
     @Autowired
-    private AdminRepository adminRepo;
-    @Autowired
-    private CustomerRepository customerRepos;
+    private CustomerService customerService;
     //For customers
     //Login
     @GetMapping("/customer/login")
     public String displayLoginForm(Model model){
-        model.addAttribute("customerModel", new Customer());
         return "login_form_customer";
-    }
-    @PostMapping("/customer/processLogin")
-    public String processLogin(@Valid @ModelAttribute("customerModel") Customer customerModel, BindingResult bindingResult, HttpSession session, Model model){
-        //with binding result,we take user input and send it to the controller to check if there was an error in the validation
-        if(bindingResult.hasErrors()){
-            //return the model to the form again
-            model.addAttribute("customerModel",customerModel);
-            return "login_form_customer";
-        }
-        model.addAttribute("customerModel",customerModel);
-        session.setAttribute("username", customerModel.getUsername());
-        return "redirect:/home";
     }
 
     //Register
@@ -50,16 +37,22 @@ public class AuthenticationController {
         return "register_form_customer";
     }
     @PostMapping("/customer/processRegister")
-    public String processRegister(@Valid @ModelAttribute("customerModel") Customer customerModel, BindingResult bindingResult,HttpSession session, Model model){
-        //with binding result,we take user input and send it to the controller to check if there was an error in the validation
-        if(bindingResult.hasErrors()){
-            //return the model to the form again
-            model.addAttribute("customerModel",customerModel);
+    public String processRegister(@Valid @ModelAttribute("customerModel") Customer customerModel, BindingResult bindingResult, RedirectAttributes redirectAttrs){
+        Customer customerExists=customerService.findCustomerByUsername(customerModel.getUsername());
+        if(customerExists!=null){
+            bindingResult
+                    .rejectValue("userName", "error.user",
+                            "There is already a user registered with the user name provided");
             return "register_form_customer";
         }
-        model.addAttribute("customerModel",customerModel);
-        session.setAttribute("username", customerModel.getUsername());
-        return "redirect:/home";
+        if(bindingResult.hasErrors()){
+            return "register_form_customer";
+        }
+        else {
+            customerService.saveCustomer(customerModel);
+            redirectAttrs.addFlashAttribute("mymessage","You are successfully registered! Please log in to continue.");
+            return "redirect:/login";
+        }
     }
 
     //For Admins
