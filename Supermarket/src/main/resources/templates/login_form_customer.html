@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html layout:decorate="Layouts/defaultLayout" xmlns:th="http://www.thymeleaf.org">
+<html layout:decorate="Layouts/defaultLayout" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml">
 <head>
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/bootstrap.css" rel="stylesheet">
@@ -15,6 +16,9 @@
 <div layout:fragment="content">
     <div class="container-fluid mb-5">
         <div class="row mb-5 " style="position: relative;">
+            <div class="col-md-12 d-flex justify-content-center" style="width: 50%;">
+                <div class="alert alert-success" role="alert" th:if="${mymessage != null}" th:text="${mymessage}"></div>
+            </div>
             <div class="col-md-6 pl-0 mb-0"  >
                 <section class="side">
                     <img src="/images/login/girl-with-grocery-bags-and-food.svg">
@@ -26,21 +30,20 @@
                         <p class="title">Welcome back</p>
                         <p class="welcome-message">Please enter your credentials to login in and continue shopping</p>
 
-                        <form role="form" class="login-form" action="" method="post" th:action="@{processLogin}" th:object="${customerModel}">
+                        <form role="form" class="login-form" action="" method="post" th:action="@{/login}">
                                 <div class="form-group">
                                     <label for="username">
                                         Username
                                     </label>
-                                    <input th:field="*{username}" type="text" class="form-control" id="username"  minlength="8" maxlength="15" required />
+                                    <input type="text" class="form-control" id="username" name="username" minlength="5" maxlength="15" required />
                                 </div>
-                                <p class="alert alert-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"> Username error</p>
+
                                 <div class="form-group">
                                     <label for="password">
                                         Password
                                     </label>
-                                    <input th:field="*{password}" type="password" class="form-control" id="password" minlength="8" maxlength="15" required/>
+                                    <input type="password" class="form-control" id="password" name="password" minlength="8" maxlength="15" required/>
                                 </div>
-                                <p class="alert alert-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"> Password error</p>
 
                                 <div class="form-check">
                                     <label>

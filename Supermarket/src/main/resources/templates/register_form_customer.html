@@ -20,7 +20,7 @@
           <div>
             <p class="title">Create your account</p>
             <p class="welcome-message">Unlock exclusive deals and convenience by signing up today</p>
-            <form role="form" class="login-form" action="" method="post" th:action="@{processRegister}" th:object="${customerModel}">
+            <form role="form" class="login-form" action="" method="post" th:action="@{/auth/customer/processRegister}" th:object="${customerModel}">
               <div class="m-3">
                 <div class="form-group row">
                   <label class="col-4 col-form-label">Username </label>
@@ -32,8 +32,7 @@
                 <div class="form-group row">
                   <label class="col-4 col-form-label">Password </label>
                   <div class="col-8">
-                    <input type="password" th:field="*{password}" class="form-control"
-                           required minlength="8" maxlength="15"/>
+                    <input type="password" th:field="*{password}" class="form-control" minlength="8" maxlength="15" required/>
                   </div>
                 </div>
 
