@@ -13,7 +13,7 @@ const mapStyle = [{
         'featureType': 'landscape',
         'elementType': 'all',
         'stylers': [{
-            'color': '#f2e5d4',
+            'color': '#A3B2A1',
         }],
     },
     {
@@ -69,7 +69,7 @@ const mapStyle = [{
             'visibility': 'on',
         },
             {
-                'color': '#acbcc9',
+                'color': '#6E8690',
             },
         ],
     },
@@ -80,7 +80,8 @@ function initMap() {
     const map = new google.maps.Map(document.getElementById('map'), {
         zoom: 6,
         center: { lat: 37.974562, lng: 23.735637 },
-        //styles: mapStyle,
+        styles: mapStyle,
+        mapTypeControl: false
     });
 
     // Load the stores GeoJSON onto the map.

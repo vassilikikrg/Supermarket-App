@@ -61,7 +61,10 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers(
                                 "/auth/**",
-                                "/home"
+                                "/home",
+                                "/map",
+                                "/products",
+                                "/all"
                         )
                         .permitAll()
                         .anyRequest()
