@@ -38,10 +38,38 @@ public class ProductController {
         productRepository.save(p);
         return "Saved";
     }
+
+/*
     @GetMapping(path="/all",  produces = "application/json")
     public @ResponseBody Iterable<Product> getAllProducts() {
         // This returns a JSON or XML with the users
         return productRepository.findAll();
+    }*/
+
+
+    @GetMapping(path = "/all", produces = "application/json")
+    public @ResponseBody Iterable<Product> getAllProducts(@RequestParam(value = "type", required = false) String productType) {
+        Iterable<Product> products;
+
+        if (productType == null || productType.equals("all")) {
+            products = productRepository.findAll();
+        } else {
+            products = productRepository.findByCategoryID(productType);
+        }
+
+        return products;
+    }
+
+
+    @GetMapping(path="/all/prods", produces = "application/json")
+    public @ResponseBody Iterable<Product> getPriceProducts(@RequestParam(required = false) String price) {
+        if (price != null) {
+            // Retrieve products with price less than or equal to the specified price
+            return productRepository.findByPriceLessThanEqual(price);
+        } else {
+            // Return all products
+            return productRepository.findAll();
+        }
     }
 
 

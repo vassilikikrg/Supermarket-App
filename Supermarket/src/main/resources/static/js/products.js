@@ -151,8 +151,9 @@ function displayProducts(products) {
     
       <h3 class="product-title">${product.name}</h3>
       <p class="product-details">Description: ${product.description}</p>
-      <p>Category ID: ${product.categoryID}</p>
+      <p id="product-Type">Category ID: ${product.categoryID}</p>
       <p class="product-price">Price: ${product.price}</p>
+      <button class="add-to-cart" onclick="addToCart()">Add to Cart </button>
     
   </div>
 `).join('');
@@ -182,17 +183,30 @@ function displayProducts(products) {
 
 // Function to filter products based on price range
 function applyPriceFilter() {
+
+    /*
     var priceRange = document.getElementById("priceRange").value;
 
     var filteredProducts = products.filter(function(product) {
         return product.price <= priceRange;
     });
 
-    displayProducts(filteredProducts);
+    displayProducts(filteredProducts);*/
+
+    var priceRange = document.getElementById("priceRange").value;
+
+    fetch('/all/prods?price=' + encodeURIComponent(priceRange))
+        .then(response => response.json())
+        .then(data => {
+            // Process the retrieved data
+            displayProducts(data);
+        })
+        .catch(error => console.error(error));
 }
 
 // Function to filter products based on type
 function applyTypeFilter() {
+    /*
     var productType = document.getElementById("productType").value;
 
     var filteredProducts;
@@ -204,7 +218,34 @@ function applyTypeFilter() {
         });
     }
 
-    displayProducts(filteredProducts);
+    displayProducts(filteredProducts);*/
+
+    var productType = document.getElementById("productType").value;
+
+    if (productType === "All")
+    {
+        fetch('/all')
+            .then(response => response.json())
+            .then(data => {
+                // Process the retrieved data
+                displayProducts(data);
+            })
+            .catch(error => console.error(error));
+
+    }
+    else
+    {
+        fetch('/all?type=' + encodeURIComponent(productType))
+            .then(response => response.json())
+            .then(data => {
+                // Process the retrieved data
+                displayProducts(data);
+            })
+            .catch(error => console.error(error));
+    }
+
+
+
 }
 
 // Function to add product to cart

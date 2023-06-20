@@ -64,6 +64,7 @@ public class WebSecurityConfig {
                                 "/home",
                                 "/map",
                                 "/products",
+                                "/all/prods",
                                 "/all"
                         )
                         .permitAll()
