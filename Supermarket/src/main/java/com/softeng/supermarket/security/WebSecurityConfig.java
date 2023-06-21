@@ -79,6 +79,8 @@ public class WebSecurityConfig {
                 .defaultSuccessUrl("/home")
                 .permitAll()
                 .and()
+                .exceptionHandling().accessDeniedPage("/403")
+                .and()
                 .logout((logout) -> logout
                         .invalidateHttpSession(true)
                         .logoutSuccessUrl("/home")

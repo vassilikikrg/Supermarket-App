@@ -27,4 +27,8 @@ public class WebController {
     public String adminPage(){
         return "hellopage";
     }
+    @GetMapping("/403")
+    public String accessDenied(){
+        return "403.html";
+    }
 }
