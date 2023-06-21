@@ -1,32 +1,43 @@
 package com.softeng.supermarket.security;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import com.softeng.supermarket.models.Customer;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class CustomUserDetails implements UserDetails {
 
-    private Customer user;
+    private String username;
+    private String password;
+    private Collection<? extends GrantedAuthority> authorities;
 
-    public CustomUserDetails(Customer user) {
-        this.user = user;
+    public CustomUserDetails() {
+        super();
     }
-
+    public CustomUserDetails(String username, String password, String role) {
+        this.username = username;
+        this.password = password;
+        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+        grantedAuthorities.add(new SimpleGrantedAuthority(role));
+        this.authorities = grantedAuthorities;
+    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return authorities;
     }
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return username;
     }
 
     @Override

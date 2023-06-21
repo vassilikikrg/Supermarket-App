@@ -68,6 +68,8 @@ public class WebSecurityConfig {
                                 "/all"
                         )
                         .permitAll()
+                        .requestMatchers("/customer/**").hasAnyAuthority("CUSTOMER")
+                        .requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
                         .anyRequest()
                         .authenticated()
 
