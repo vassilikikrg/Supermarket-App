@@ -68,6 +68,8 @@ public class WebSecurityConfig {
                                 "/all"
                         )
                         .permitAll()
+                        .requestMatchers("/customer/**").hasAnyAuthority("CUSTOMER")
+                        .requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
                         .anyRequest()
                         .authenticated()
 
@@ -76,6 +78,8 @@ public class WebSecurityConfig {
                 .loginPage("/login")
                 .defaultSuccessUrl("/home")
                 .permitAll()
+                .and()
+                .exceptionHandling().accessDeniedPage("/403")
                 .and()
                 .logout((logout) -> logout
                         .invalidateHttpSession(true)
