@@ -76,68 +76,6 @@ var totalAmount = 0;
 
 // Function to display products on the page
 function displayProducts(products) {
-    /*
-    productList.innerHTML = "";
-
-    products.forEach(function(product) {
-        var productDiv = document.createElement("div");
-        productDiv.className = "product-card";
-        productDiv.id = "product-" + product.id;
-        productDiv.classList.add("product");
-
-        var productImage = document.createElement("img");
-        productImage.src = product.imageSource;
-        productImage.alt = product.name;
-        productImage.className = "product-image";
-
-        var productDetails = document.createElement("div");
-        productDetails.className = "product-details";
-
-        var productLink = document.createElement("a");
-        productLink.href = "/product?products=" + encodeURIComponent(JSON.stringify(products)) + "&id=" + product.id;
-        productDiv.appendChild(productLink);
-
-
-        var productName = document.createElement("h3");
-        productName.className = "product-title";
-        productName.textContent = product.name;
-
-        var productPrice = document.createElement("p");
-        productPrice.className = "product-price";
-        productPrice.textContent = "Price: €" + product.price.toFixed(2);
-
-
-        var button = document.createElement("button");
-        button.className = "add-to-cart";
-        button.textContent = "Add to Cart";
-        button.addEventListener("click", function() {
-            addToCart(product);
-        });
-
-        productDiv.appendChild(productDetails);
-        productDiv.appendChild(productImage);
-        productDiv.appendChild(productName);
-        productDiv.appendChild(productPrice);
-        productDiv.appendChild(button);
-
-        productList.appendChild(productDiv);
-
-
-
-            var productCards = document.getElementsByClassName("product-card");
-
-
-            Array.from(productCards).forEach(function(card) {
-                var titleElement = card.querySelector(".product-title");
-                var productId = parseInt(card.id.replace("product-", ""));
-
-                titleElement.addEventListener("click", function() {
-                    window.location.href = "/product?id=" + productId;
-                });
-            });
-
-    });*/
-
 
     // Access the product-container element
     //const productList = document.getElementById('product-list');
@@ -149,11 +87,11 @@ function displayProducts(products) {
       <div class="product">
     <img class="product-image" src="${product.imageSource}" alt="${product.name}">
     
-      <h3 class="product-title">${product.name}</h3>
-      <p class="product-details">Description: ${product.description}</p>
-      <p id="product-Type">Category ID: ${product.categoryID}</p>
-      <p class="product-price">Price: ${product.price}</p>
-      <button class="add-to-cart" onclick="addToCart()">Add to Cart </button>
+      <h3 class="product-title" onclick="redirectToProductDetails(${product.id})">${product.name}</h3>
+      <br>
+      <p class="product-price">${product.price} €</p>
+      
+      
     
   </div>
 `).join('');
@@ -164,18 +102,41 @@ function displayProducts(products) {
     container.innerHTML = productsHTML;
 
 
+    /*
     var productCards = document.getElementsByClassName("product");
-
 
     Array.from(productCards).forEach(function(card) {
         var titleElement = card.querySelector(".product-title");
-        var productId = parseInt(card.id.replace("product-", ""));
+        var productId = document.getElementById("product-id")
+
+        //var productId = parseInt(card.id.replace("product-", ""));
+
+
 
         titleElement.addEventListener("click", function() {
-            window.location.href = "/product?id=" + productId;
-        });
-    });
+            //window.location.href = "/product?id=" + productId;
 
+            fetch('/allbyid?id=' + encodeURIComponent(productId))
+                .then(response => response.json())
+                .then(data => {
+                    // Process the retrieved data
+                    //displayProducts(data);
+
+                    const products = data.products;
+
+                    // Redirect to another page with the product data
+                    const productData = encodeURIComponent(JSON.stringify(products));
+                    window.location.href = '/productPage?products=' + productData;
+                })
+                .catch(error => console.error(error));
+        });
+    });*/
+
+}
+
+function redirectToProductDetails(productId) {
+    // Redirect to the product details page
+    window.location.href = '/productPage?id=' + productId;
 }
 
 // Display all products initially
