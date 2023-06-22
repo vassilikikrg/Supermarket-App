@@ -65,7 +65,10 @@ public class WebSecurityConfig {
                                 "/map",
                                 "/products",
                                 "/all/prods",
-                                "/all"
+                                "/allbyid",
+                                "/productPage",
+                                "/all",
+                                "/add"
                         )
                         .permitAll()
                         .requestMatchers("/customer/**").hasAnyAuthority("CUSTOMER")

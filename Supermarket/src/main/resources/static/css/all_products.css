@@ -2,7 +2,7 @@ body {
     font-family: 'Montserrat', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #f5f5f5;
 
 }
 
@@ -39,10 +39,13 @@ body {
     width: 250px;
     height: 1000px;
     margin-right: 20px;
-    background-color: #f4f4f4;
+    background-color: #ffffff;
     padding: 20px;
     border-radius: 5px;
     max-height: 1500px;
+
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
 }
 
 #filters h2 {
@@ -121,9 +124,9 @@ body {
     font-weight: 500;
     font-family: 'Montserrat', sans-serif;
     transition: all .2s;
-    padding: 5px 10px;
-    border-radius: 100px;
-    background: #476543;
+    padding: 2px 15px;
+    border-radius: 80px;
+    background: #6a8f65;
     color: #ffffff;
     border: 1px solid transparent;
     display: flex;
@@ -131,6 +134,7 @@ body {
     font-size: 15px;
 
     margin: auto;
+    margin-top: 10px;
 
 
 }
@@ -143,7 +147,7 @@ body {
 }
 
 .product-title:hover {
-    font-weight: bold;
+    color: #326233;
 }
 
 
@@ -162,7 +166,7 @@ body {
 }
 
 #filters .filter-button:hover {
-    background-color: #2e402c;
+    background-color: #3a5437;
 }
 
 #cart {
@@ -190,7 +194,7 @@ h1 {
 }
 
 .product:hover {
-    transform: translateY(-5px);
+    transform: translateY(-2px);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
@@ -210,6 +214,7 @@ h1 {
 }
 
 .product p {
+
     text-align: center;
     margin: 0;
 }

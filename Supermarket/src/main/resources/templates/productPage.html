@@ -1,11 +1,97 @@
 <!DOCTYPE HTML>
 <html layout:decorate="Layouts/defaultLayout">
     <head>
-        <title>Product name</title>
+        <title id="pageTitle">Product name</title>
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
         <link href="css/cardStyle.css" rel="stylesheet">
+
+
+        <style>
+            .product-details {
+                display: flex;
+                align-items: center;
+                margin-bottom: 20px;
+            }
+
+            .product-image {
+                flex: 0 0 auto;
+                margin-right: 20px;
+                padding: 30px;
+            }
+
+            .product-image img {
+                max-width: 400px;
+                height: auto;
+                border-radius: 5px;
+                box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+            }
+
+            .product-info {
+                flex: 1 1 auto;
+            }
+
+            .product-name {
+                font-size: 18px;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+
+            .product-price {
+                font-size: 16px;
+                margin-bottom: 10px;
+            }
+
+            .add-to-cart {
+                margin-bottom: 10px;
+            }
+
+            .add-to-cart button {
+                background-color: #6a8f65;
+                color: white;
+                padding: 10px 15px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+                transition: background-color 0.3s ease;
+            }
+
+            .add-to-cart button:hover {
+                background-color: #506b4b;
+            }
+
+            .quantity-input {
+                width: 50px;
+                padding: 5px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+
+            .product-description {
+                margin-top: 10px;
+                font-size: 20px;
+                line-height: 1.4;
+                color: #555;
+            }
+
+            .store-selection  {
+                padding: 10px;
+                border-radius: 5px;
+                background-color: #f1f1f1;
+                border: none;
+                box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+            }
+
+            .store-selection label {
+                font-weight: bold;
+                margin-right: 10px;
+            }
+
+        </style>
     </head>
+
+
 <body>
 <div layout:fragment="content">
 
@@ -21,72 +107,136 @@
                     <li class="breadcrumb-item">
                         <a href="#">Category</a>
                     </li>
-                    <li class="breadcrumb-item active">
-                        Product Name
+                    <li class="breadcrumb-item active" id="whatitem">
+                        pp
                     </li>
                 </ol>
             </nav>
         </div>
     </div>
-    <div class="row">
-        <!--Product pic-->
-        <div class="col-md-6 text-center mt-5" >
-            <img alt="Product Picture" src="https://static.ab.gr/medias/sys_master/h87/h52/9495124574238.jpg?buildNumber=8bed5efd7d487a83de3cd2e944d9a9d4ca9c2cd7de3ad32e6aff75df2694a4bd" width="75%">
-        </div>
-        <div class="col-md-6 mt-5">
-            <h3>
-                Product Title
-            </h3>
 
-            <!-- Price & add to cart-->
-            <div class="mt-lg-5">
-                <div class="card">
-                    <h3 class="card__title">Price
-                    </h3>
-                    <p class="card__content">10$ </p>
-                    <div class="card__arrow">
-                        Add to cart
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="15" width="15">
-                            <path fill="#fff" d="M13.4697 17.9697C13.1768 18.2626 13.1768 18.7374 13.4697 19.0303C13.7626 19.3232 14.2374 19.3232 14.5303 19.0303L20.3232 13.2374C21.0066 12.554 21.0066 11.446 20.3232 10.7626L14.5303 4.96967C14.2374 4.67678 13.7626 4.67678 13.4697 4.96967C13.1768 5.26256 13.1768 5.73744 13.4697 6.03033L18.6893 11.25H4C3.58579 11.25 3.25 11.5858 3.25 12C3.25 12.4142 3.58579 12.75 4 12.75H18.6893L13.4697 17.9697Z"></path>
-                        </svg>
-                    </div>
-                </div>
-            </div>
 
-            <!--Description-->
-            <div class="mt-lg-5">
-            <dl>
-                <dt>
-                    Description
-                </dt>
-                <dd>
-                    KARPOS AMYGDALO is an almond drink produced exclusively from Greek almonds. We select the best almonds, in collaboration with Greek producers, and offer you a herbal drink with all the high nutritional value of Greek fruits without added sugar.
 
-                    It is a non-dairy product & does not contain gluten or lactose. Produced exclusively from Greek almonds. It is suitable for vegetarians and those who do not consume dairy products.
 
-                    Enjoy the taste of almonds in a 100% plant-based drink with a high fiber content, rich in calcium, vitamin E and vitamin D! The new proposal of OLYMPOS, with a high nutritional value and a wonderful taste, so that you can have all the taste of almonds in your glass!
-                </dd>
-            </dl>
-            </div>
-            <div id="card-868301" class="mt-5 mb-5">
-                <div>
-                    <div class="card-header">
-                        <div class="card-link" data-toggle="collapse" data-parent="#card-868301" href="#card-element-903159">Availability per store</div>
-                    </div>
-                    <div id="card-element-903159" class="collapse show">
-                        <a class="card-body" href="#">
-                        Supermarket @Neos Kosmos
-                        </a>
-                        <br>
-                        <a class="card-body" href="#">
-                            Supermarket @Alimos
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
+    <div id="product-details-container" class="product-details-container"></div>
+
+
 </div>
+    <script>
+
+        /*
+        const urlParams = new URLSearchParams(window.location.search);
+        const productData = urlParams.get('products');
+        const products = JSON.parse(decodeURIComponent(productData));
+        fetch('/all')
+            .then(response => response.json())
+            .then(data => {
+                // Process the retrieved data
+                displayProducts(data);
+            })
+            .catch(error => console.error(error));
+
+        function displayProducts(products) {
+            // Access the product-container element
+            const container = document.getElementById('product-container');
+
+            // Create HTML markup for each product
+            const productsHTML = products.map(product => `
+      <div>
+        <h3>${product.name}</h3>
+        <p>Description: ${product.description}</p>
+        <p>Category ID: ${product.categoryID}</p>
+        <p>Price: ${product.price}</p>
+      </div>
+    `).join('');
+
+            // Add the HTML markup to the container
+            container.innerHTML = productsHTML;
+        }
+
+         */
+
+
+        // Get the product ID from the query parameter in the URL
+
+
+        function displayProducts(products) {
+
+
+
+            const container = document.getElementById('product-details-container');
+
+            const whatitem = document.getElementById('whatitem');
+            const pageTitle = document.getElementById('pageTitle')
+
+            const whatitemHTML = products.map(product =>  `${product.name}`).join('');
+            whatitem.innerHTML = whatitemHTML;
+
+            pageTitle.innerHTML = whatitemHTML;
+
+            // Create HTML markup for each product
+            const productsHTML = products.map(product => `
+
+          <div class="product-details">
+        <div class="product-image">
+          <img src="${product.imageSource}" alt="${product.name}">
+        </div>
+        <div class="product-info">
+          <h2 class="product-name">${product.name}</h2>
+          <p class="product-price">€${product.price}</p>
+          <div class="add-to-cart">
+            <input type="number" class="quantity-input" value="1" min="1">
+            <button class="add-to-cart-button">Add to Cart</button>
+          </div>
+            <br>
+          <select class="store-selection">
+            <option value="store1">Fresh-Mart Chania</option>
+            <option value="store2">Fresh-Mart Kalymnou</option>
+            <option value="store3">Fresh-Mart Artemidos</option>
+          </select>
+          <br>
+          <p class="product-description">${product.description}</p>
+        </div>
+      </div>
+    `).join('');
+
+
+
+            // Add the HTML markup to the container
+            container.innerHTML = productsHTML;
+
+
+        }
+
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id');
+
+
+        // Fetch the product details from the server
+        fetch('/allbyid?id=' + productId)
+            .then(response => response.json())
+            .then(data => {
+
+                displayProducts(data)
+                // Generate the HTML markup for the product details
+                /*
+                const productHTML = `
+                  <h1>${product.name}</h1>
+                  <p>Description: ${product.description}</p>
+                  <p>Price: ${product.price}</p>
+                `;
+
+                // Update the HTML content of the product-details-container
+                const container = document.getElementById('product-details-container');
+                container.innerHTML = productHTML;*/
+            })
+            .catch(error => console.error(error));
+
+        
+        
+    </script>
 
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>

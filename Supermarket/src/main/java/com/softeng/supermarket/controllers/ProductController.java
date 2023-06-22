@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.swing.text.html.HTML;
 
 
 @Controller
@@ -20,6 +21,17 @@ public class ProductController {
     public String productPage(Model model){
         //model.addAttribute("product",new Product());
         return "productPage";
+    }
+
+
+    @GetMapping(value = "/productPage")
+    public String singleproductPage(@RequestParam(value = "id") String id){
+
+
+
+
+        return "productPage";
+
     }
 
     // For testing
@@ -70,6 +82,14 @@ public class ProductController {
             // Return all products
             return productRepository.findAll();
         }
+    }
+
+    @GetMapping(path = "/allbyid", produces = "application/json")
+    public @ResponseBody Iterable<Product> getAllProductsById(@RequestParam(value = "id") String productId) {
+       // Iterable<Product> products;
+
+        return productRepository.findById(productId);
+        //return "redirect:/productPage";
     }
 
 
