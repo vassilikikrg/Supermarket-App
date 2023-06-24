@@ -5,7 +5,7 @@
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
         <link href="css/cardStyle.css" rel="stylesheet">
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 
         <style>
             .product-details {
@@ -88,6 +88,28 @@
                 margin-right: 10px;
             }
 
+            #locationButton {
+                margin-left: 5px;
+                padding: 10px 20px;
+                background-color: #6a8f65;
+                color: #fff;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+            #locationButton i {
+                margin-right: 5px;
+            }
+
+            #locationButton:hover {
+                background-color: #506b4b;
+            }
+
+            #locationButton:active {
+                background-color: #506b4b;
+            }
+
         </style>
     </head>
 
@@ -114,6 +136,7 @@
             </nav>
         </div>
     </div>
+    <div id="map"></div>
 
 
 
@@ -123,6 +146,7 @@
 
 
 </div>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAk0_KmOAhS1U750lFVSdtztglJjVAhGFg&callback=loadSupermarkets"></script>
     <script>
 
         /*
@@ -163,8 +187,6 @@
 
         function displayProducts(products) {
 
-
-
             const container = document.getElementById('product-details-container');
 
             const whatitem = document.getElementById('whatitem');
@@ -178,35 +200,37 @@
             // Create HTML markup for each product
             const productsHTML = products.map(product => `
 
-          <div class="product-details">
-        <div class="product-image">
-          <img src="${product.imageSource}" alt="${product.name}">
-        </div>
-        <div class="product-info">
-          <h2 class="product-name">${product.name}</h2>
-          <p class="product-price">€${product.price}</p>
-          <div class="add-to-cart">
-            <input type="number" class="quantity-input" value="1" min="1">
-            <button class="add-to-cart-button">Add to Cart</button>
-          </div>
-            <br>
-          <select class="store-selection">
-            <option value="store1">Fresh-Mart Chania</option>
-            <option value="store2">Fresh-Mart Kalymnou</option>
-            <option value="store3">Fresh-Mart Artemidos</option>
-          </select>
-          <br>
-          <p class="product-description">${product.description}</p>
-        </div>
-      </div>
-    `).join('');
-
-
+                  <div class="product-details">
+                <div class="product-image">
+                  <img src="${product.imageSource}" alt="${product.name}">
+                </div>
+                <div class="product-info">
+                  <h2 class="product-name">${product.name}</h2>
+                  <p class="product-price">€${product.price}</p>
+                  <div class="add-to-cart">
+                    <input type="number" class="quantity-input" value="1" min="1">
+                    <button class="add-to-cart-button">
+                        <i class="fas fa-shopping-cart"></i> Add to Cart
+                    </button>
+                  </div>
+                  <div class="add-to-cart">
+                      <select class="store-selection">
+                        <option value="store1">Fresh-Mart Chania</option>
+                        <option value="store2">Fresh-Mart Kalymnou</option>
+                        <option value="store3">Fresh-Mart Artemidos</option>
+                      </select>
+                      <button id="locationButton">
+                        <i class="fas fa-map-marker-alt"></i> Use My Location
+                      </button>
+                      <br>
+                  </div>
+                  <p class="product-description">${product.description}</p>
+                </div>
+              </div>
+            `).join('');
 
             // Add the HTML markup to the container
             container.innerHTML = productsHTML;
-
-
         }
 
 
@@ -217,25 +241,25 @@
         // Fetch the product details from the server
         fetch('/allbyid?id=' + productId)
             .then(response => response.json())
-            .then(data => {
-
-                displayProducts(data)
-                // Generate the HTML markup for the product details
-                /*
-                const productHTML = `
-                  <h1>${product.name}</h1>
-                  <p>Description: ${product.description}</p>
-                  <p>Price: ${product.price}</p>
-                `;
-
-                // Update the HTML content of the product-details-container
-                const container = document.getElementById('product-details-container');
-                container.innerHTML = productHTML;*/
-            })
+            .then(data => { displayProducts(data)})
             .catch(error => console.error(error));
 
-        
-        
+        // Fetch list of supermarket data
+        function loadSupermarkets(){
+            map = new google.maps.Map(document.getElementById("map"), {}); // dummy map
+            map.data.loadGeoJson('../js/stores.json', {idPropertyName: 'storeid'});
+            const stores = [];
+            const destinations = [];
+            // Build parallel arrays for the store IDs and destinations
+            map.data.forEach((store) => {
+                const storeNum = store.getProperty('storeid');
+                const storeLoc = store.getGeometry().get();
+                stores.push(storeNum);
+                destinations.push(storeLoc);
+            });
+            console.log(stores)
+        }
+
     </script>
 
 <script src="js/jquery.min.js"></script>
