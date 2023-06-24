@@ -146,7 +146,6 @@
 
 
 </div>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAk0_KmOAhS1U750lFVSdtztglJjVAhGFg&callback=loadSupermarkets"></script>
     <script>
 
         /*
@@ -245,20 +244,22 @@
             .catch(error => console.error(error));
 
         // Fetch list of supermarket data
-        function loadSupermarkets(){
-            map = new google.maps.Map(document.getElementById("map"), {}); // dummy map
-            map.data.loadGeoJson('../js/stores.json', {idPropertyName: 'storeid'});
-            const stores = [];
-            const destinations = [];
-            // Build parallel arrays for the store IDs and destinations
-            map.data.forEach((store) => {
-                const storeNum = store.getProperty('storeid');
-                const storeLoc = store.getGeometry().get();
-                stores.push(storeNum);
-                destinations.push(storeLoc);
-            });
-            console.log(stores)
-        }
+        fetch('../static/js/stores.json')
+            .then(response => response.json())
+            .then(data => {
+                const stores = data;
+                for (const feature of stores.features) {
+                    // Access the storeid and coordinates fields
+                    const storeId = feature.properties.storeid;
+                    const coordinates = feature.geometry.coordinates;
+
+                    // Do something with the values
+                    console.log("Store ID:", storeId);
+                    console.log("Coordinates:", coordinates);
+                }
+                // Now you can use the 'stores' object as needed
+            })
+            .catch(error => console.error('Error loading stores data:', error));
 
     </script>
 
