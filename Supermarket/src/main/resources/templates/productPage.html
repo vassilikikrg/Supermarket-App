@@ -153,9 +153,9 @@
             .catch(error => console.error(error));
 
         // Fetch list of supermarket data
-        fetch('/getStores')
+        fetch('/stock?product_id='+productId)
             .then(response => response.json())
-            .then(data => { console.log(data) })
+            .then(data => { addPurchaseOptions(data) })
             .catch(error => console.error('Error loading stores data:', error));
 
         // Get the product ID from the query parameter in the URL
@@ -189,10 +189,8 @@
                     </button>
                   </div>
                   <div class="add-to-cart">
-                      <select class="store-selection">
-                        <option value="store1">Fresh-Mart Chania</option>
-                        <option value="store2">Fresh-Mart Kalymnou</option>
-                        <option value="store3">Fresh-Mart Artemidos</option>
+                      <select class="store-selection" id="options">
+                            <!-- Supermarkets from db function addPurchaseOptions -->
                       </select>
                       <button id="locationButton">
                         <i class="fas fa-map-marker-alt"></i> Use My Location
@@ -206,6 +204,16 @@
 
             // Add the HTML markup to the container
             container.innerHTML = productsHTML;
+        }
+
+        // Add supermarkets from db data
+        function addPurchaseOptions(supermarkets) {
+            console.log(supermarkets)
+            const supermarketOptions = supermarkets.map(stock =>
+                `<option value="${stock.supermarket.id}">${stock.supermarket.name} Quantity:${stock.quantity}</option>`
+            ).join('');
+            let opt = document.getElementById("options");
+            opt.innerHTML = supermarketOptions;
         }
 
     </script>

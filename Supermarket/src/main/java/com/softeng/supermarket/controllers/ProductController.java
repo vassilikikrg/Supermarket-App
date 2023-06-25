@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -90,15 +92,18 @@ public class ProductController {
     @Autowired
     StockRepository stockRepository;
     @GetMapping(path="/stock", produces = "application/json")
-    public @ResponseBody Stock getStock(@RequestParam(value = "supermarket_id") Long supermarketId, @RequestParam(value = "product_id" ) Long productId){
-        SupermarketProductKey key = new SupermarketProductKey(supermarketId, productId);
-        Optional<Stock> optionalProduct = stockRepository.findById(key);
-        if (optionalProduct.isPresent()) {
-           return optionalProduct.get();
-            // Handle the retrieved SupermarketProduct entity
-        } else {
-            return null;
-            // SupermarketProduct not found
+    public @ResponseBody Iterable<Stock> getStock(@RequestParam(value = "supermarket_id", required = false) Long supermarketId, @RequestParam(value = "product_id" ) Long productId){
+        // Search stock for specific product in all supermarkets
+        if(supermarketId==null){
+            List<Stock> stocks = stockRepository.findAllById_ProductId(productId);
+            return stocks;
+        }
+        else {
+            // Search stock in supermarket-product pair
+            SupermarketProductKey key = new SupermarketProductKey(supermarketId, productId);
+            Optional<Stock> s = stockRepository.findById(key);
+            Iterable<Stock> stocks = Collections.singletonList(s.orElse(null));
+            return stocks;
         }
     }
 
