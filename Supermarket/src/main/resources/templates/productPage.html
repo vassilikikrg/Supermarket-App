@@ -6,6 +6,7 @@
         <link href="css/style.css" rel="stylesheet">
         <link href="css/cardStyle.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+        <link href="/css/map.css" rel="stylesheet">
 
         <style>
             .product-details {
@@ -110,6 +111,60 @@
                 background-color: #506b4b;
             }
 
+            .modal {
+                margin: auto;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                gap: 0.4rem;
+                width: 450px;
+                padding: 1.3rem;
+                min-height: 250px;
+                position: absolute;
+                top: 20%;
+                background-color: white;
+                border: 1px solid #ddd;
+                border-radius: 15px;
+                z-index: 2;
+            }
+
+            .modal .flex {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .modal input {
+                padding: 0.7rem 1rem;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                font-size: 0.9em;
+            }
+
+            .btn-close {
+                transform: translate(10px, -20px);
+                padding: 0.5rem 0.7rem;
+                background: #eee;
+                border-radius: 50%;
+            }
+
+            .overlay {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                backdrop-filter: blur(3px);
+                z-index: 1;
+            }
+
+            .hidden {
+                display: none;
+            }
+
         </style>
     </head>
 
@@ -138,9 +193,20 @@
     </div>
 
     <div id="product-details-container" class="product-details-container"></div>
-
+    <section class="modal hidden">
+        <div class="flex">
+            <button class="btn-close">⨉</button>
+        </div>
+        <div>
+            <h3>Find supermarkets near you</h3>
+            <div id="options">Put your options here</div>
+        </div>
+        <button class="btn">Okay</button>
+    </section>
+    <div class="overlay hidden"></div>
 
 </div>
+
     <script>
 
         const urlParams = new URLSearchParams(window.location.search);
@@ -150,6 +216,7 @@
         fetch('/allbyid?id=' + productId)
             .then(response => response.json())
             .then(data => { displayProducts(data)})
+            .then(()=>addPopup())
             .catch(error => console.error(error));
 
         // Fetch list of supermarket data
@@ -189,9 +256,12 @@
                     </button>
                   </div>
                   <div class="add-to-cart">
-                      <select class="store-selection" id="options">
+                      <button class="add-to-cart-button btn btn-open">
+                      <i class="fas fa-store"></i> View Supermarket Availability
+                      </button>
+                      <!-- <select class="store-selection" id="options"> -->
                             <!-- Supermarkets from db function addPurchaseOptions -->
-                      </select>
+                      <!-- </select> -->
                       <button id="locationButton">
                         <i class="fas fa-map-marker-alt"></i> Use My Location
                       </button>
@@ -208,19 +278,49 @@
 
         // Add supermarkets from db data
         function addPurchaseOptions(supermarkets) {
-            console.log(supermarkets)
+            console.log(supermarkets);
             const supermarketOptions = supermarkets.map(stock =>
-                `<option value="${stock.supermarket.id}">${stock.supermarket.name} Quantity:${stock.quantity}</option>`
+                `<div class="subcard">
+                       <p style="margin:10px" class="place">${stock.supermarket.id} ${stock.supermarket.name}</p>
+                       <p style="margin:10px" class="distanceText">Quantity: ${stock.quantity}</p>
+                       <div class="form-check">
+                          <input class="form-check-input" type="radio" name="radio" id="radio">
+                          <label class="form-check-label" for="radio" value="${stock.supermarket.id}">
+                            Select ${stock.supermarket.id}
+                          </label>
+                       </div>
+                </div>`
+                // `<option value="${stock.supermarket.id}">${stock.supermarket.name} Quantity:${stock.quantity}</option>`
             ).join('');
             let opt = document.getElementById("options");
             opt.innerHTML = supermarketOptions;
         }
 
+        function addPopup(){
+            // Popup
+            const modal = document.querySelector(".modal");
+            const overlay = document.querySelector(".overlay");
+            const openModalBtn = document.querySelector(".btn-open");
+            const closeModalBtn = document.querySelector(".btn-close");
+
+            const openModal = function () {
+                modal.classList.remove("hidden");
+                overlay.classList.remove("hidden");
+            };
+            openModalBtn.addEventListener("click", openModal);
+
+            const closeModal = function () {
+                modal.classList.add("hidden");
+                overlay.classList.add("hidden");
+            };
+            closeModalBtn.addEventListener("click", closeModal);
+        }
+
     </script>
 
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/scripts.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
 </div>
 </body>
 </html>

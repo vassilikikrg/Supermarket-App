@@ -14,3 +14,142 @@
     border-color: #007bff;
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
+
+#map {
+    height: 60%;
+    width: 50%;
+    margin: auto;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Styling for Autocomplete search bar */
+#pac-card {
+    background-color: #fff;
+    border-radius: 2px 0 0 2px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+    font-family: Roboto;
+    margin: 10px 10px 0 0;
+    -moz-box-sizing: border-box;
+    outline: none;
+}
+
+#pac-container {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    margin-right: 12px;
+}
+
+#pac-input {
+    background-color: #fff;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    margin-left: 12px;
+    padding: 0 11px 0 13px;
+    text-overflow: ellipsis;
+    width: 400px;
+}
+
+#pac-input:focus {
+    border-color: #4d90fe;
+}
+
+#title {
+    color: #fff;
+    background-color: #acbcc9;
+    font-size: 18px;
+    font-weight: 400;
+    padding: 6px 12px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Card with stores */
+.card {
+    width: 25%;
+    float: left;
+    max-height: 80%;
+    min-width: 378px; margin-left: 2%;
+    border-radius: 6px !important;
+    box-shadow: 15px 15px 30px #bebebe,
+    -15px -15px 30px #ffffff;
+}
+
+/* Track */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* sub-cards */
+.cards {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.cards .red {
+    background-color: #f43f5e;
+}
+
+.cards .blue {
+    background-color: #0000FF;
+}
+
+.cards .subcard {
+    width: 100% !important;
+    display: flex;
+    align-items: flex-start;
+    justify-content: left;
+    flex-direction: column;
+    text-align: left;
+    height: 100px;
+    width: 250px;
+    margin-left: 20px;
+    border-radius: 10px;
+    /*color: white;*/
+    cursor: pointer;
+    transition: 400ms;
+}
+
+.cards .subcard p.place {
+    font-size: 1em;
+    font-weight: 700;
+}
+
+.cards .subcard p.distanceText {
+    font-size: .7em;
+}
+
+.cards .subcard:hover .scr{
+    transform: scale(1.1, 1.1);
+}
+
+.cards:hover > .subcard:not(:hover) {
+    filter: blur(5px);
+    transform: scale(0.9, 0.9);
+}
