@@ -136,11 +136,6 @@
             </nav>
         </div>
     </div>
-    <div id="map"></div>
-
-
-
-
 
     <div id="product-details-container" class="product-details-container"></div>
 
@@ -148,41 +143,22 @@
 </div>
     <script>
 
-        /*
         const urlParams = new URLSearchParams(window.location.search);
-        const productData = urlParams.get('products');
-        const products = JSON.parse(decodeURIComponent(productData));
-        fetch('/all')
+        const productId = urlParams.get('id');
+
+        // Fetch the product details from the server
+        fetch('/allbyid?id=' + productId)
             .then(response => response.json())
-            .then(data => {
-                // Process the retrieved data
-                displayProducts(data);
-            })
+            .then(data => { displayProducts(data)})
             .catch(error => console.error(error));
 
-        function displayProducts(products) {
-            // Access the product-container element
-            const container = document.getElementById('product-container');
-
-            // Create HTML markup for each product
-            const productsHTML = products.map(product => `
-      <div>
-        <h3>${product.name}</h3>
-        <p>Description: ${product.description}</p>
-        <p>Category ID: ${product.categoryID}</p>
-        <p>Price: ${product.price}</p>
-      </div>
-    `).join('');
-
-            // Add the HTML markup to the container
-            container.innerHTML = productsHTML;
-        }
-
-         */
-
+        // Fetch list of supermarket data
+        fetch('/getStores')
+            .then(response => response.json())
+            .then(data => { console.log(data) })
+            .catch(error => console.error('Error loading stores data:', error));
 
         // Get the product ID from the query parameter in the URL
-
 
         function displayProducts(products) {
 
@@ -232,35 +208,6 @@
             container.innerHTML = productsHTML;
         }
 
-
-        const urlParams = new URLSearchParams(window.location.search);
-        const productId = urlParams.get('id');
-
-
-        // Fetch the product details from the server
-        fetch('/allbyid?id=' + productId)
-            .then(response => response.json())
-            .then(data => { displayProducts(data)})
-            .catch(error => console.error(error));
-
-        // Fetch list of supermarket data
-        fetch('../static/js/stores.json')
-            .then(response => response.json())
-            .then(data => {
-                const stores = data;
-                for (const feature of stores.features) {
-                    // Access the storeid and coordinates fields
-                    const storeId = feature.properties.storeid;
-                    const coordinates = feature.geometry.coordinates;
-
-                    // Do something with the values
-                    console.log("Store ID:", storeId);
-                    console.log("Coordinates:", coordinates);
-                }
-                // Now you can use the 'stores' object as needed
-            })
-            .catch(error => console.error('Error loading stores data:', error));
-
     </script>
 
 <script src="js/jquery.min.js"></script>
@@ -270,3 +217,37 @@
 </body>
 </html>
 
+
+<script>
+    /*
+const urlParams = new URLSearchParams(window.location.search);
+const productData = urlParams.get('products');
+const products = JSON.parse(decodeURIComponent(productData));
+fetch('/all')
+    .then(response => response.json())
+    .then(data => {
+        // Process the retrieved data
+        displayProducts(data);
+    })
+    .catch(error => console.error(error));
+
+function displayProducts(products) {
+    // Access the product-container element
+    const container = document.getElementById('product-container');
+
+    // Create HTML markup for each product
+    const productsHTML = products.map(product => `
+<div>
+<h3>${product.name}</h3>
+<p>Description: ${product.description}</p>
+<p>Category ID: ${product.categoryID}</p>
+<p>Price: ${product.price}</p>
+</div>
+`).join('');
+
+    // Add the HTML markup to the container
+    container.innerHTML = productsHTML;
+}
+
+ */
+</script>

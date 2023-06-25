@@ -1,8 +1,11 @@
 package com.softeng.supermarket.controllers;
 
 import ch.qos.logback.core.model.Model;
+import com.softeng.supermarket.foreign_keys.SupermarketProductKey;
 import com.softeng.supermarket.models.Product;
+import com.softeng.supermarket.models.Stock;
 import com.softeng.supermarket.repositories.ProductRepository;
+import com.softeng.supermarket.repositories.StockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,13 +13,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.swing.text.html.HTML;
+import java.util.Optional;
 
 
 @Controller
 public class ProductController {
     @Autowired
     ProductRepository productRepository;
+
     @GetMapping("/product")
     public String productPage(Model model){
         //model.addAttribute("product",new Product());
@@ -26,9 +30,6 @@ public class ProductController {
 
     @GetMapping(value = "/productPage")
     public String singleproductPage(@RequestParam(value = "id") String id){
-
-
-
 
         return "productPage";
 
@@ -50,13 +51,6 @@ public class ProductController {
         productRepository.save(p);
         return "Saved";
     }
-
-/*
-    @GetMapping(path="/all",  produces = "application/json")
-    public @ResponseBody Iterable<Product> getAllProducts() {
-        // This returns a JSON or XML with the users
-        return productRepository.findAll();
-    }*/
 
 
     @GetMapping(path = "/all", produces = "application/json")
@@ -92,5 +86,20 @@ public class ProductController {
         //return "redirect:/productPage";
     }
 
+    // http://localhost:8080/stock?supermarket_id=1&product_id=1
+    @Autowired
+    StockRepository stockRepository;
+    @GetMapping(path="/stock", produces = "application/json")
+    public @ResponseBody Stock getStock(@RequestParam(value = "supermarket_id") Long supermarketId, @RequestParam(value = "product_id" ) Long productId){
+        SupermarketProductKey key = new SupermarketProductKey(supermarketId, productId);
+        Optional<Stock> optionalProduct = stockRepository.findById(key);
+        if (optionalProduct.isPresent()) {
+           return optionalProduct.get();
+            // Handle the retrieved SupermarketProduct entity
+        } else {
+            return null;
+            // SupermarketProduct not found
+        }
+    }
 
 }

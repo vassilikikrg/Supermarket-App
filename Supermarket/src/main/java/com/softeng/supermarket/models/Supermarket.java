@@ -1,57 +1,65 @@
 package com.softeng.supermarket.models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Supermarket {
-    private String Id;
-    private String Name;
-    private String Address;
-    private String Latitude;
-    private String Longitude;
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private long id;
+    private String name;
+    private String address;
+    private String latitude;
+    private String longitude;
 
-    public Supermarket(String id, String name, String address, String latitude, String longitude) {
-        Id = id;
-        Name = name;
-        Address = address;
-        Latitude = latitude;
-        Longitude = longitude;
+    public Supermarket(){}
+
+    public Supermarket(long id, String name, String address, String latitude, String longitude) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
-    public String getId() {
-        return Id;
+    public long getId() {
+        return id;
     }
 
-    public void setId(String id) {
-        Id = id;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
-    public String getAddress() {
-        return Address;
-    }
+    public String getAddress() { return address; }
 
     public void setAddress(String address) {
-        Address = address;
+        this.address = address;
     }
 
     public String getLatitude() {
-        return Latitude;
+        return latitude;
     }
 
     public void setLatitude(String latitude) {
-        Latitude = latitude;
+        this.latitude = latitude;
     }
 
     public String getLongitude() {
-        return Longitude;
+        return longitude;
     }
 
     public void setLongitude(String longitude) {
-        Longitude = longitude;
+        this.latitude = longitude;
     }
 }
