@@ -13,10 +13,6 @@ public class Stock {
     @MapsId("supermarketId")
     private Supermarket supermarket;
 
-    @ManyToOne
-    @MapsId("productId")
-    private Product product;
-
     private int quantity;
 
     public SupermarketProductKey getId() {
@@ -35,13 +31,6 @@ public class Stock {
         this.supermarket = supermarket;
     }
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
 
     public int getQuantity() {
         return quantity;
