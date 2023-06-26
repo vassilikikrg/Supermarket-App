@@ -10,6 +10,9 @@ import com.softeng.supermarket.services.CustomerService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/auth")
 public class AuthenticationController {
     @Autowired
     private CustomerService customerService;
@@ -26,18 +28,22 @@ public class AuthenticationController {
 
     //For customers
     //Login
-    @GetMapping("/customer/login")
-    public String displayLoginForm(Model model){
-        return "login_form_customer";
+    @GetMapping("/login")
+    public String displayLoginForm(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "login_form_customer";
+        }
+        return "redirect:/home";
     }
 
     //Register
-    @GetMapping("/customer/register")
+    @GetMapping("/register")
     public String displayRegisterForm(Model model){
         model.addAttribute("customerModel", new Customer());
         return "register_form_customer";
     }
-    @PostMapping("/customer/processRegister")
+    @PostMapping("/processRegister")
     public String processRegister(@Valid @ModelAttribute("customerModel") Customer customerModel, BindingResult bindingResult, RedirectAttributes redirectAttrs){
         Customer customerExists=customerService.findCustomerByUsername(customerModel.getUsername());
         if(customerExists!=null){
@@ -71,10 +77,4 @@ public class AuthenticationController {
         }
     }
 
-    //Logout
-    @GetMapping("/logout")
-    public String logout(HttpSession session){
-        session.removeAttribute("username");
-        return "redirect:/home";
-    }
 }

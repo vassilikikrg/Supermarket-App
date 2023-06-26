@@ -13,16 +13,6 @@ import java.util.Optional;
 
 @Controller
 public class WebController {
-    @GetMapping("/login")
-    public String displayLoginForm(Model model){
-        return "login_form_customer";
-    }
-
-   @GetMapping("/customer")
-   public String loginPage(){
-        return "hellopage";
-    }
-
     @GetMapping("/admin")
     public String adminPage(){
         return "hellopage";

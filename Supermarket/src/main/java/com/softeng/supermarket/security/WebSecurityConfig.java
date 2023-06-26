@@ -62,6 +62,8 @@ public class WebSecurityConfig {
                         .requestMatchers(
                                 "/auth/**",
                                 "/home",
+                                "/register",
+                                "/processRegister",
                                 "/map",
                                 "/products",
                                 "/all/prods",
