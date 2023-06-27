@@ -1,29 +1,39 @@
 package com.softeng.supermarket.models;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 public class Cart {
-    private String Id;
-    private List<Product> products;
-
-    public Cart(String id, List<Product> products) {
-        Id = id;
-        this.products = products;
+    private List<CartItem> cartItems;
+    public Cart(List<CartItem> cartItems) {
+        this.cartItems = cartItems;
+    }
+    public List<CartItem> getCartItems() {
+        return cartItems;
     }
 
-    public String getId() {
-        return Id;
+    public void setCartItems(List<CartItem> cartItems) {
+        this.cartItems = cartItems;
     }
-
-    public void setId(String id) {
-        Id = id;
+    //custom functions
+    public void addItem(CartItem cartItem){
+        this.cartItems.add(cartItem);
     }
-
-    public List<Product> getProducts() {
-        return products;
+    public boolean updateQuantity(long productId,Integer newQuantity){
+        if(this.containsProduct(productId)){
+            CartItem cartItem= this.cartItems.stream()
+                    .filter(item->item.getProduct().getId()==productId)
+                    .findFirst()
+                    .get();//access cart item that contains the product with the specific product id
+            cartItem.setQuantity(newQuantity); //update the Quantity
+            return true;
+        }
+        return false;
     }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public boolean containsProduct(long productId) { //checks if cartItems list contains a product with a certain product id
+        return this.cartItems
+                .stream()
+                .anyMatch(item -> item.getProduct().getId()==productId);
     }
 }

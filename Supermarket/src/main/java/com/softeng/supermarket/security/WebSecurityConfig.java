@@ -65,6 +65,7 @@ public class WebSecurityConfig {
                                 "/register",
                                 "/processRegister",
                                 "/map",
+                                "/cart/**",
                                 "/products",
                                 "/all/prods",
                                 "/allbyid",
