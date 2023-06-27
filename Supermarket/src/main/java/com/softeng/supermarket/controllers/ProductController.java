@@ -6,6 +6,7 @@ import com.softeng.supermarket.models.Product;
 import com.softeng.supermarket.models.Stock;
 import com.softeng.supermarket.repositories.ProductRepository;
 import com.softeng.supermarket.repositories.StockRepository;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -105,6 +106,13 @@ public class ProductController {
             Iterable<Stock> stocks = Collections.singletonList(s.orElse(null));
             return stocks;
         }
+    }
+
+    @GetMapping(path = "/selectStore", produces = "application/json")
+    public @ResponseBody String setSelectedStore(HttpSession session) {
+        session.setAttribute("store", "test-mart");
+        return "attribute set";
+        //return "redirect:/productPage";
     }
 
 }

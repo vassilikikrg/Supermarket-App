@@ -141,13 +141,6 @@
                 font-size: 0.9em;
             }
 
-            .btn-close {
-                transform: translate(10px, -20px);
-                padding: 0.5rem 0.7rem;
-                background: #eee;
-                border-radius: 50%;
-            }
-
             .overlay {
                 position: fixed;
                 top: 0;
@@ -163,6 +156,37 @@
 
             .hidden {
                 display: none;
+            }
+
+            .close {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                font-size: 1.5rem;
+                font-weight: bold;
+                line-height: 1;
+                color: #000;
+                text-shadow: 0 1px 0 #fff;
+                opacity: 0.5;
+            }
+
+            .close:hover {
+                color: #000;
+                text-decoration: none;
+                cursor: pointer;
+                opacity: 0.75;
+            }
+
+            .close:focus,
+            .close:active {
+                color: #000;
+                outline: none;
+                opacity: 1;
+            }
+
+            .ok{
+                cursor:pointer;
+                background-color: #eceeef;
             }
 
         </style>
@@ -195,20 +219,32 @@
     <div id="product-details-container" class="product-details-container"></div>
     <section class="modal hidden">
         <div class="flex">
-            <button class="btn-close">⨉</button>
+            <button class="close">&times;</button>
         </div>
         <div>
             <h3>Find supermarkets near you</h3>
             <div id="options">Put your options here</div>
         </div>
-        <button class="btn">Okay</button>
+        <button class="btn ok">Okay</button>
     </section>
-    <div class="overlay hidden"></div>
+
+<!--    <section class="modal order hidden">-->
+<!--        <div class="flex">-->
+<!--            <button class="close">&times;</button>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--            <h3>Select a supermarket for your order</h3>-->
+<!--            <div id="pj">Put your options here</div>-->
+<!--        </div>-->
+<!--        <button class="btn ok">Okay</button>-->
+<!--    </section>-->
+<!--    <div class="overlay hidden"></div>-->
 
 </div>
 
     <script>
 
+        // Get the product ID from the query parameter in the URL
         const urlParams = new URLSearchParams(window.location.search);
         const productId = urlParams.get('id');
 
@@ -225,7 +261,10 @@
             .then(data => { addPurchaseOptions(data) })
             .catch(error => console.error('Error loading stores data:', error));
 
-        // Get the product ID from the query parameter in the URL
+        // Get list of all supermarkets
+        // fetch('/selectStore')
+        //     .then(data=>console.log(data))
+        //     .catch(error => console.error('Error selecting store:', error));
 
         function displayProducts(products) {
 
@@ -280,15 +319,9 @@
         function addPurchaseOptions(supermarkets) {
             console.log(supermarkets);
             const supermarketOptions = supermarkets.map(stock =>
-                `<div class="subcard">
-                       <p style="margin:10px" class="place">${stock.supermarket.id} ${stock.supermarket.name}</p>
-                       <p style="margin:10px" class="distanceText">Quantity: ${stock.quantity}</p>
-                       <div class="form-check">
-                          <input class="form-check-input" type="radio" name="radio" id="radio">
-                          <label class="form-check-label" for="radio" value="${stock.supermarket.id}">
-                            Select ${stock.supermarket.id}
-                          </label>
-                       </div>
+                `<hr><div class="subcard">
+                       <p class="place">${stock.supermarket.name}</p>
+                       <p class="distanceText" style="font-style: italic">Available quantity: ${stock.quantity}</p>
                 </div>`
                 // `<option value="${stock.supermarket.id}">${stock.supermarket.name} Quantity:${stock.quantity}</option>`
             ).join('');
@@ -301,7 +334,8 @@
             const modal = document.querySelector(".modal");
             const overlay = document.querySelector(".overlay");
             const openModalBtn = document.querySelector(".btn-open");
-            const closeModalBtn = document.querySelector(".btn-close");
+            const closeModalBtn = document.querySelector(".close");
+            const okModalBtn = document.querySelector(".ok");
 
             const openModal = function () {
                 modal.classList.remove("hidden");
@@ -314,6 +348,7 @@
                 overlay.classList.add("hidden");
             };
             closeModalBtn.addEventListener("click", closeModal);
+            okModalBtn.addEventListener("click", closeModal);
         }
 
     </script>
