@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html layout:decorate="Layouts/defaultLayout">
+<html layout:decorate="Layouts/defaultLayout" xmlns:layout="http://www.w3.org/1999/xhtml">
     <head>
         <title id="pageTitle">Product name</title>
         <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -291,8 +291,8 @@
                   <h2 class="product-name">${product.name}</h2>
                   <p class="product-price">€${product.price}</p>
                   <div class="add-to-cart">
-                    <input type="number" class="quantity-input" value="1" min="1">
-                    <button class="add-to-cart-button">
+                    <input type="number" class="quantity-input" value="1" min="1" id="quantity-input">
+                    <button class="add-to-cart-button" onclick="addToCart(${product.id})">
                         <i class="fas fa-shopping-cart"></i> Add to Cart
                     </button>
                   </div>
@@ -352,7 +352,19 @@
             closeModalBtn.addEventListener("click", closeModal);
             okModalBtn.addEventListener("click", closeModal);
         }
-
+        function addToCart(){
+            let quantity = document.getElementById("quantity-input").value;
+            $.ajax({
+                type: 'POST',
+                url: '/cart/add?id='+productId+'&quantity='+quantity,
+                error : function() {
+                    console.log("error");
+                },
+                success: function () {
+                    location.reload()
+                }
+            });
+        }
     </script>
 
     <script src="js/jquery.min.js"></script>
