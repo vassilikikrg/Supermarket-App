@@ -228,17 +228,19 @@
         <button class="btn ok">Okay</button>
     </section>
 
-<!--    <section class="modal order hidden">-->
-<!--        <div class="flex">-->
-<!--            <button class="close">&times;</button>-->
-<!--        </div>-->
-<!--        <div>-->
-<!--            <h3>Select a supermarket for your order</h3>-->
-<!--            <div id="pj">Put your options here</div>-->
-<!--        </div>-->
-<!--        <button class="btn ok">Okay</button>-->
-<!--    </section>-->
-<!--    <div class="overlay hidden"></div>-->
+    <section class="modal order" th:if='${session.get("store")==null}'>
+        <div class="flex">
+            <button class="close">&times;</button>
+        </div>
+        <div>
+            <h3>Select a supermarket for your order</h3>
+            <div id="pj">Put your options here</div>
+        </div>
+        <form action="/setStore?id=1&supermarket_id=1" method="post">
+            <button class="btn" type="submit">Set Session Variable</button>
+        </form>
+    </section>
+    <div class="overlay hidden"></div>
 
 </div>
 

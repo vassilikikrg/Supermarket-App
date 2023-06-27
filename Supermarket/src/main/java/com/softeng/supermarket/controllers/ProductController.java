@@ -108,11 +108,12 @@ public class ProductController {
         }
     }
 
-    @GetMapping(path = "/selectStore", produces = "application/json")
-    public @ResponseBody String setSelectedStore(HttpSession session) {
-        session.setAttribute("store", "test-mart");
-        return "attribute set";
-        //return "redirect:/productPage";
+    @PostMapping(path = "/setStore", produces = "application/json")
+    public String setSelectedStore(@RequestParam(value = "id", required = true) Long productId, @RequestParam(value = "supermarket_id", required = true) Long supermarketId, HttpSession session) {
+        if(session.getAttribute("store")==null) {
+            session.setAttribute("store", supermarketId);
+        }
+        return "redirect:/productPage?id=" + productId; // Redirect to a success page
     }
 
 }
