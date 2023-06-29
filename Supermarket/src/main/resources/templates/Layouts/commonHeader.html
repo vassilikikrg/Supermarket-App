@@ -1,8 +1,9 @@
 <link type="text/css" href="/css/bootstrap.min.css" xmlns:sec="http://www.w3.org/1999/xhtml">
-
 <div th:fragment="header">
   <!-- Nav Bar -->
   <div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <div>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light" style="margin-top: 0; padding-top:16px">
           <a class="navbar-brand" style="height:43px" href="/home">Fresh-Mart</a>
@@ -20,8 +21,8 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 
-                  <a class="dropdown-item" href="#">Fruits</a>
-                  <a class="dropdown-item" href="#">Vegetables</a>
+                  <a class="dropdown-item" href="/products?type=fruit">Fruits</a>
+                  <a class="dropdown-item" href="/products?type=vegetable">Vegetables</a>
                   <a class="dropdown-item"href="/products?type=dairy">Dairy</a>
                 </div>
               </li>
