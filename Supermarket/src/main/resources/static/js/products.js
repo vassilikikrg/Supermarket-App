@@ -1,28 +1,12 @@
 // Get the product ID from the query parameter in the URL
 const urlParams = new URLSearchParams(window.location.search);
 const categoryId = urlParams.get('type');
-// Call the fetchProducts function to retrieve and display the products
-fetchProducts();
 const productType = document.getElementById("productType");
 if (categoryId!==null) {
     productType.value = categoryId;
 }
-// Fetch products from the database using an AJAX request
-function fetchProducts() {
-    fetch("/all")
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            displayProducts(data);
-        })
-        .then(function () {
-            applyTypeFilter();
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-}
+// Fetch products with or without filter
+applyTypeFilter();
 
 // Function to display products on the page
 function displayProducts(products) {
