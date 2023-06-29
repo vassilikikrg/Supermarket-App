@@ -1,12 +1,147 @@
-fetch('/all')
-    .then(response => response.json())
-    .then(data => {
-        // Process the retrieved data
-        displayProducts(data);
-    })
-    .catch(error => console.error(error));
+// Get the product ID from the query parameter in the URL
+const urlParams = new URLSearchParams(window.location.search);
+const categoryId = urlParams.get('type');
+// Call the fetchProducts function to retrieve and display the products
+fetchProducts();
+const productType = document.getElementById("productType");
+if (categoryId!==null) {
+    productType.value = categoryId;
+}
+// Fetch products from the database using an AJAX request
+function fetchProducts() {
+    fetch("/all")
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            displayProducts(data);
+        })
+        .then(function () {
+            applyTypeFilter();
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
+
+// Function to display products on the page
+function displayProducts(products) {
+
+    // Access the product-container element
+    //const productList = document.getElementById('product-list');
+    const container = document.getElementById('product-list');
+
+    // Create HTML markup for each product
+    const productsHTML = products.map(product => `
+        <div class="product">
+            <img class="product-image" src="${product.imageSource}" alt="${product.name}">
+          <h3 class="product-title" onclick="redirectToProductDetails(${product.id})">${product.name}</h3>
+          <br>
+          <p class="product-price">${product.price} €</p> 
+        </div>
+    `).join('');
+    container.innerHTML=productsHTML
+
+    // Update price range value display
+    var priceRange = document.getElementById("priceRange");
+    var priceValue = document.getElementById("priceValue");
+    priceValue.textContent = "Price Range: €" + priceRange.value;
+
+    priceRange.addEventListener("input", function () {
+        priceValue.textContent = "Price Range: €" + priceRange.value;
+    });
+}
+
+function redirectToProductDetails(productId) {
+    // Redirect to the product details page
+    window.location.href = '/productPage?id=' + productId;
+}
+
+// Function to filter products based on price range
+function applyPriceFilter() {
+
+    var priceRange = document.getElementById("priceRange").value;
+
+    fetch('/all/prods?price=' + encodeURIComponent(priceRange))
+        .then(response => response.json())
+        .then(data => {
+            // Process the retrieved data
+            displayProducts(data);
+        })
+        .catch(error => console.error(error));
+}
+
+// Function to filter products based on type
+function applyTypeFilter() {
+
+    if (productType.value === "All") {
+        fetch('/all')
+            .then(response => response.json())
+            .then(data => {
+                // Process the retrieved data
+                displayProducts(data);
+            })
+            .catch(error => console.error(error));
+
+    } else {
+        fetch('/all?type=' + encodeURIComponent(productType.value))
+            .then(response => response.json())
+            .then(data => {
+                // Process the retrieved data
+                displayProducts(data);
+            })
+            .catch(error => console.error(error));
+    }
+}
+
+// fetch('/all')
+//     .then(response => response.json())
+//     .then(data => {
+//         // Process the retrieved data
+//         displayProducts(data);
+//     })
+//     .catch(error => console.error(error));
+
+/*
+var productCards = document.getElementsByClassName("product");
+
+Array.from(productCards).forEach(function(card) {
+    var titleElement = card.querySelector(".product-title");
+    var productId = document.getElementById("product-id")
+
+    //var productId = parseInt(card.id.replace("product-", ""));
 
 
+
+    titleElement.addEventListener("click", function() {
+        //window.location.href = "/product?id=" + productId;
+
+        fetch('/allbyid?id=' + encodeURIComponent(productId))
+            .then(response => response.json())
+            .then(data => {
+                // Process the retrieved data
+                //displayProducts(data);
+
+                const products = data.products;
+
+                // Redirect to another page with the product data
+                const productData = encodeURIComponent(JSON.stringify(products));
+                window.location.href = '/productPage?products=' + productData;
+            })
+            .catch(error => console.error(error));
+    });
+});*/
+
+// var productList = document.getElementById("product-list");
+// var totalAmountElement = document.getElementById("totalAmount");
+// var totalAmount = 0;
+
+// // Function to add product to cart
+// function addToCart(product) {
+//     // Replace with your own logic to add product to cart
+//     totalAmount += product.price;
+//     totalAmountElement.textContent = totalAmount.toFixed(2);
+// }
 
 /*
 // Sample product data
@@ -67,177 +202,26 @@ var products = [
     // Add more products as needed
 ];*/
 
-var productList = document.getElementById("product-list");
-var totalAmountElement = document.getElementById("totalAmount");
-var totalAmount = 0;
+/*
+var productType = document.getElementById("productType").value;
 
-
-
-
-// Function to display products on the page
-function displayProducts(products) {
-
-    // Access the product-container element
-    //const productList = document.getElementById('product-list');
-    const container = document.getElementById('product-list');
-
-    // Create HTML markup for each product
-    const productsHTML = products.map(product => `
-
-      <div class="product">
-    <img class="product-image" src="${product.imageSource}" alt="${product.name}">
-    
-      <h3 class="product-title" onclick="redirectToProductDetails(${product.id})">${product.name}</h3>
-      <br>
-      <p class="product-price">${product.price} €</p>
-      
-      
-    
-  </div>
-`).join('');
-
-
-
-    // Add the HTML markup to the container
-    container.innerHTML = productsHTML;
-
-
-    /*
-    var productCards = document.getElementsByClassName("product");
-
-    Array.from(productCards).forEach(function(card) {
-        var titleElement = card.querySelector(".product-title");
-        var productId = document.getElementById("product-id")
-
-        //var productId = parseInt(card.id.replace("product-", ""));
-
-
-
-        titleElement.addEventListener("click", function() {
-            //window.location.href = "/product?id=" + productId;
-
-            fetch('/allbyid?id=' + encodeURIComponent(productId))
-                .then(response => response.json())
-                .then(data => {
-                    // Process the retrieved data
-                    //displayProducts(data);
-
-                    const products = data.products;
-
-                    // Redirect to another page with the product data
-                    const productData = encodeURIComponent(JSON.stringify(products));
-                    window.location.href = '/productPage?products=' + productData;
-                })
-                .catch(error => console.error(error));
-        });
-    });*/
-
-}
-
-function redirectToProductDetails(productId) {
-    // Redirect to the product details page
-    window.location.href = '/productPage?id=' + productId;
-}
-
-// Display all products initially
-//displayProducts(products);
-
-// Function to filter products based on price range
-function applyPriceFilter() {
-
-    /*
-    var priceRange = document.getElementById("priceRange").value;
-
-    var filteredProducts = products.filter(function(product) {
-        return product.price <= priceRange;
+var filteredProducts;
+if (productType === "All") {
+    filteredProducts = products;
+} else {
+    filteredProducts = products.filter(function(product) {
+        return product.type === productType || productType === "";
     });
-
-    displayProducts(filteredProducts);*/
-
-    var priceRange = document.getElementById("priceRange").value;
-
-    fetch('/all/prods?price=' + encodeURIComponent(priceRange))
-        .then(response => response.json())
-        .then(data => {
-            // Process the retrieved data
-            displayProducts(data);
-        })
-        .catch(error => console.error(error));
 }
 
-// Function to filter products based on type
-function applyTypeFilter() {
-    /*
-    var productType = document.getElementById("productType").value;
+displayProducts(filteredProducts);*/
 
-    var filteredProducts;
-    if (productType === "All") {
-        filteredProducts = products;
-    } else {
-        filteredProducts = products.filter(function(product) {
-            return product.type === productType || productType === "";
-        });
-    }
+/*
+var priceRange = document.getElementById("priceRange").value;
 
-    displayProducts(filteredProducts);*/
-
-    var productType = document.getElementById("productType").value;
-
-    if (productType === "All")
-    {
-        fetch('/all')
-            .then(response => response.json())
-            .then(data => {
-                // Process the retrieved data
-                displayProducts(data);
-            })
-            .catch(error => console.error(error));
-
-    }
-    else
-    {
-        fetch('/all?type=' + encodeURIComponent(productType))
-            .then(response => response.json())
-            .then(data => {
-                // Process the retrieved data
-                displayProducts(data);
-            })
-            .catch(error => console.error(error));
-    }
-
-
-
-}
-
-// Function to add product to cart
-function addToCart(product) {
-    // Replace with your own logic to add product to cart
-    totalAmount += product.price;
-    totalAmountElement.textContent = totalAmount.toFixed(2);
-}
-
-// Update price range value display
-var priceRange = document.getElementById("priceRange");
-var priceValue = document.getElementById("priceValue");
-priceValue.textContent = "Price Range: €" + priceRange.value;
-
-priceRange.addEventListener("input", function() {
-    priceValue.textContent = "Price Range: €" + priceRange.value;
+var filteredProducts = products.filter(function(product) {
+    return product.price <= priceRange;
 });
 
-// Fetch products from the database using an AJAX request
-function fetchProducts() {
-    fetch("/all")
-        .then(function(response) {
-            return response.json();
-        })
-        .then(function(data) {
-            displayProducts(data);
-        })
-        .catch(function(error) {
-            console.log(error);
-        });
-}
+displayProducts(filteredProducts);*/
 
-// Call the fetchProducts function to retrieve and display the products
-fetchProducts();

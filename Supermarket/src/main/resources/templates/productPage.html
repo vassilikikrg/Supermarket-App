@@ -203,13 +203,13 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a href="#">Home</a>
+                        <a href="/home">Home</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="#">Category</a>
+                        <a href="#" id="category">Category</a>
                     </li>
                     <li class="breadcrumb-item active" id="whatitem">
-                        pp
+                        Product name (pp)
                     </li>
                 </ol>
             </nav>
@@ -245,7 +245,7 @@
             <div class="flex">
                 <button class="close">&times;</button>
             </div>
-            <button class="btn ok" onclick="addToCart()">Yeet</button>
+            <button class="btn ok" onclick="addToCart()">Add to Cart</button>
         </div>
     </section>
     <div class="overlay hidden"></div>
@@ -281,6 +281,10 @@
 
             const whatitem = document.getElementById('whatitem');
             const pageTitle = document.getElementById('pageTitle')
+            const category = document.getElementById('category');
+            const categoryHTML = products.map(product =>  `${product.categoryID}`).join('');
+            category.innerText = categoryHTML;
+            category.href='/products?type='+categoryHTML.toLowerCase();
 
             const whatitemHTML = products.map(product =>  `${product.name}`).join('');
             whatitem.innerHTML = whatitemHTML;
