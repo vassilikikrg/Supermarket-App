@@ -217,28 +217,36 @@
     </div>
 
     <div id="product-details-container" class="product-details-container"></div>
-    <section class="modal hidden">
+    <section class="modal locate hidden">
         <div class="flex">
-            <button class="close">&times;</button>
+            <button class="close" onclick="toggleModal('.locate','close')">&times;</button>
         </div>
         <div>
             <h3>Find supermarkets near you</h3>
             <div id="options">Put your options here</div>
         </div>
-        <button class="btn ok">Okay</button>
+        <button class="btn ok" onclick="toggleModal('.locate','close')">Okay</button>
     </section>
 
-    <section class="modal order" th:if='${session.get("store")==null}'>
-        <div class="flex">
-            <button class="close">&times;</button>
+    <section class="modal order hidden">
+        <div th:if='${session.get("store")==null}'>
+            <div class="flex">
+                <button class="close">&times;</button>
+            </div>
+            <div>
+                <h3>Select a supermarket for your order</h3>
+                <div id="pj">Put your options here</div>
+            </div>
+            <form action="/setStore?id=1&supermarket_id=1" method="post">
+                <button class="btn" type="submit">Set Session Variable</button>
+            </form>
         </div>
-        <div>
-            <h3>Select a supermarket for your order</h3>
-            <div id="pj">Put your options here</div>
+        <div th:else>
+            <div class="flex">
+                <button class="close">&times;</button>
+            </div>
+            <button class="btn ok" onclick="addToCart()">Yeet</button>
         </div>
-        <form action="/setStore?id=1&supermarket_id=1" method="post">
-            <button class="btn" type="submit">Set Session Variable</button>
-        </form>
     </section>
     <div class="overlay hidden"></div>
 
@@ -254,7 +262,6 @@
         fetch('/allbyid?id=' + productId)
             .then(response => response.json())
             .then(data => { displayProducts(data)})
-            .then(()=>addPopup())
             .catch(error => console.error(error));
 
         // Fetch list of supermarket data
@@ -292,12 +299,12 @@
                   <p class="product-price">€${product.price}</p>
                   <div class="add-to-cart">
                     <input type="number" class="quantity-input" value="1" min="1" id="quantity-input">
-                    <button class="add-to-cart-button" onclick="addToCart(${product.id})">
+                    <button class="add-to-cart-button" onclick="toggleModal('.order','open')"> <!-- onclick="addToCart(${product.id})" -->
                         <i class="fas fa-shopping-cart"></i> Add to Cart
                     </button>
                   </div>
                   <div class="add-to-cart">
-                      <button class="add-to-cart-button btn btn-open">
+                      <button class="add-to-cart-button btn btn-open" onclick="toggleModal('.locate','open')">
                       <i class="fas fa-store"></i> View Supermarket Availability
                       </button>
                       <!-- <select class="store-selection" id="options"> -->
@@ -331,27 +338,19 @@
             opt.innerHTML = supermarketOptions;
         }
 
-        function addPopup(){
-            // Popup
-            const modal = document.querySelector(".modal");
+        function toggleModal(section,f){
+            const modal = document.querySelector(section);
             const overlay = document.querySelector(".overlay");
-            const openModalBtn = document.querySelector(".btn-open");
-            const closeModalBtn = document.querySelector(".close");
-            const okModalBtn = document.querySelector(".ok");
-
-            const openModal = function () {
+            if(f==="open"){
                 modal.classList.remove("hidden");
                 overlay.classList.remove("hidden");
-            };
-            openModalBtn.addEventListener("click", openModal);
-
-            const closeModal = function () {
+            }
+            else{
                 modal.classList.add("hidden");
                 overlay.classList.add("hidden");
-            };
-            closeModalBtn.addEventListener("click", closeModal);
-            okModalBtn.addEventListener("click", closeModal);
+            }
         }
+
         function addToCart(){
             let quantity = document.getElementById("quantity-input").value;
             $.ajax({

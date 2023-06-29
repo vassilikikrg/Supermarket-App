@@ -40,6 +40,9 @@
               <li th:ref="nav-item">
                 <a class="nav-link" th:text="'Login'" th:href="@{/login}"/>
               </li>
+              <li th:ref="nav-item">
+                <a class="nav-link" th:text="'Sign Up'" th:href="@{/register}"/>
+              </li>
             </ul>
             <ul class="navbar-nav ml-auto" sec:authorize="isAuthenticated()">
               <li class="nav-item">
