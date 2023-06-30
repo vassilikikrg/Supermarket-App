@@ -84,7 +84,6 @@ public class ProductController {
     @GetMapping(path = "/allbyid", produces = "application/json")
     public @ResponseBody Iterable<Product> getAllProductsById(@RequestParam(value = "id") String productId) {
        // Iterable<Product> products;
-
         return productRepository.findById(productId);
         //return "redirect:/productPage";
     }
