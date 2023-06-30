@@ -216,6 +216,32 @@
         </div>
     </div>
 
+    <!-- Add to cart -->
+    <section class="modal order hidden">
+        <div th:if='${session.get("store")==null}'>
+            <div class="flex">
+                <button class="close" onclick="toggleModal('.order','close')">&times;</button>
+            </div>
+            <div>
+                <h3>Select a supermarket for your order</h3>
+                <div id="pj">Put your options here</div>
+            </div>
+            <form action="/setStore?id=1&supermarket_id=1" method="post">
+                <button class="btn" type="submit">Set Session Variable</button>
+            </form>
+        </div>
+        <div th:if='${session.get("store")!=null}'>
+            <div class="flex">
+                <button class="close" onclick="toggleModal('.order','close')">&times;</button>
+            </div>
+            <div>
+                <button class="btn ok" onclick="addToCart()">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+    <div class="overlay hidden"></div>
+
+    <!-- Add to cart -->
     <div id="product-details-container" class="product-details-container"></div>
     <section class="modal locate hidden">
         <div class="flex">
@@ -227,28 +253,6 @@
         </div>
         <button class="btn ok" onclick="toggleModal('.locate','close')">Okay</button>
     </section>
-
-    <section class="modal order hidden">
-        <div th:if='${session.get("store")==null}'>
-            <div class="flex">
-                <button class="close">&times;</button>
-            </div>
-            <div>
-                <h3>Select a supermarket for your order</h3>
-                <div id="pj">Put your options here</div>
-            </div>
-            <form action="/setStore?id=1&supermarket_id=1" method="post">
-                <button class="btn" type="submit">Set Session Variable</button>
-            </form>
-        </div>
-        <div th:else>
-            <div class="flex">
-                <button class="close">&times;</button>
-            </div>
-            <button class="btn ok" onclick="addToCart()">Add to Cart</button>
-        </div>
-    </section>
-    <div class="overlay hidden"></div>
 
 </div>
 

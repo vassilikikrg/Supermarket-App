@@ -1,14 +1,15 @@
 package com.softeng.supermarket.models;
 
+import java.util.List;
+
 public class Category {
     private String Id;
     private String Name;
-    private String Description;
+    private List<SubCategory> categoryList;
 
     public Category(String id, String name, String description) {
         Id = id;
         Name = name;
-        Description = description;
     }
 
     public String getId() {
@@ -27,11 +28,11 @@ public class Category {
         Name = name;
     }
 
-    public String getDescription() {
-        return Description;
+    public List<SubCategory> getCategoryList() {
+        return categoryList;
     }
 
-    public void setDescription(String description) {
-        Description = description;
+    public void setCategoryList(List<SubCategory> categoryList) {
+        this.categoryList = categoryList;
     }
 }
