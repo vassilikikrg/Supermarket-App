@@ -182,8 +182,8 @@ h1 {
     text-align: center;
 }
 
-.product {
-    width: calc(25% - 20px);
+.product {width: calc(20% - 20px);
+
     margin-bottom: 20px;
     padding: 10px;
     background-color: #ffffff;
