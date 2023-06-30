@@ -34,32 +34,29 @@
                 <a class="nav-link" href="/map">Shops</a>
               </li>
             </ul>
-            <ul class="navbar-nav ml-auto" sec:authorize="!isAuthenticated()">
-
+            <ul class="navbar-nav ml-auto">
               <li class="nav-item">
-                <a class="nav-link">In Cart: €<span id="totalAmount">0.00</span></a>
+                <a class="nav-link" href="/cart/view"><span id="totalAmount">0.00</span>€
+                  <img src="/images/global/cart.svg" style="width: 25px; height: 25px;">
+                </a>
               </li>
-              <li th:ref="nav-item">
+              <li th:ref="nav-item" sec:authorize="!isAuthenticated()">
                 <a class="nav-link" th:text="'Login'" th:href="@{/login}"/>
               </li>
-              <li th:ref="nav-item">
+              <li th:ref="nav-item" sec:authorize="!isAuthenticated()">
                 <a class="nav-link" th:text="'Sign Up'" th:href="@{/register}"/>
               </li>
-            </ul>
-            <ul class="navbar-nav ml-auto" sec:authorize="isAuthenticated()">
-              <li class="nav-item">
+              <li class="nav-item" sec:authorize="isAuthenticated()">
                 <p class="navbar-text mr-3" style="color: var(--myGray); margin: 0;" sec:authentication="name">Username</p>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" sec:authorize="isAuthenticated()">
                 <a class="navbar-text mr-3" href="#"><img class="img-thumbnail rounded-circle" style="width: 30px; height: 30px;" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg"></a>
               </li>
-              <li class="nav-item">
-                <a class="navbar-text mr-3" href="/cart/view"><img src="/images/global/cart.svg" style="width: 25px; height: 25px;" ></a>
-              </li>
+
               <form th:action="@{/logout}" method="post" th:hidden="true" name="logoutForm">
                 <input type="submit" value="Logout" />
               </form>
-              <li class="nav-item">
+              <li class="nav-item" sec:authorize="isAuthenticated()">
                 <a class="nav-link" href="javascript: document.logoutForm.submit()">Logout</a>
               </li>
             </ul>
