@@ -1,3 +1,4 @@
+# coding: utf8
 # Use to add products to database dynamically
 import requests
 
