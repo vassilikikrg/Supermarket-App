@@ -2,8 +2,6 @@
 <div th:fragment="header">
   <!-- Nav Bar -->
   <div>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
     <div>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light" style="margin-top: 0; padding-top:16px">
           <a class="navbar-brand" style="height:43px" href="/home">Fresh-Mart</a>
@@ -36,7 +34,7 @@
             </ul>
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
-                <a class="nav-link" href="/cart/view"><span id="totalAmount">0.00</span>€
+                <a class="nav-link" onclick="showCart()" href="#"><span id="totalAmount">0.00</span>€
                   <img src="/images/global/cart.svg" style="width: 25px; height: 25px;">
                 </a>
               </li>
@@ -63,6 +61,34 @@
           </div>
         </nav>
     </div>
-  </div>
+    <div class="cart-card" id="shopping-cart">
+      <div class="cart-header">
+              <span class="cart-icon">
+                <img src="/images/global/cart.svg" style="width: 15px; height: 15px;">
+              </span>
+        <p class="cart-alert"> Cart</p>
+      </div>
+      <div>
+        <p class="cart-message">
+          Your cart is empty.
+        </p>
+        <div class="cart-actions">
+          <a class="cart-read" href="/products">
+            Start shopping!
+          </a>
+        </div>
+      </div>
+    </div>
+  <script>
+    function showCart() {
+      var x = document.getElementById("shopping-cart");
+      if (x.style.display === "none") {
+        x.style.display = "inline";
+      } else {
+        x.style.display = "none";
+      }
+    }
+  </script>
 </div>
+
 
