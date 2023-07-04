@@ -23,9 +23,10 @@ public class Cart {
     public boolean updateQuantity(long productId,Integer newQuantity){
         if(this.containsProduct(productId)){
             CartItem cartItem= this.cartItems.stream()
-                    .filter(item->item.getProduct().getId()==productId)
+                    .filter(item->item.getId()==productId)
                     .findFirst()
-                    .get();//access cart item that contains the product with the specific product id
+                    .get();//access cart item with the specific product id
+
             cartItem.setQuantity(newQuantity); //update the Quantity
             return true;
         }
@@ -34,6 +35,6 @@ public class Cart {
     public boolean containsProduct(long productId) { //checks if cartItems list contains a product with a certain product id
         return this.cartItems
                 .stream()
-                .anyMatch(item -> item.getProduct().getId()==productId);
+                .anyMatch(item -> item.getId()==productId);
     }
 }

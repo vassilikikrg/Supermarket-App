@@ -1,12 +1,17 @@
 package com.softeng.supermarket.controllers;
 
 import com.softeng.supermarket.models.Cart;
+import com.softeng.supermarket.models.CartItem;
+import com.softeng.supermarket.models.Product;
 import com.softeng.supermarket.services.ShoppingCartService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/cart")
@@ -33,13 +38,9 @@ public class CartController {
         }
     }
 
-    @GetMapping("/view")
-    public String viewCart(HttpSession session,Model model){
-        Cart cart= (Cart) session.getAttribute("Cart");
-        if(cart==null) model.addAttribute("mymessage","Your cart is empty");
-        else {
-        model.addAttribute("cartItems",cart.getCartItems() );
-        }
-        return "cartSection";
+    @GetMapping(path = "/view", produces = "application/json")
+    public @ResponseBody List<CartItem> viewCart(HttpSession session) {
+        Cart cart = (Cart) session.getAttribute("Cart");
+        return cart != null ? cart.getCartItems() : null;
     }
 }

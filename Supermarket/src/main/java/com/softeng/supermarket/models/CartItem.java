@@ -1,20 +1,11 @@
 package com.softeng.supermarket.models;
 
-public class CartItem {
-    private Product product;
+public class CartItem extends Product {
     private Integer quantity;
 
     public CartItem(Product product, Integer quantity) {
-        this.product = product;
+        super(product.getId(),product.getName(), product.getDescription(), product.getCategoryID(), product.getPrice(), product.getImageSource());
         this.quantity = quantity;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
     }
 
     public Integer getQuantity() {

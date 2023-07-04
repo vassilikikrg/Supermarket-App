@@ -62,33 +62,102 @@
         </nav>
     </div>
     <div class="cart-card" id="shopping-cart">
-      <div class="cart-header">
+          <div class="cart-header">
               <span class="cart-icon">
                 <img src="/images/global/cart.svg" style="width: 15px; height: 15px;">
               </span>
-        <p class="cart-alert"> Cart</p>
-      </div>
-      <div>
-        <p class="cart-message">
-          Your cart is empty.
-        </p>
-        <div class="cart-actions">
-          <a class="cart-read" href="/products">
-            Start shopping!
-          </a>
-        </div>
-      </div>
+              <p class="cart-alert"> Cart</p>
+          </div>
+          <div  id="shopping-cart-body">
+                <!-- Cart items will be displayed here -->
+                <div id="cart-items">
+                  <p class="cart-message" id="cart-message">
+                    Your cart is empty.
+                  </p>
+                </div>
+                <table class="table table-borderless" id="shopping-cart-table">
+                  <tbody id="shopping-cart-tablebody">
+                  </tbody>
+                </table>
+            <div id="total-price-cart"></div>
+                <div class="cart-actions" id="cart-actions">
+                  <a class="cart-read" href="/products" id="cart-read">
+                    Start shopping!
+                  </a>
+                </div>
+
+          </div>
     </div>
+  </div>
   <script>
     function showCart() {
-      var x = document.getElementById("shopping-cart");
+      let x = document.getElementById("shopping-cart");
       if (x.style.display === "none") {
+        // Fetch cart items using cart controller
+        fetchCartItems();
         x.style.display = "inline";
       } else {
         x.style.display = "none";
       }
     }
+    function fetchCartItems(){
+      fetch('/cart/view')
+              .then(response => response.json())
+              .then(data => {
+                console.log(JSON.stringify(data))
+                // Process the retrieved data
+                displayCartItems(data);
+              })
+              .catch(error => console.error(error));
+    }
+    function displayCartItems(cartItems) {
+      // Access the product-container element
+      //const productList = document.getElementById('product-list');
+      if(cartItems==null){
+        document.getElementById('cart-items').style.display='block';
+        document.getElementById('shopping-cart-table').style.display='none';
+      }
+      else {
+
+        document.getElementById('cart-items').style.display='none';
+        document.getElementById('shopping-cart-table').style.display='block';
+
+        const tableContainer = document.getElementById('shopping-cart-tablebody');
+        // Create HTML markup for each product
+        const productTableHTML = cartItems.map(cartItem => `
+            <tr>
+                <td>
+                <img src="${cartItem.imageSource}" alt="${cartItem.name}" width="50px">
+                </td>
+                <td>${cartItem.name}</td>
+                <td>${cartItem.quantity} piece(s)</td>
+            </tr>
+        `).join('');
+
+        tableContainer.innerHTML = productTableHTML;
+        const containerLink=document.getElementById('cart-actions');//change link
+        containerLink.innerHTML="<a class=\"cart-read\" href=\"/changeThisHrefASAP\" id=\"cart-read\">\n" +
+                                "Continue to payment" +
+                                "</a>"
+        let totalPrice=calculateTotalPrice(cartItems).toFixed(2);
+        const totalPriceContainer=document.getElementById('total-price-cart');
+        totalPriceContainer.innerText='Total price is: '+totalPrice+'€';
+
+
+      }
+    }
+
+    function calculateTotalPrice(cartItems){
+      let totalPrice=0;
+      for (const item of cartItems) {
+        const price = parseFloat(item.price);
+        const quantity = item.quantity;
+        totalPrice += price * quantity;
+      }
+      return totalPrice;
+    }
   </script>
 </div>
+
 
 
