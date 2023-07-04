@@ -37,7 +37,7 @@ body {
 #filters {
     float: left;
     width: 250px;
-    height: 1000px;
+    height: 1300px;
     margin-right: 20px;
     background-color: #ffffff;
     padding: 20px;
@@ -126,7 +126,7 @@ body {
     transition: all .2s;
     padding: 2px 15px;
     border-radius: 80px;
-    background: #6a8f65;
+    background: #808744;
     color: #ffffff;
     border: 1px solid transparent;
     display: flex;

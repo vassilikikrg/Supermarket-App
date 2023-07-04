@@ -20,9 +20,12 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 
                   <a class="dropdown-item" href="/products?type=fruit">Fruits</a>
+                  <a class="dropdown-item" href="/products?type=pasta">Pasta</a>
                   <a class="dropdown-item" href="/products?type=vegetables">Vegetables</a>
                   <a class="dropdown-item"href="/products?type=dairy">Dairy</a>
                   <a class="dropdown-item"href="/products?type=meat">Meat</a>
+                  <a class="dropdown-item" href="/products?type=sweets">Sweets</a>
+                  <a class="dropdown-item" href="/products?type=liquor">Liquor</a>
                 </div>
               </li>
               <li class="nav-item">
@@ -48,7 +51,7 @@
                 <p class="navbar-text mr-3" style="color: var(--myGray); margin: 0;" sec:authentication="name">Username</p>
               </li>
               <li class="nav-item" sec:authorize="isAuthenticated()">
-                <a class="navbar-text mr-3" href="#"><img class="img-thumbnail rounded-circle" style="width: 30px; height: 30px;" src="https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg"></a>
+                <a class="navbar-text mr-3" href="#"><img class="img-thumbnail rounded-circle" style="width: 30px; height: 30px;" src="/images/home/profile.jpg"></a>
               </li>
 
               <form th:action="@{/logout}" method="post" th:hidden="true" name="logoutForm">
