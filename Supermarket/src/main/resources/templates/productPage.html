@@ -191,6 +191,82 @@
                 margin-inline:auto;
             }
 
+            button:disabled,
+            button:disabled:hover,
+            button[disabled]{
+                cursor: default;
+                border: 1px solid #999999;
+                background-color: #cccccc;
+                color: #666666;
+            }
+
+            #snackbar {
+                visibility: hidden;
+                min-width: 400px;
+                margin-left: -200px;
+                background-color: #333;
+                color: #fff;
+                text-align: center;
+                border-radius: 2px;
+                padding: 16px;
+                position: fixed;
+                z-index: 1;
+                left: 50%;
+                bottom: 50px;
+            }
+
+            #snackbar.show {
+                visibility: visible;
+                animation: fadein 0.5s, fadeout 0.5s 2.5s;
+            }
+
+            @keyframes fadein {
+                from {bottom: 0; opacity: 0;}
+                to {bottom: 50px; opacity: 1;}
+            }
+
+            @keyframes fadeout {
+                from {bottom: 30px; opacity: 1;}
+                to {bottom: 0; opacity: 0;}
+            }
+
+            .number-input {
+                display: flex;
+                align-items: center;
+            }
+
+            .number-input input {
+                width: 100px;
+                text-align: center;
+            }
+
+            .number-input button {
+                width: 40px;
+                height: 40px;
+                padding: 3px;
+                border-radius: 3px;
+                color: white;
+                border: none;
+                cursor: pointer;
+            }
+
+            .number-input button:disabled {
+                background-color: #ddd !important;
+                cursor: not-allowed;
+            }
+
+            /* Chrome, Safari, Edge, Opera */
+            input::-webkit-outer-spin-button,
+            input::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            /* Firefox */
+            input[type=number] {
+                -moz-appearance: textfield;
+            }
+
         </style>
     </head>
 
@@ -226,18 +302,28 @@
             </div>
             <div>
                 <h3>Select a supermarket for your order</h3>
-                <div id="purchaseOptions">Put your options here</div>
             </div>
-            <form action="/setStore?id=1&supermarket_id=1" method="post">
-                <button class="btn ok" type="submit">Set Session Variable</button>
-            </form>
+            <div id="purchaseOptions">Options will appear here if available</div>
+            <br>
+            <button class="btn ok" onclick="setSupermarket()" style="display: block">Set your supermarket</button>
         </div>
         <div th:if='${session.get("store")!=null}'>
+            <h3>Select quantity: </h3>
+            <hr><br>
+            <div style="display: flex;">
+                <p th:text="'Currently available at '+${session.storeName}+':'"></p><p id="qty"> </p>
+            </div>
+            <div class="number-input">
+                <button id="minusButton" style="background-color: #d41d36; margin-right: 5px" onclick="decrementNumber()" disabled>-</button>
+                <input id="quantity-input" class="quantity-input" type="number" value="1" min="1" max="10" oninput="validateRange()">
+                <button id="plusButton" style="background-color: #6a8f65; margin-left: 5px" onclick="incrementNumber()">+</button>
+            </div>
+            <br>
             <div class="flex">
                 <button class="close" onclick="toggleModal('.order','close')">&times;</button>
             </div>
             <div>
-                <button class="btn ok" onclick="addToCart()">Add to Cart</button>
+                <button class="btn ok" onclick="addToCart()" style="display: block">Add to Cart</button>
             </div>
         </div>
     </section>
@@ -256,10 +342,19 @@
         <button class="btn ok" onclick="toggleModal('.locate','close')">Okay</button>
     </section>
 
+    <div id="snackbar">Successfully added to cart!</div>
+
 </div>
 
-    <script>
+    <!-- Get session variables -->
+    <script th:inline="javascript">
+        const storeName = /*[[${session.storeName}]]*/ '';
+    </script>
+    <script th:inline="javascript">
+        const storeId = /*[[${session.store}]]*/ '';
+    </script>
 
+    <script>
         // Get the product ID from the query parameter in the URL
         const urlParams = new URLSearchParams(window.location.search);
         const productId = urlParams.get('id');
@@ -270,22 +365,29 @@
             .then(data => { displayProducts(data)})
             .catch(error => console.error(error));
 
-        // Fetch list of supermarket data
+        // Fetch list of all supermarket data
         fetch('/stock?product_id='+productId)
             .then(response => response.json())
-            .then(data => { addPurchaseOptions(data) })
+            .then(data => { 
+                addPurchaseOptions(data) 
+                loadStock(data)
+            })
             .catch(error => console.error('Error loading stores data:', error));
 
-        //Get list of all supermarkets
-        fetch('/getStores')
-            .then(response => response.json())
-            .then(data => { addOrderPurchaseOptions(data) })
-            .catch(error => console.error('Error loading stores data:', error));
+        // If no store is set, client needs to choose a store for his delivery
+        if(storeId==null) {
+            //Get list of all supermarkets
+            fetch('/getStores')
+                .then(response => response.json())
+                .then(data => {
+                    addOrderPurchaseOptions(data)
+                })
+                .catch(error => console.error('Error loading stores data:', error));
+        }
 
         function displayProducts(products) {
 
             const container = document.getElementById('product-details-container');
-
             const whatitem = document.getElementById('whatitem');
             const pageTitle = document.getElementById('pageTitle')
             const category = document.getElementById('category');
@@ -295,9 +397,9 @@
 
             const whatitemHTML = products.map(product =>  `${product.name}`).join('');
             whatitem.innerHTML = whatitemHTML;
-
             pageTitle.innerHTML = whatitemHTML;
 
+            //document.getElementById('supermarketIdInput').value = productId
             // Create HTML markup for each product
             const productsHTML = products.map(product => `
 
@@ -309,7 +411,6 @@
                   <h2 class="product-name">${product.name}</h2>
                   <p class="product-price">€${product.price}</p>
                   <div class="add-to-cart">
-                    <input type="number" class="quantity-input" value="1" min="1" id="quantity-input">
                     <button class="add-to-cart-button" id="a2c" onclick="toggleModal('.order','open')"> <!-- onclick="addToCart(${product.id})" -->
                         <i class="fas fa-shopping-cart"></i> Add to Cart
                     </button>
@@ -342,27 +443,45 @@
             if (supermarkets.length!=0) {
                 supermarketOptions = supermarkets.map(stock =>
                         `<hr><div class="subcard">
-                       <p class="place">${stock.supermarket.name}</p>
-                       <p class="distanceText" style="font-style: italic">Διαθέσιμη ποσότητα: ${stock.quantity}</p>
-                </div>`
-                    // `<option value="${stock.supermarket.id}">${stock.supermarket.name} Quantity:${stock.quantity}</option>`
+                            <p class="place">${stock.supermarket.name}</p>
+                            <p class="distanceText" style="font-style: italic">Διαθέσιμη ποσότητα: ${stock.quantity}</p>
+                        </div>`
                 ).join('');
             } else {
                 supermarketOptions = '<br><h6 style="text-align: center;color:#6a8f65">Oops! No stock available</h6><img src="/images/global/out_of_stock_3.jpg"  class="w3-round-xxlarge" style="margin: auto; display: block; width:80%" alt="out of stock">'
+                toggleCart()
             }
             let opt = document.getElementById("options");
             opt.innerHTML = supermarketOptions;
+        }
+        
+        function loadStock(supermarkets) {
+            for (let i = 0; i < supermarkets.length; i++) {
+                const entry = supermarkets[i];
+                if (entry.supermarket.id === storeId) {
+                    document.getElementById("qty").innerText=entry.quantity;
+                }
+            }
+            // If the supermarket id is not found, you can return an appropriate value or throw an error
+            return null;
         }
 
         // Add supermarkets from db data - SELECT SUPERMARKET
         function addOrderPurchaseOptions(supermarkets) {
             console.log(supermarkets);
             const supermarketOptions = supermarkets.map(supermarket =>
-                    `<hr><div class="subcard">
-                       <p class="place">${supermarket.name}</p>
-                       <p class="distanceText" style="font-style: italic">Διεύθυνση: ${supermarket.address}</p>
-                </div>`
-                // `<option value="${stock.supermarket.id}">${stock.supermarket.name} Quantity:${stock.quantity}</option>`
+            `
+            <hr>
+            <div class="subcard" style="display: flex; justify-content: space-between;">
+              <div>
+                <p class="place">${supermarket.name}</p>
+                <p class="distanceText" style="font-style: italic;margin-bottom:0">Διεύθυνση: ${supermarket.address}</p>
+              </div>
+              <div style="display: flex; align-items: center;">
+                <input type="radio" name="supermarket_id" value="${supermarket.id}">
+              </div>
+            </div>
+            `
             ).join('');
             let opt = document.getElementById("purchaseOptions");
             opt.innerHTML = supermarketOptions;
@@ -390,10 +509,104 @@
                     console.log("error");
                 },
                 success: function () {
-                    location.reload()
+                    toggleModal('.order','close')
+                    showSnackbar()
                 }
             });
         }
+
+        function setSupermarket(){
+
+            const radios = document.getElementsByName('supermarket_id');
+            let supermarket;
+            for (let i = 0; i < radios.length; i++) {
+                if (radios[i].checked) {
+                    console.log(radios[i].value)
+                    supermarket = radios[i].value;
+                    break;
+                }
+            }
+            if(supermarket!=null) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/setStore?id=' + productId + '&supermarket_id=' + supermarket,
+                    error: function () {
+                        showSnackbar("Something went wrong. Please Try again later")
+                        console.log("error");
+                    },
+                    success: function () {
+                        location.reload()
+                    }
+                });
+            }
+            else{
+                showSnackbar("Something went wrong. Please Try again later")
+            }
+        }
+
+        // Wait for the button to be created
+        async function toggleCart() {
+            while (true) {
+                await sleep(100); // Wait for 100 milliseconds before checking again
+                const addToCartButton = document.getElementById("a2c");
+                if (addToCartButton) {
+                    addToCartButton.disabled=true
+                    break; // Button is created, exit the loop
+                }
+            }
+        }
+
+        // Sleep function to introduce a delay
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        function showSnackbar(text) {
+            var snackbar = document.getElementById("snackbar");
+            if(text){
+                snackbar.innerText=text
+            }
+            snackbar.className = "show";
+            setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
+        }
+
+        const numberInput = document.getElementById('quantity-input');
+        const minusButton = document.getElementById('minusButton');
+        const plusButton = document.getElementById('plusButton');
+
+        function validateRange() {
+            const value = parseInt(numberInput.value);
+
+            if (value === 1) {
+                minusButton.disabled = true;
+                plusButton.disabled = false;
+            } else if (value === 10) {
+                minusButton.disabled = false;
+                plusButton.disabled = true;
+            } else {
+                minusButton.disabled = false;
+                plusButton.disabled = false;
+            }
+        }
+
+        function decrementNumber() {
+            const currentValue = parseInt(numberInput.value);
+
+            if (currentValue > 1) {
+                numberInput.value = currentValue - 1;
+                validateRange();
+            }
+        }
+
+        function incrementNumber() {
+            const currentValue = parseInt(numberInput.value);
+
+            if (currentValue < 10) {
+                numberInput.value = currentValue + 1;
+                validateRange();
+            }
+        }
+
     </script>
 
     <script src="js/jquery.min.js"></script>
