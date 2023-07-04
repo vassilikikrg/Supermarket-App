@@ -297,6 +297,7 @@
     <!-- Add to cart -->
     <section class="modal order hidden">
         <div th:if='${session.get("store")==null}'>
+            <div></div>
             <div class="flex">
                 <button class="close" onclick="toggleModal('.order','close')">&times;</button>
             </div>
@@ -311,7 +312,7 @@
             <h3>Select quantity: </h3>
             <hr><br>
             <div style="display: flex;">
-                <p th:text="'Currently available at '+${session.storeName}+':'"></p><p id="qty"> </p>
+                <p th:text="'Currently available at '+${session.storeName}"></p><p id="qty"> </p>
             </div>
             <div class="number-input">
                 <button id="minusButton" style="background-color: #d41d36; margin-right: 5px" onclick="decrementNumber()" disabled>-</button>
@@ -384,6 +385,17 @@
                 })
                 .catch(error => console.error('Error loading stores data:', error));
         }
+        else{
+            // Fetch list of selected supermarket data
+            fetch('/stock?supermarket_id='+storeId+'&product_id='+productId)
+                .then(response => response.json())
+                .then(data => {
+                    if(data[0]==null) {
+                        toggleCart()
+                    }
+                })
+                .catch(error => console.error('Error loading stores data:', error));
+        }
 
         function displayProducts(products) {
 
@@ -408,6 +420,7 @@
                   <img src="${product.imageSource}" alt="${product.name}">
                 </div>
                 <div class="product-info">
+                  <p id="store-name-label" style="visibility: hidden;font-style: italic"></p>
                   <h2 class="product-name">${product.name}</h2>
                   <p class="product-price">€${product.price}</p>
                   <div class="add-to-cart">
@@ -422,9 +435,9 @@
                       <!-- <select class="store-selection" id="options"> -->
                             <!-- Supermarkets from db function addPurchaseOptions -->
                       <!-- </select> -->
-                      <button id="locationButton">
-                        <i class="fas fa-map-marker-alt"></i> Use My Location
-                      </button>
+                      <!-- <button id="locationButton">-->
+                      <!-- <i class="fas fa-map-marker-alt"></i> Use My Location-->
+                      <!-- </button>-->
                       <br>
                   </div>
                   <p class="product-description">${product.description}</p>
@@ -434,6 +447,12 @@
 
             // Add the HTML markup to the container
             container.innerHTML = productsHTML;
+            // Set storename
+            if(storeName){
+                let s=document.getElementById("store-name-label")
+                s.innerHTML= "Selected store: "+ storeName + " <br><a href=”#”>Select a different one</a> (Product availability may change)"
+                document.getElementById("store-name-label").style.visibility="visible"
+            }
         }
 
         // Add supermarkets from db data - SEE STOCK
@@ -454,12 +473,14 @@
             let opt = document.getElementById("options");
             opt.innerHTML = supermarketOptions;
         }
-        
+
+        const numberInput = document.getElementById('quantity-input');
         function loadStock(supermarkets) {
             for (let i = 0; i < supermarkets.length; i++) {
                 const entry = supermarkets[i];
                 if (entry.supermarket.id === storeId) {
-                    document.getElementById("qty").innerText=entry.quantity;
+                    document.getElementById("qty").innerText=": "+entry.quantity+" piece(s)";
+                    numberInput.max=entry.quantity
                 }
             }
             // If the supermarket id is not found, you can return an appropriate value or throw an error
@@ -570,7 +591,6 @@
             setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
         }
 
-        const numberInput = document.getElementById('quantity-input');
         const minusButton = document.getElementById('minusButton');
         const plusButton = document.getElementById('plusButton');
 
@@ -580,7 +600,7 @@
             if (value === 1) {
                 minusButton.disabled = true;
                 plusButton.disabled = false;
-            } else if (value === 10) {
+            } else if (value == numberInput.max) {
                 minusButton.disabled = false;
                 plusButton.disabled = true;
             } else {
@@ -601,7 +621,7 @@
         function incrementNumber() {
             const currentValue = parseInt(numberInput.value);
 
-            if (currentValue < 10) {
+            if (currentValue < numberInput.max) {
                 numberInput.value = currentValue + 1;
                 validateRange();
             }
