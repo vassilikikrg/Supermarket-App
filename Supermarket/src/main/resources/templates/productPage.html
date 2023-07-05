@@ -451,7 +451,7 @@
             // Set storename
             if(storeName){
                 let s=document.getElementById("store-name-label")
-                s.innerHTML= "Selected store: "+ storeName + " <br><a href=”#”>Select a different one</a> (Product availability may change)"
+                s.innerHTML= "Selected store: "+ storeName + " <br><a href=clearSession?product_id=" + productId + ">Select a different one</a> (Product availability may change)"
                 document.getElementById("store-name-label").style.visibility="visible"
             }
         }
