@@ -111,7 +111,7 @@
                 background-color: #506b4b;
             }
 
-            .modal {
+            .modal_p {
                 margin: auto;
                 display: flex;
                 flex-direction: column;
@@ -128,13 +128,13 @@
                 z-index: 2;
             }
 
-            .modal .flex {
+            .modal_p .flex {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
             }
 
-            .modal input {
+            .modal_p input {
                 padding: 0.7rem 1rem;
                 border: 1px solid #ddd;
                 border-radius: 5px;
@@ -295,7 +295,7 @@
     </div>
 
     <!-- Add to cart -->
-    <section class="modal order hidden">
+    <section class="modal_p modal order hidden">
         <div th:if='${session.get("store")==null}'>
             <div></div>
             <div class="flex">
@@ -332,7 +332,7 @@
 
     <!-- Add to cart -->
     <div id="product-details-container" class="product-details-container"></div>
-    <section class="modal locate hidden">
+    <section class="modal_p modal locate hidden">
         <div class="flex">
             <button class="close" onclick="toggleModal('.locate','close')">&times;</button>
         </div>
