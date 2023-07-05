@@ -65,7 +65,7 @@
 
   <div class="container">
     <h2> Login</h2>
-    <form action="/admin/login" method="post">
+    <form  role="form" action="" method="post" th:action="@{/login}">
       <div class="form-group">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>

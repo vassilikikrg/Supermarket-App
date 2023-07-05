@@ -1,5 +1,5 @@
 <link href="css/style.css" rel="stylesheet">
 <link href="css/appColors.css" rel="stylesheet">
 <footer th:fragment="footer" class="text-center text-lg-start fixed-bottom" style="background-color: rgba(192, 203, 102, 0.3); color:var(--myGray);" >
-    &copy; 2023 Fresh-Mart. All rights reserved
+    &copy; 2023 Fresh-Mart | <a href="/login/admin" style="color: var(--darkGreen)" sec:authorize="!isAuthenticated()">Login as admin</a>
 </footer>
