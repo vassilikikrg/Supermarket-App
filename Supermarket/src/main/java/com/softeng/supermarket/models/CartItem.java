@@ -12,6 +12,16 @@ public class CartItem extends Product {
         this.storeId=storeId;
     }
 
+    /// For Jackson JS
+    public CartItem(){}
+
+    public CartItem(int id, String name, String description, String categoryID, String price, String imageSource, int quantity, int maxStock, String storeId) {
+        super(id, name, description, categoryID, price, imageSource);
+        this.quantity = quantity;
+        this.maxStock = maxStock;
+        this.storeId = storeId;
+    }
+
     public String getStoreId() {
         return storeId;
     }

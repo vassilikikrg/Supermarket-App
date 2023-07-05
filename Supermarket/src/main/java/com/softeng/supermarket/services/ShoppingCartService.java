@@ -42,7 +42,9 @@ public class ShoppingCartService {
         for (CartItem updatedCartItem : updatedCartItems) {
             long itemId = updatedCartItem.getId();
             int quantity = updatedCartItem.getQuantity();
-            cart.updateQuantity(itemId, quantity);
+            if(quantity<=updatedCartItem.getMaxStock()) {
+                cart.updateQuantity(itemId, quantity);
+            }
         }
         // Save the updated cart in the database or perform any necessary calculations
         // For simplicity, we assume the cart object already contains the updated cart items.

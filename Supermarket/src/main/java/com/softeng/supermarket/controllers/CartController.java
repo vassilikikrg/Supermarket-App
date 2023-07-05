@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,9 +47,13 @@ public class CartController {
         return cart != null ? cart.getCartItems() : null;
     }
     @PostMapping("/update")
-    public ResponseEntity<List<CartItem>> updateCart(@RequestBody List<CartItem> updatedCartItems, HttpSession session) {
+    public ResponseEntity<List<CartItem>> updateCart(@RequestBody String updatedCartItemsJson, HttpSession session) {
 
         try {
+            // Create an instance of ObjectMapper from Jackson library
+            ObjectMapper objectMapper = new ObjectMapper();
+            // Convert the JSON string into a List<CartItem>
+            List<CartItem> updatedCartItems = objectMapper.readValue(updatedCartItemsJson, new TypeReference<List<CartItem>>() {});
             // Fetch the current cart from the session
             Cart cart = (Cart) session.getAttribute("Cart");
 

@@ -85,7 +85,7 @@
           </div>
         </nav>
     </div>
-    <div class="cart-card" id="shopping-cart">
+    <div class="cart-card" id="shopping-cart" style="display: none;">
           <div class="cart-header">
               <span class="cart-icon">
                 <img src="/images/global/cart.svg" style="width: 15px; height: 15px;">
@@ -107,7 +107,7 @@
                 </table>
             <div id="total-price-cart"></div>
                 <div style="margin:auto;" class="cart-actions" id="cart-actions">
-                  <a class="cart-read" href="/products" id="cart-read">
+                  <a class="cart-read" style="text-decoration:none;color:whitesmoke" href="/products" id="cart-read">
                     Start shopping!
                   </a>
                 </div>
@@ -131,15 +131,18 @@
         x.style.display = "none";
       }
     }
+
+    let cart;
     function fetchCartItems(){
       fetch('/cart/view')
               .then(response => response.json())
               .then(data => {
-                console.log(JSON.stringify(data))
+                cart=data;
                 // Process the retrieved data
                 displayCartItems(data);
               })
               .catch(error => console.error(error));
+
     }
 
     function displayCartItems(cartItems) {
@@ -176,7 +179,7 @@
         tableContainer.innerHTML = productTableHTML;
         const containerLink=document.getElementById('cart-actions');//change link
 
-        containerLink.innerHTML = "<a class=\"cart-read\" href=\"/order\" id=\"cart-read\">" +
+        containerLink.innerHTML = "<a class=\"cart-read\" style=\"text-decoration:none;color:whitesmoke\" href=\"/order\" id=\"cart-read\">" +
                   "Continue to payment" +
                   "</a>"
 
@@ -258,13 +261,13 @@
 
       // Enable or disable the update button based on whether changes are detected
       if (changesDetected) {
-        containerLink.innerHTML ="<a class=\"cart-read\" href=\"/payment\" id=\"cart-read\">" +
+        containerLink.innerHTML ="<a class=\"cart-read\" style=\"text-decoration:none;color:whitesmoke\" href=\"/payment\" id=\"cart-read\">" +
                 "Continue to payment" +
                 "</a>"+
-                "<a class=\"cart-mark-as-read\" id=\"update-button\" href=\"#\" onclick=\"updateCart()\">" +
+                "<a class=\"cart-mark-as-read\" style=\"text-decoration:none;color:whitesmoke;\" id=\"update-button\" href=\"#\" onclick=\"updateCart()\">" +
                 "Update cart</a>\n";
       } else {
-        containerLink.innerHTML="<a class=\"cart-read\" href=\"/payment\" id=\"cart-read\">" +
+        containerLink.innerHTML="<a class=\"cart-read\" style=\"text-decoration:none;color:whitesmoke\" href=\"/payment\" id=\"cart-read\">" +
                 "Continue to payment" +
                 "</a>";
       }
@@ -280,15 +283,32 @@
 
         updatedCart.push({ id: itemId, quantity });
       }
-      console.log(updatedCart);
+
+      for (let i = 0; i < cart.length; i++) {
+        const update = updatedCart[i];
+        const id = update.id;
+        const quantity = update.quantity;
+
+        for (let j = 0; j < cart.length; j++) {
+          if (cart[j].id == id) {
+            cart[j].quantity = quantity;
+            break;
+          }
+        }
+      }
+
       // Make a POST request to update the cart on the backend
       fetch('/cart/update', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(updatedCart),
+        body: JSON.stringify(cart),
       })
+      .then(hideCart())
+      .then(displayCartItems(cart))
+      .catch(error => console.error(error));
+
 
     }
   </script>
