@@ -74,7 +74,8 @@ public class WebSecurityConfig {
                                 "/add",
                                 "/getStores",
                                 "/stock",
-                                "/setStore"
+                                "/setStore",
+                                "/login/admin"
                         )
                         .permitAll()
                         .requestMatchers("/customer/**").hasAnyAuthority("CUSTOMER")

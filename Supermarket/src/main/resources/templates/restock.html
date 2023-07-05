@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html layout:decorate="Layouts/defaultLayout" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Restock</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+<div layout:fragment="content">
+    <h1>Restock</h1>
+    <form action="#" th:action="@{/performRestock}" th:object="${product}" method="post">
+        <label for="name">Product Name:</label>
+        <input type="text" id="name" th:field="*{name}" required><br>
+
+        <label for="description">Description:</label>
+        <textarea id="description" th:field="*{description}" required></textarea><br>
+
+        <label for="categoryID">Category ID:</label>
+        <input type="text" id="categoryID" th:field="*{categoryID}" required><br>
+
+        <label for="price">Price:</label>
+        <input type="text" id="price" th:field="*{price}" required><br>
+
+        <label for="imageSource">Image Source URL:</label>
+        <input type="text" id="imageSource" th:field="*{imageSource}" required><br>
+
+        <button type="submit">Restock Product</button>
+    </form>
+</div>
+</body>
+</html>

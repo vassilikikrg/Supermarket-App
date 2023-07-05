@@ -76,5 +76,13 @@ public class AuthenticationController {
         return "Failed to save";
         }
     }
+    @GetMapping("/login/admin")
+    public String displayAdminLoginForm(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            return "login_admin";
+        }
+        return "redirect:/home";
+    }
 
 }
