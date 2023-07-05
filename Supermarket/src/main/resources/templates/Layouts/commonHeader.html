@@ -161,13 +161,13 @@
                 <td>
                 <img src="${cartItem.imageSource}" alt="${cartItem.name}" width="50px">
                 </td>
-                <td>${cartItem.name}</td>
+                <td style="max-width: 40%;">${cartItem.name}</td>
                 <td>${cartItem.quantity} piece(s)</td>
                 <td>
-                <div class="cart-number-input">
-                <button id="cart-minusButton" style="background-color: #d41d36; margin-right: 5px" onclick="cartdecrementNumber()" disabled>-</button>
-                <input id="cart-quantity-input"+"${cartItem.id}" class="cart-quantity-input" type="number" value="${cartItem.quantity}" min="1" max="${cartItem.maxStock}" oninput="cartvalidateRange()">
-                <button id="cart-plusButton" style="background-color: #6a8f65; margin-left: 5px" onclick="cartincrementNumber()">+</button>
+                <div class="cart-number-input" id="cart-number-input-${cartItem.id}">
+                <button id="cart-minusButton-${cartItem.id}" style="background-color: #d41d36; margin-right: 5px" onclick="cartdecrementNumber('${cartItem.id}', ${cartItem.maxStock})">-</button>
+                <input id="cart-quantity-input-${cartItem.id}" class="cart-quantity-input" type="number" value="${cartItem.quantity}" min="1" max="${cartItem.maxStock}" oninput="cartvalidateRange(${cartItem.id}, ${cartItem.maxStock})">
+                <button id="cart-plusButton-${cartItem.id}" style="background-color: #6a8f65; margin-left: 5px" onclick="cartincrementNumber('${cartItem.id}', ${cartItem.maxStock})">+</button>
                 </div>
                 </td>
                 <td id="cart-item-id" hidden>${cartItem.id}</td>
@@ -196,6 +196,46 @@
       }
       return totalPrice;
     }
+
+    function cartvalidateRange(itemId, maxStock) {
+      const numberInput = document.getElementById(`cart-quantity-input-${itemId}`);
+      const minusButton = document.getElementById(`cart-minusButton-${itemId}`);
+      const plusButton = document.getElementById(`cart-plusButton-${itemId}`);
+
+      const value = parseInt(numberInput.value);
+
+      if (value === 1) {
+        minusButton.disabled = true;
+        plusButton.disabled = false;
+      } else if (value === maxStock) {
+        minusButton.disabled = false;
+        plusButton.disabled = true;
+      } else {
+        minusButton.disabled = false;
+        plusButton.disabled = false;
+      }
+    }
+
+    function cartdecrementNumber(itemId, maxStock) {
+      const numberInput = document.getElementById(`cart-quantity-input-${itemId}`);
+      const currentValue = parseInt(numberInput.value);
+
+      if (currentValue > 1) {
+        numberInput.value = currentValue - 1;
+        cartvalidateRange(itemId, maxStock);
+      }
+    }
+
+    function cartincrementNumber(itemId, maxStock) {
+      const numberInput = document.getElementById(`cart-quantity-input-${itemId}`);
+      const currentValue = parseInt(numberInput.value);
+
+      if (currentValue < maxStock) {
+        numberInput.value = currentValue + 1;
+        cartvalidateRange(itemId, maxStock);
+      }
+    }
+
   </script>
 </div>
 

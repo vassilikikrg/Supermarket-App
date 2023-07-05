@@ -73,3 +73,29 @@ section h2 {
     padding: 20px;
     width: 50%;
 }
+
+.cart-number-input {
+    display: flex;
+    align-items: center;
+}
+
+.cart-number-input input {
+    width: 100px;
+    text-align: center;
+}
+
+.cart-number-input button {
+    width: 40px;
+    height: 40px;
+    padding: 3px;
+    border-radius: 3px;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.cart-number-input button:disabled {
+    background-color: #ddd !important;
+    cursor: not-allowed;
+}
+
