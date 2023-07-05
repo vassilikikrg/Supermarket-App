@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html layout:decorate="Layouts/defaultLayout" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Home</title>
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/bootstrap.css" rel="stylesheet">
+  <link href="/css/style.css" rel="stylesheet">
+
+  <style>
+    .cart-product {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .cart-product img {
+      margin-right: 10px;
+    }
+
+
+  </style>
+
+</head>
+<body>
+<div layout:fragment="content">
+  <div id="cart-products"></div>
+  <div  th:if="${session.Cart!=null}">
+    <table class="table table-borderless">
+      <tbody>
+      <tr  th:each="cartItem : ${session.Cart.getCartItems()}">
+        <td><img th:src="${cartItem.imageSource}" th:alt="${cartItem.name}" width="50px"></td>
+        <td th:text="${cartItem.name}"></td>
+        <td th:text="${cartItem.quantity}+' piece(s)'"></td>
+      </tr>
+      </tbody>
+    </table>
+    <button class="btn btn-dark text-center" type="button" style="width: 100%">
+      Proceed to payment
+    </button>
+  </div>
+  <div th:if="${session.Cart!=null}">
+    <h4 th:text="${mymessage}" class="text-info mb-3"></h4>
+    <button class="btn btn-dark text-center" type="button" style="width: 100%" onclick="location.href='/products'">
+      Start shopping!
+    </button>
+  </div>
+
+
+</div>
+
+<script>
+  // Retrieve cart products using fetch
+  fetch('/cart/view')
+          .then(response => response.json())
+          .then(products => {
+            console.log(JSON.stringify(products))
+
+            // Create HTML markup for the cart products
+            const cartProductsHTML = products.map(product => `
+      <div class="cart-product">
+        <img src="${product.imageSource}" alt="${product.name}" width="50px">
+        <span>${product.name}</span>
+        <span>${product.quantity} piece(s)</span>
+      </div>
+    `).join('');
+
+            // Display the cart products in the HTML section
+            const cartProductsContainer = document.getElementById('cart-products');
+            cartProductsContainer.innerHTML = cartProductsHTML;
+          })
+          .catch(error => {
+            console.error('Error retrieving cart products:', error);
+          });
+
+
+
+</script>
+</body>
+</html>

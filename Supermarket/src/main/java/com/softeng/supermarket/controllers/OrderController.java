@@ -11,4 +11,10 @@ public class OrderController {
         return "Payment.html";
     }
 
+    @GetMapping("/order")
+    public String order(){
+
+        return "order.html";
+    }
+
 }
