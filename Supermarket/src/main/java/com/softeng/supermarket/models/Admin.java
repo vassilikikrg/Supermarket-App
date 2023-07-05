@@ -5,7 +5,7 @@ import jakarta.persistence.Entity;
 @Entity
 public class Admin extends User{
     public Admin() {}
-
+    private long storeId;
     public Admin(String username, String password, String email, String phone, String firstname, String lastname) {
         this.setUsername(username);
         this.setPassword(password);
