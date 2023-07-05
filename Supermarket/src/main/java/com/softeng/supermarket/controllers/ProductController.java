@@ -2,6 +2,8 @@ package com.softeng.supermarket.controllers;
 
 import ch.qos.logback.core.model.Model;
 import com.softeng.supermarket.foreign_keys.SupermarketProductKey;
+import com.softeng.supermarket.models.Cart;
+import com.softeng.supermarket.models.CartItem;
 import com.softeng.supermarket.models.Product;
 import com.softeng.supermarket.models.Stock;
 import com.softeng.supermarket.repositories.ProductRepository;
@@ -104,6 +106,36 @@ public class ProductController {
             Optional<Stock> s = stockRepository.findById(key);
             Iterable<Stock> stocks = Collections.singletonList(s.orElse(null));
             return stocks;
+        }
+    }
+
+    @PostMapping(path = "/process_payment", produces = "application/json")
+    public  String processPaymentAndUpdateDatabase(@RequestParam(value = "cardNumber", required = true) String cardNumber, @RequestParam(value = "cardName", required = true) String cardName, @RequestParam(value = "expiryDate", required = true) String expiryDate, HttpSession session){
+        try {
+            Cart cart = (Cart) session.getAttribute("Cart");
+            Long storeId = (Long) session.getAttribute("store");
+            List<CartItem> order_items = cart.getCartItems();
+            for (CartItem orderItem : order_items) {
+                SupermarketProductKey key = new SupermarketProductKey(storeId, orderItem.getId());
+                Optional<Stock> s = stockRepository.findById(key);
+                if (s.isPresent()) {
+                    Stock stock = s.get();
+                    int updatedQuantity = stock.getQuantity() - orderItem.getQuantity(); // Example: subtract 1 from the current quantity
+                    if(updatedQuantity<0){
+                        throw new RuntimeException("Quantity cannot be more than stock!");
+                    }
+                    else {
+                        stock.setQuantity(updatedQuantity);
+                        stockRepository.save(stock);
+                        session.removeAttribute("Cart");
+                    }
+                }
+            }
+            return "thank_you_order";
+        }
+        catch (Exception e){
+            System.out.println(e);
+            return "403.html";
         }
     }
 
