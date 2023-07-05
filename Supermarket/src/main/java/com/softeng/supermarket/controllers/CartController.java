@@ -46,7 +46,7 @@ public class CartController {
     }
     @PostMapping("/update")
     public ResponseEntity<List<CartItem>> updateCart(@RequestBody List<CartItem> updatedCartItems, HttpSession session) {
-        /*
+
         try {
             // Fetch the current cart from the session
             Cart cart = (Cart) session.getAttribute("Cart");
@@ -69,7 +69,6 @@ public class CartController {
             e.printStackTrace();
             // Return an error response in case of any exceptions during the update process
             return ResponseEntity.status(500).build();
-        }*/
-        return null;
+        }
     }
 }
