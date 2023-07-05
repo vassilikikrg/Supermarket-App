@@ -40,11 +40,11 @@ public class AuthenticationController {
     //Register
     @GetMapping("/register")
     public String displayRegisterForm(Model model){
-        model.addAttribute("customerModel", new Customer());
+        model.addAttribute("customerModel", new Admin());
         return "register_form_customer";
     }
     @PostMapping("/processRegister")
-    public String processRegister(@Valid @ModelAttribute("customerModel") Customer customerModel, BindingResult bindingResult, RedirectAttributes redirectAttrs){
+    public String processRegister(@Valid @ModelAttribute("customerModel") Admin customerModel, BindingResult bindingResult, RedirectAttributes redirectAttrs){
         Customer customerExists=customerService.findCustomerByUsername(customerModel.getUsername());
         if(customerExists!=null){
             bindingResult
@@ -56,7 +56,7 @@ public class AuthenticationController {
             return "register_form_customer";
         }
         else {
-            customerService.saveCustomer(customerModel);
+            adminService.saveAdmin(customerModel);
             redirectAttrs.addFlashAttribute("mymessage","You are successfully registered! Please log in to continue.");
             return "redirect:/login";
         }

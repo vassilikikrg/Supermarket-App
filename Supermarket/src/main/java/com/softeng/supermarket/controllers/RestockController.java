@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class RestockController {
     @Autowired
     public ProductRepository productRepository;
-    @GetMapping("/restock")
+    @GetMapping("/admin/restock")
     public String showAdminPanel(Model model) {
         model.addAttribute("product", new Product());
         return "restock";
     }
-    @PostMapping("/performRestock")
+    @PostMapping("/admin/performRestock")
     public String restockProduct(@ModelAttribute Product product) {
         productRepository.save(product);
         return "redirect:/home";
