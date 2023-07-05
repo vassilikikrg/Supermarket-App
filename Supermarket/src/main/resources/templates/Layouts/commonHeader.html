@@ -37,7 +37,7 @@
             </ul>
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
-                <a class="nav-link" onclick="showCart()" href="#" id="cart-button"><span id="totalAmount">0.00</span>€
+                <a class="nav-link" onclick="showCart()" href="#" id="cart-button">
                   <img src="/images/global/cart.svg" style="width: 25px; height: 25px;">
                 </a>
               </li>
@@ -141,6 +141,7 @@
               })
               .catch(error => console.error(error));
     }
+
     function displayCartItems(cartItems) {
       // Access the product-container element
       //const productList = document.getElementById('product-list');
