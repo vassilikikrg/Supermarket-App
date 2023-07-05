@@ -24,6 +24,7 @@ public class WebController {
     public String clearSession(HttpSession session, @RequestParam(value = "product_id", required = true) String productId){
         session.removeAttribute("store");
         session.removeAttribute("storeName");
+        session.removeAttribute("Cart");
         return "redirect:/productPage?id="+productId;
     }
 }
