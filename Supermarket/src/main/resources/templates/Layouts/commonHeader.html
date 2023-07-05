@@ -37,7 +37,7 @@
             </ul>
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
-                <a class="nav-link" onclick="showCart()" href="#"><span id="totalAmount">0.00</span>€
+                <a class="nav-link" onclick="showCart()" href="#" id="cart-button"><span id="totalAmount">0.00</span>€
                   <img src="/images/global/cart.svg" style="width: 25px; height: 25px;">
                 </a>
               </li>
@@ -91,6 +91,8 @@
                 <img src="/images/global/cart.svg" style="width: 15px; height: 15px;">
               </span>
               <p class="cart-alert"> Cart</p>
+            <i class="fa fa-close" style="position:fixed;right:7%;" onclick="hideCart()"></i>
+
           </div>
           <div  id="shopping-cart-body">
                 <!-- Cart items will be displayed here -->
@@ -121,6 +123,12 @@
         fetchCartItems();
         x.style.display = "inline";
       } else {
+        x.style.display = "none";
+      }
+    }
+    function hideCart(){
+      let x = document.getElementById("shopping-cart");
+      if (x.style.display === "inline") {
         x.style.display = "none";
       }
     }
@@ -155,6 +163,14 @@
                 </td>
                 <td>${cartItem.name}</td>
                 <td>${cartItem.quantity} piece(s)</td>
+                <td>
+                <div class="cart-number-input">
+                <button id="cart-minusButton" style="background-color: #d41d36; margin-right: 5px" onclick="cartdecrementNumber()" disabled>-</button>
+                <input id="cart-quantity-input"+"${cartItem.id}" class="cart-quantity-input" type="number" value="${cartItem.quantity}" min="1" max="${cartItem.maxStock}" oninput="cartvalidateRange()">
+                <button id="cart-plusButton" style="background-color: #6a8f65; margin-left: 5px" onclick="cartincrementNumber()">+</button>
+                </div>
+                </td>
+                <td id="cart-item-id" hidden>${cartItem.id}</td>
             </tr>
         `).join('');
 

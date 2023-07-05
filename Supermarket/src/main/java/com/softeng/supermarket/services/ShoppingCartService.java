@@ -14,11 +14,11 @@ import java.util.Optional;
 public class ShoppingCartService {
     @Autowired
     ProductRepository productRepository;
-    public Cart addToCartFirstTime(long id, Integer quantity) throws Exception{
+    public Cart addToCartFirstTime(long id, Integer quantity,String storeId,Integer maxStock) throws Exception{
         try{
         Cart cart=new Cart(new ArrayList<CartItem>());
         Optional<Product> p=productRepository.findById(id);
-        if(p.isPresent()) cart.addItem(new CartItem(p.get(),quantity));
+        if(p.isPresent()) cart.addItem(new CartItem(p.get(),quantity,storeId,maxStock));
         return cart;
         }
         catch (Exception e){
@@ -26,13 +26,13 @@ public class ShoppingCartService {
             return null;
         }
     }
-    public Cart addToExistingCart(long id,Integer quantity,Cart existingCart){
+    public Cart addToExistingCart(long id,Integer quantity,String storeId,Integer maxStock,Cart existingCart){
         Optional<Product> p=productRepository.findById(id);
         if(existingCart.containsProduct(id)){
             existingCart.updateQuantity(id,quantity);
         }
         else {
-            CartItem cartItem=new CartItem(p.get(),quantity);
+            CartItem cartItem=new CartItem(p.get(),quantity,storeId,maxStock);
             existingCart.addItem(cartItem);
         }
         return existingCart;

@@ -19,15 +19,15 @@ public class CartController {
     @Autowired
     ShoppingCartService shoppingCartService;
     @PostMapping("/add")
-    public @ResponseBody String addToCart(HttpSession session, Model model, @RequestParam("id") long id, @RequestParam("quantity") int quantity) throws Exception {
+    public @ResponseBody String addToCart(HttpSession session, Model model, @RequestParam("id") long id, @RequestParam("quantity") int quantity,@RequestParam("storeId") String storeId, @RequestParam("maxStock") int maxStock) throws Exception {
         try {
             Cart sessionCart=(Cart) session.getAttribute("Cart");
             if(sessionCart==null){
-                Cart cart=shoppingCartService.addToCartFirstTime(id,quantity);
+                Cart cart=shoppingCartService.addToCartFirstTime(id,quantity,storeId,maxStock);
                 session.setAttribute("Cart",cart);
             }
             else{
-                Cart updatedCart=shoppingCartService.addToExistingCart(id,quantity,sessionCart);
+                Cart updatedCart=shoppingCartService.addToExistingCart(id,quantity,storeId,maxStock,sessionCart);
                 session.setAttribute("Cart",updatedCart);
             }
             return "Added to cart";
@@ -43,4 +43,6 @@ public class CartController {
         Cart cart = (Cart) session.getAttribute("Cart");
         return cart != null ? cart.getCartItems() : null;
     }
+
+
 }

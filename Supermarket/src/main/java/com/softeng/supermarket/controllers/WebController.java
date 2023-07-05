@@ -13,10 +13,6 @@ import java.util.Optional;
 
 @Controller
 public class WebController {
-    @GetMapping("/admin")
-    public String adminPage(){
-        return "hellopage";
-    }
     @GetMapping("/403")
     public String accessDenied(){
         return "403.html";

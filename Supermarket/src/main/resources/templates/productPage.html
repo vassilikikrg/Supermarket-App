@@ -411,6 +411,7 @@
             whatitem.innerHTML = whatitemHTML;
             pageTitle.innerHTML = whatitemHTML;
 
+            let maxStock;
             //document.getElementById('supermarketIdInput').value = productId
             // Create HTML markup for each product
             const productsHTML = products.map(product => `
@@ -480,7 +481,8 @@
                 const entry = supermarkets[i];
                 if (entry.supermarket.id === storeId) {
                     document.getElementById("qty").innerText=": "+entry.quantity+" piece(s)";
-                    numberInput.max=entry.quantity
+                    numberInput.max=entry.quantity;
+                    maxStock=entry.quantity;
                 }
             }
             // If the supermarket id is not found, you can return an appropriate value or throw an error
@@ -525,7 +527,7 @@
             let quantity = document.getElementById("quantity-input").value;
             $.ajax({
                 type: 'POST',
-                url: '/cart/add?id='+productId+'&quantity='+quantity,
+                url: '/cart/add?id='+productId+'&quantity='+quantity+'&storeId='+storeId+'&maxStock='+maxStock,
                 error : function() {
                     console.log("error");
                 },
