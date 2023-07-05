@@ -52,6 +52,7 @@
 
 .cart-actions {
     margin-top: 1.5rem;
+    max-width: 50%;
 }
 
 .cart-actions a {
@@ -72,15 +73,13 @@
 .cart-read {
     background-color: #6a8f65;
     color: rgba(255, 255, 255, 1);
-    max-width: 50%;
 }
 
 .cart-mark-as-read {
     margin-top: 0.5rem;
-    background-color: rgba(249, 250, 251, 1);
+    background-color: #c0cb66;
     color: rgba(107, 114, 128, 1);
     transition: all .15s ease;
-    max-width: 50%;
 }
 
 .cart-mark-as-read:hover {

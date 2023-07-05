@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -37,6 +38,15 @@ public class ShoppingCartService {
         }
         return existingCart;
     }
-
+    public Cart updateCart(Cart cart, List<CartItem> updatedCartItems) {
+        for (CartItem updatedCartItem : updatedCartItems) {
+            long itemId = updatedCartItem.getId();
+            int quantity = updatedCartItem.getQuantity();
+            cart.updateQuantity(itemId, quantity);
+        }
+        // Save the updated cart in the database or perform any necessary calculations
+        // For simplicity, we assume the cart object already contains the updated cart items.
+        return cart;
+    }
 
 }

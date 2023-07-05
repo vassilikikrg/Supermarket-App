@@ -111,7 +111,6 @@
                     Start shopping!
                   </a>
                 </div>
-
           </div>
     </div>
   </div>
@@ -166,23 +165,23 @@
                 <td>
                 <div class="cart-number-input" id="cart-number-input-${cartItem.id}">
                 <button id="cart-minusButton-${cartItem.id}" style="background-color: #d41d36; margin-right: 5px" onclick="cartdecrementNumber('${cartItem.id}', ${cartItem.maxStock})">-</button>
-                <input id="cart-quantity-input-${cartItem.id}" class="cart-quantity-input" type="number" value="${cartItem.quantity}" min="1" max="${cartItem.maxStock}" oninput="cartvalidateRange(${cartItem.id}, ${cartItem.maxStock})">
+                <input id="cart-quantity-input-${cartItem.id}" class="cart-quantity-input" type="number" value="${cartItem.quantity}" min="1" max="${cartItem.maxStock}" oninput="cartvalidateRange(${cartItem.id}, ${cartItem.maxStock}); checkQuantityChanges();" data-item-id="${cartItem.id}" data-original-quantity="${cartItem.quantity}">
                 <button id="cart-plusButton-${cartItem.id}" style="background-color: #6a8f65; margin-left: 5px" onclick="cartincrementNumber('${cartItem.id}', ${cartItem.maxStock})">+</button>
                 </div>
                 </td>
-                <td id="cart-item-id" hidden>${cartItem.id}</td>
             </tr>
         `).join('');
 
         tableContainer.innerHTML = productTableHTML;
         const containerLink=document.getElementById('cart-actions');//change link
-        containerLink.innerHTML="<a class=\"cart-read\" href=\"/changeThisHrefASAP\" id=\"cart-read\">\n" +
-                                "Continue to payment" +
-                                "</a>"
+
+        containerLink.innerHTML = "<a class=\"cart-read\" href=\"/payment\" id=\"cart-read\">" +
+                  "Continue to payment" +
+                  "</a>"
+
         let totalPrice=calculateTotalPrice(cartItems).toFixed(2);
         const totalPriceContainer=document.getElementById('total-price-cart');
         totalPriceContainer.innerText='Total price is: '+totalPrice+'€';
-
 
       }
     }
@@ -223,6 +222,8 @@
       if (currentValue > 1) {
         numberInput.value = currentValue - 1;
         cartvalidateRange(itemId, maxStock);
+        checkQuantityChanges(); // Call the function to check for changes
+
       }
     }
 
@@ -233,9 +234,62 @@
       if (currentValue < maxStock) {
         numberInput.value = currentValue + 1;
         cartvalidateRange(itemId, maxStock);
+        checkQuantityChanges(); // Call the function to check for changes
       }
     }
 
+    function checkQuantityChanges() {
+      const cartItems = document.getElementsByClassName("cart-quantity-input");
+      let containerLink = document.getElementById("cart-actions");
+      let changesDetected = false;
+
+      for (const cartItem of cartItems) {
+        const itemId = cartItem.getAttribute("data-item-id");
+        const originalQuantity = parseInt(cartItem.getAttribute("data-original-quantity"));
+        const currentQuantity = parseInt(document.getElementById(`cart-quantity-input-${itemId}`).value);
+
+
+        if (originalQuantity !== currentQuantity) {
+          changesDetected = true;
+          break; // Exit the loop if any change is detected
+        }
+      }
+
+      // Enable or disable the update button based on whether changes are detected
+      if (changesDetected) {
+        containerLink.innerHTML ="<a class=\"cart-read\" href=\"/payment\" id=\"cart-read\">" +
+                "Continue to payment" +
+                "</a>"+
+                "<a class=\"cart-mark-as-read\" id=\"update-button\" href=\"/cart/update\" onclick=\"updateCart()\">" +
+                "Update cart</a>\n";
+      } else {
+        containerLink.innerHTML="<a class=\"cart-read\" href=\"/payment\" id=\"cart-read\">" +
+                "Continue to payment" +
+                "</a>";
+      }
+    }
+
+    function updateCart() {
+      const cartItems = document.querySelectorAll('.cart-quantity-input');
+      const updatedCart = [];
+
+      for (const item of cartItems) {
+        const itemId = item.dataset.itemId;
+        const quantity = parseInt(item.value);
+
+        updatedCart.push({ id: itemId, quantity });
+      }
+      console.log(updatedCart);
+      // Make a POST request to update the cart on the backend
+      fetch('/cart/update', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedCart),
+      })
+
+    }
   </script>
 </div>
 

@@ -6,6 +6,7 @@ import com.softeng.supermarket.models.Product;
 import com.softeng.supermarket.services.ShoppingCartService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -43,6 +44,32 @@ public class CartController {
         Cart cart = (Cart) session.getAttribute("Cart");
         return cart != null ? cart.getCartItems() : null;
     }
+    @PostMapping("/update")
+    public ResponseEntity<List<CartItem>> updateCart(@RequestBody List<CartItem> updatedCartItems, HttpSession session) {
+        /*
+        try {
+            // Fetch the current cart from the session
+            Cart cart = (Cart) session.getAttribute("Cart");
 
+            if (cart != null) {
+                // Update the quantities of cart items based on the received updatedCartItems
+                cart = shoppingCartService.updateCart(cart, updatedCartItems);
 
+                // Save the updated cart back to the session
+                session.setAttribute("Cart", cart);
+
+                // Return the updated cart items as a response
+                return ResponseEntity.ok(cart.getCartItems());
+            } else {
+                // Cart not found in the session, handle this situation based on your requirements
+                // For example, you might want to create a new cart or handle it differently
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Return an error response in case of any exceptions during the update process
+            return ResponseEntity.status(500).build();
+        }*/
+        return null;
+    }
 }
