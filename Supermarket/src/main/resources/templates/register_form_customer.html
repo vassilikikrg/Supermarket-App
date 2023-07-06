@@ -71,6 +71,9 @@
                   <button type="submit" class="btn mt-2 " style="background-color: var(--darkGreen);color:whitesmoke;">Sign up</button>
                 </div>
               </div>
+              <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="alert alert-danger" role="alert">Error for duplicate username</div>
+              <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="alert alert-danger" role="alert">Error for duplicate email</div>
+
             </form>
             <div class="text-center">
               Already have an account? <a href="/login">Log in</a>

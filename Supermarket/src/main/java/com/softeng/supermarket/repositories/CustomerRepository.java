@@ -9,5 +9,6 @@ import java.util.List;
 public interface CustomerRepository  extends CrudRepository<Customer, String> {
     @Query("SELECT q FROM Customer q WHERE q.username = ?1")
     public Customer findByUsername(String name);
-    List<Customer> findByPhone(String phone);
+    @Query("SELECT q FROM Customer q WHERE q.email = ?1")
+    Customer findByEmail(String phone);
 }

@@ -19,10 +19,10 @@ public class CustomerService {
     public Customer findCustomerByUsername(String username){
         return customerRepository.findByUsername(username);
     }
-    /*
-    public Customer findCustomerByPhone(String phone){
-        return customerRepository.findByPhone(phone);
-    }*/
+
+    public Customer findCustomerByEmail(String email){
+        return customerRepository.findByEmail(email);
+    }
     public Customer saveCustomer(Customer customer){
         customer.setPassword(bCryptPasswordEncoder.encode(customer.getPassword()));
         return customerRepository.save(customer);

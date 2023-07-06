@@ -46,20 +46,27 @@ public class AuthenticationController {
     @PostMapping("/processRegister")
     public String processRegister(@Valid @ModelAttribute("customerModel") Customer customerModel, BindingResult bindingResult, RedirectAttributes redirectAttrs){
         Customer customerExists=customerService.findCustomerByUsername(customerModel.getUsername());
+        Customer customerEmailDuplicate=customerService.findCustomerByEmail(customerModel.getEmail());
         if(customerExists!=null){
             bindingResult
-                    .rejectValue("userName", "error.user",
-                            "There is already a user registered with the user name provided");
+                    .rejectValue("username", "error.user",
+                            "There is already another user registered with the user name provided");
+            return "register_form_customer";
+        }
+        if(customerEmailDuplicate!=null){
+            bindingResult
+                    .rejectValue("email", "error.email",
+                            "There is already another user registered with the email provided");
             return "register_form_customer";
         }
         if(bindingResult.hasErrors()){
             return "register_form_customer";
         }
-        else {
-            customerService.saveCustomer(customerModel);
-            redirectAttrs.addFlashAttribute("mymessage","You are successfully registered! Please log in to continue.");
-            return "redirect:/login";
-        }
+
+        customerService.saveCustomer(customerModel);
+        redirectAttrs.addFlashAttribute("mymessage","You are successfully registered! Please log in to continue.");
+        return "redirect:/login";
+
     }
 
     //For Admins
