@@ -10,5 +10,7 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
 
     Iterable<Product> findByPriceLessThanEqual(String price);
 
+    Product findByName(String name);
+
 
 }

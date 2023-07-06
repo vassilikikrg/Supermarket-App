@@ -8,6 +8,34 @@
     <link href="/css/style.css" rel="stylesheet">
 
     <style>
+        #snackbar {
+            visibility: hidden;
+            min-width: 400px;
+            margin-left: -200px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 2px;
+            padding: 16px;
+            position: fixed;
+            z-index: 1;
+            left: 50%;
+            bottom: 50px;
+        }
+        #snackbar.show {
+            visibility: visible;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+        @keyframes fadein {
+            from {bottom: 0; opacity: 0;}
+            to {bottom: 50px; opacity: 1;}
+        }
+
+        @keyframes fadeout {
+            from {bottom: 30px; opacity: 1;}
+            to {bottom: 0; opacity: 0;}
+        }
         .number-input {
             display: flex;
             align-items: center;
@@ -44,10 +72,9 @@
         h1 {
             text-align: center;
             color: #333;
-            margin-top: 30px;
         }
 
-        form {
+        .restock_form {
             max-width: 500px;
             margin: 0 auto;
             background-color: #fff;
@@ -73,7 +100,7 @@
             font-size: 14px;
         }
 
-        button[type="submit"] {
+        #restockbtn{
             background-color: #c0cb66;
             color: #fff;
             border: none;
@@ -83,7 +110,7 @@
             font-size: 14px;
         }
 
-        button[type="submit"]:hover {
+        #restockbtn:hover {
             background-color: #808744;
         }
     </style>
@@ -91,32 +118,25 @@
 <body>
 <div layout:fragment="content">
     <h1>Product Restock</h1>
-    <form action="#" th:action="@{/admin/performRestock}" th:object="${product}" method="post">
-        <label for="name">Product Name:</label>
-        <input type="text" id="name" th:field="*{name}" required>
-
-        <label for="description">Description:</label>
-        <textarea id="description" th:field="*{description}" required></textarea>
-
-        <label for="categoryID">Category ID:</label>
-        <input type="text" id="categoryID" th:field="*{categoryID}" required>
-
-        <label for="price">Price:</label>
-        <input type="text" id="price" th:field="*{price}" required>
-
-        <label for="imageSource">Image Source URL:</label>
-        <input type="text" id="imageSource" th:field="*{imageSource}" required>
-        <label for="quantity">Enter the quantity to restock : </label>
+    <form class="restock_form" name="myform">
+        <label for="stores">Select a store:</label>
+        <select name="stores" id="stores" class="selectionform">
+        </select>
+        <label for="products">Select a product:</label>
+        <select name="products" id="products" class="selectionform">
+        </select>
+        <label for="quantity">Enter the number of products of the new delivery: </label>
         <div class="number-input">
             <input id="quantity" class="quantity" type="number" value="1" min="1">
         </div>
-        <label for="stores">Select a store:</label>
 
-        <select name="stores" id="stores" class="selectionform">
-        </select>
         <input type="hidden" id="storeId" name="storeId">
-        <button type="submit" onclick="">Restock</button>
+        <input type="hidden" id="productId" name="productId">
+        <button type="submit" style="margin-top: 20px;" id="restockbtn">Restock</button>
     </form>
+    <div id="snackbar">Restock completed successfully!</div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.querySelector('form');
@@ -128,13 +148,31 @@
                 document.getElementById('quantity').value = quantity;
             });
 
-            console.log("hi");
             fetch('/getStores')
                 .then(response => response.json())
                 .then(data => {
                     addStoresToDropdown(data);
                 })
                 .catch(error => console.error('Error loading stores data:', error));
+
+            fetch('/all')
+                .then(response => response.json())
+                .then(data => {
+                    addProductsToDropdown(data);
+                })
+                .catch(error => console.error('Error loading stores data:', error));
+
+            document.getElementById("restockbtn").addEventListener("click", function(event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                const selectedOption = document.getElementById('stores').options[document.getElementById('stores').selectedIndex];
+                const storeId = selectedOption.id.split('-')[1];
+                const quantity = document.getElementById('quantity').value;
+                document.getElementById('storeId').value = storeId;
+                document.getElementById('quantity').value = quantity;
+
+                performRestock(); // Call the performRestock function to initiate the AJAX request
+            });
         });
         function addStoresToDropdown(stores){
             const container = document.getElementById('stores');
@@ -147,7 +185,50 @@
             <option id="store-${store.id}">${store.name}</option>
             `).join('');
             container.innerHTML=storeHTML;
-            console.log("hi");
+            document.getElementById("storeId").value=stores[0].id;
+
+        }
+        function addProductsToDropdown(products){
+            const container = document.getElementById('products');
+
+            container.addEventListener('change', function(event) {
+                const selectedOption = event.target.options[event.target.selectedIndex];
+                const productId = selectedOption.id.split('-')[1];
+                document.getElementById('productId').value = productId;
+            });
+            const storeHTML = products.map(product => `
+            <option id="store-${product.id}">${product.name}</option>
+            `).join('');
+            container.innerHTML=storeHTML;
+            document.getElementById("productId").value=products[0].id;
+        }
+        function performRestock(){
+            let quantity = document.getElementById("quantity").value;
+            console.log(quantity);
+            let productId=document.getElementById("productId").value;
+            let storeId=document.getElementById("storeId").value;
+
+            $.ajax({
+                type: 'POST',
+                url: '/admin/performRestock?productId='+productId+'&storeId='+storeId+'&quantity='+quantity,
+                error : function() {
+                    showSnackbar("Something went wrong. Please Try again later")
+                    console.log("error");
+                },
+                success: function () {
+                    showSnackbar()
+                }
+            });
+        }
+        //document.getElementById("restockbtn").addEventListener("click",performRestock);
+
+        function showSnackbar(text) {
+            var snackbar = document.getElementById("snackbar");
+            if(text){
+                snackbar.innerText=text
+            }
+            snackbar.className = "show";
+            setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
         }
     </script>
 </div>

@@ -44,7 +44,6 @@
     h1 {
       text-align: center;
       color: #333;
-      margin-top: 30px;
     }
 
     form {
@@ -91,8 +90,8 @@
 <body>
 
 <div layout:fragment="content">
-  <h1>Product Restock</h1>
-  <form action="#" th:action="@{/admin/performRestock}" th:object="${product}" method="post">
+  <h1>Add new product</h1>
+  <form action="#" th:action="@{/admin/performAdd}" th:object="${product}" method="post">
     <label for="name">Product Name:</label>
     <input type="text" id="name" th:field="*{name}" required>
 
@@ -107,50 +106,12 @@
 
     <label for="imageSource">Image Source URL:</label>
     <input type="text" id="imageSource" th:field="*{imageSource}" required>
-    <label for="quantity">Enter the quantity to restock : </label>
-    <div class="number-input">
-      <input id="quantity" class="quantity" type="number" value="1" min="1">
+    <div  th:if="${error != null}" th:text="${error}" class="alert alert-danger my-0" role="alert">
+      error message
     </div>
-    <label for="stores">Select a store:</label>
-
-    <select name="stores" id="stores" class="selectionform">
-    </select>
-    <input type="hidden" id="storeId" name="storeId">
-    <button type="submit" onclick="">Restock</button>
+    <button type="submit" onclick="" style="margin-top:10px;">Add product</button>
   </form>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const form = document.querySelector('form');
-      form.addEventListener('submit', function(event) {
-        const selectedOption = document.getElementById('stores').options[document.getElementById('stores').selectedIndex];
-        const storeId = selectedOption.id.split('-')[1];
-        const quantity = document.getElementById('quantity').value;
-        document.getElementById('storeId').value = storeId;
-        document.getElementById('quantity').value = quantity;
-      });
 
-      console.log("hi");
-      fetch('/getStores')
-              .then(response => response.json())
-              .then(data => {
-                addStoresToDropdown(data);
-              })
-              .catch(error => console.error('Error loading stores data:', error));
-    });
-    function addStoresToDropdown(stores){
-      const container = document.getElementById('stores');
-      container.addEventListener('change', function(event) {
-        const selectedOption = event.target.options[event.target.selectedIndex];
-        const storeId = selectedOption.id.split('-')[1];
-        document.getElementById('storeId').value = storeId;
-      });
-      const storeHTML = stores.map(store => `
-            <option id="store-${store.id}">${store.name}</option>
-            `).join('');
-      container.innerHTML=storeHTML;
-      console.log("hi");
-    }
-  </script>
 </div>
 
 </body>
