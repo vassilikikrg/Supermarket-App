@@ -2,10 +2,7 @@ package com.softeng.supermarket.controllers;
 
 import ch.qos.logback.core.model.Model;
 import com.softeng.supermarket.foreign_keys.SupermarketProductKey;
-import com.softeng.supermarket.models.Cart;
-import com.softeng.supermarket.models.CartItem;
-import com.softeng.supermarket.models.Product;
-import com.softeng.supermarket.models.Stock;
+import com.softeng.supermarket.models.*;
 import com.softeng.supermarket.repositories.ProductRepository;
 import com.softeng.supermarket.repositories.StockRepository;
 import jakarta.servlet.http.HttpSession;

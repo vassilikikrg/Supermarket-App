@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" decorate="Layouts/defaultTemplate">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Fresh-Mart</title>
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<!--header-->
+<div th:replace="Layouts/commonHeaderAdmin :: header"> Header</div>
+<!--content-->
+<section layout:fragment="content" style="position: relative;">
+    <p>Replace this with a page that has layout:fragment="content"</p>
+</section>
+<!--footer-->
+<div th:replace="Layouts/commonFooter :: footer"> Footer</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>
