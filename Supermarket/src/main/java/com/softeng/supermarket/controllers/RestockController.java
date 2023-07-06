@@ -41,4 +41,10 @@ public class RestockController {
         model.addAttribute("product", new Product());
         return "addnewproduct";
     }
+    
+    @GetMapping("/restockComplete")
+    public String restockComplete(){
+
+        return "restock_complete.html";
+    }
 }
