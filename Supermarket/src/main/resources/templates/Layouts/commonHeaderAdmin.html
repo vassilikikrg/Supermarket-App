@@ -35,29 +35,11 @@
                 <input type="submit" value="Logout" />
               </form>
               <li class="nav-item" sec:authorize="isAuthenticated()">
-                <a class="nav-link" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
+                <a class="nav-link" href="javascript: document.logoutForm.submit()">Logout</a>
+
               </li>
 
-              <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="logoutModalLabel">Logout Confirmation</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <p>Are you sure you want to log out of your profile?</p>
-                    </div>
-                    <div class="modal-footer">
-                      <a class="nav-link" href="#" data-dismiss="modal">Cancel</a>
-                      
-                      <a class="nav-link" href="javascript: document.logoutForm.submit()">Logout</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
+
             </ul>
           </div>
         </nav>

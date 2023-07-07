@@ -87,8 +87,18 @@ public class WebSecurityConfig {
                 )
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/home")
+                .defaultSuccessUrl("/home",true)
                 .permitAll()
+                .successHandler((request, response, authentication) -> {
+                    boolean isAdmin = authentication.getAuthorities().stream()
+                            .anyMatch(auth -> auth.getAuthority().equals("ADMIN"));
+
+                    if (isAdmin) {
+                        response.sendRedirect("/admin/restock"); // Redirect admins to /home-admin
+                    } else {
+                        response.sendRedirect("/home"); // Redirect customers to /home-customer
+                    }
+                })
                 .and()
                 .exceptionHandling().accessDeniedPage("/403")
                 .and()
