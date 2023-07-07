@@ -87,6 +87,7 @@ public class WebSecurityConfig {
                 )
                 .formLogin()
                 .loginPage("/login")
+                .loginPage("/login/admin")
                 .defaultSuccessUrl("/home",true)
                 .permitAll()
                 .successHandler((request, response, authentication) -> {
